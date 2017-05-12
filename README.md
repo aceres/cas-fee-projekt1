@@ -29,3 +29,7 @@ CAS FEE Projekt 1
 - Wechseln des Styles
 
 Weitere Information und Bewertungen, siehe Folie: CAS-FEE-2017-InfosProjektePrüfungNoten.pdf (ab Seite 10)
+
+5) Installation (Setup)
+
+- Folgt später
