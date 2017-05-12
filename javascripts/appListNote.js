@@ -8,7 +8,7 @@ $(function () {
     var templateAllNote = Handlebars.compile(templateScriptAllNote);
     var templateCheckedNote = Handlebars.compile(templateScriptCheckedNote);
 
-    // Initialize data object
+    // Initialize data object (sample data)
     var dataNote = {
         appNote: [
             {
