@@ -32,10 +32,27 @@ var noteProApplication = {
         if (value === "greyBg") {
             bg.style.backgroundColor = "#EEEEEE";
             bg.style.color = "#000000";
-        }
-        else {
+
+            var tagBg = document.getElementsByClassName("changeBg");
+            var len =  tagBg.length;
+
+            for (var i=0; i < len; i++){
+                tagBg[i].style.backgroundColor = "#FFFFFF";
+            }
+            document.getElementById("listAllNote").style.color = "#000000";
+            document.getElementById("listCheckedNote").style.color = "#000000";
+        } else {
             bg.style.backgroundColor = "#000000";
             bg.style.color = "#FFFFFF";
+
+            var tagBg = document.getElementsByClassName("changeBg");
+            var len =  tagBg.length;
+
+            for (var i=0; i < len; i++){
+                tagBg[i].style.backgroundColor = "#666666";
+            }
+            document.getElementById("listAllNote").style.color = "#000000";
+            document.getElementById("listCheckedNote").style.color = "#000000";
         }
 
     }

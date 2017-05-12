@@ -12,12 +12,12 @@
     <script type="text/javascript" src="javascripts/appNote.js"></script>
 </head>
 <body>
-    <header>
+    <header class="changeBg">
         <h1>Note Pro</h1>
     </header>
 
     <main>
-        <nav>
+        <nav class="changeBg">
             <h2>
                 Menu
             </h2>
@@ -25,7 +25,7 @@
             <br>
             <a title="Clear Local Storage" onclick="noteProApplication.clearLocalStorage()">Clear Local Storage</a>
         </nav>
-        <article>
+        <article class="changeBg">
             <h2>
                 List
             </h2>
@@ -35,6 +35,24 @@
             <ul id="listAllNote">
             </ul>
             <script id="template-list-all-note" type="text/x-handlebars-template">
+                <li>
+                    <span>
+                        Titel
+                    </span>
+                    <span>
+                        Description
+                    </span>
+                    <span>
+                        Level
+                    </span>
+                    <span>
+                        Finished Date
+                    </span>
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                </li>
                 {{#each appNote}}
                     <li>
                         <span title="{{title}}">
@@ -68,6 +86,24 @@
             <ul id="listCheckedNote">
             </ul>
             <script id="template-list-checked-note" type="text/x-handlebars-template">
+                <li>
+                    <span>
+                        Titel
+                    </span>
+                    <span>
+                        Description
+                    </span>
+                    <span>
+                        Level
+                    </span>
+                    <span>
+                        Finished Date
+                    </span>
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                </li>
                 {{#each appNote}}
                     {{#checked}}
                     <li>
@@ -95,18 +131,18 @@
             </script>
 
         </article>
-        <aside>
+        <aside class="changeBg">
             <h2>
                 Settings
             </h2>
             <select onchange="noteProApplication.changeStyle(this.value)">
                 <option value="greyBg">Grey Background (Standard)</option>
-                <option value="whiteBg">White Background</option>
+                <option value="blackBg">Black Background</option>
             </select>
         </aside>
     </main>
 
-    <footer>CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a></footer>
+    <footer class="changeBg">CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a></footer>
 
     <script type="text/javascript" src="javascripts/appListNote.js"></script>
 </body>

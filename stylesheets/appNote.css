@@ -69,6 +69,10 @@ ul {
     font-size: 0.8em;
 }
 
+ul li:first-child {
+    font-weight: bold;
+}
+
 ul li:nth-child(odd) {
     background: #DDDDDD;
 }
