@@ -1,3 +1,4 @@
+/* Basic Layout */
 * {
     margin: 0;
     padding: 0;
@@ -58,4 +59,50 @@ header,
 footer {
     display: block;
     min-height: 80px;
+}
+
+/* List of notes */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8em;
+}
+
+ul li:nth-child(odd) {
+    background: #DDDDDD;
+}
+
+ul li:nth-child(even) {
+    background: #FFFFFF;
+}
+
+ul li:hover {
+    background: #CCCCCC;
+}
+
+ul span {
+    display: inline-block;
+    vertical-align: top;
+}
+
+ul span:nth-child(1) {
+    width: 20%;
+}
+
+ul span:nth-child(2) {
+    width: 40%;
+}
+
+ul span:nth-child(3) {
+    width: 10%;
+}
+
+ul span:nth-child(4) {
+    width: 15%;
+}
+
+ul span:last-child {
+    width: 5%;
+    float: right;
 }

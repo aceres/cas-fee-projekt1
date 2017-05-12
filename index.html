@@ -22,25 +22,92 @@
                 Menu
             </h2>
             <a title="Create Note" href="createNote.html">Create Note</a>
+            <br>
+            <a title="Clear Local Storage" onclick="noteProApplication.clearLocalStorage()">Clear Local Storage</a>
         </nav>
         <article>
             <h2>
                 List
             </h2>
+            <h4>
+                All notes
+            </h4>
+            <ul id="listAllNote">
+            </ul>
+            <script id="template-list-all-note" type="text/x-handlebars-template">
+                {{#each appNote}}
+                    <li>
+                        <span title="{{title}}">
+                            {{title}}
+                        </span>
+                        <span title="{{description}}">
+                            {{description}}
+                        </span>
+                        <span title="{{level}}">
+                            {{level}}
+                        </span>
+                        <span title="{{dateDone}}">
+                            {{dateDone}}
+                        </span>
+                        <span title="{{checked}}">
+                            <input type="checkbox" name="" value=""> {{checked}}
+                        </span>
+                        <span>
+                            <a title="Edit" href="editNote.html?id={{id}}">Edit</a>
+                        </span>
+                    </li>
+                {{/each}}
+                Number of rows: {{ appNote.length }}
+            </script>
+
+            <br>
+
+            <h4>
+                Checked notes
+            </h4>
+            <ul id="listCheckedNote">
+            </ul>
+            <script id="template-list-checked-note" type="text/x-handlebars-template">
+                {{#each appNote}}
+                    {{#checked}}
+                    <li>
+                        <span title="{{title}}">
+                            {{title}}
+                        </span>
+                        <span title="{{description}}">
+                            {{description}}
+                        </span>
+                        <span title="{{level}}">
+                            {{level}}
+                        </span>
+                        <span title="{{dateDone}}">
+                            {{dateDone}}
+                        </span>
+                        <span title="{{checked}}">
+                            <input type="checkbox" name="" value=""> {{checked}}
+                        </span>
+                        <span>
+                            <a title="Edit" href="editNote.html?id={{id}}">Edit</a>
+                        </span>
+                    </li>
+                    {{/checked}}
+                {{/each}}
+            </script>
 
         </article>
         <aside>
             <h2>
                 Settings
             </h2>
-            <select>
-                <option value="style1">Style 1</option>
-                <option value="style2">Style 2</option>
-                <option value="style3">Style 3</option>
+            <select onchange="noteProApplication.changeStyle(this.value)">
+                <option value="greyBg">Grey Background (Standard)</option>
+                <option value="whiteBg">White Background</option>
             </select>
         </aside>
     </main>
 
     <footer>CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a></footer>
+
+    <script type="text/javascript" src="javascripts/appListNote.js"></script>
 </body>
 </html>
