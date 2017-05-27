@@ -28,6 +28,24 @@
             Create Note
         </h2>
 
+        <form id="formCreateNote">
+            Title:<br>
+            <input type="text" id="title" name="title">
+            <br>
+            Description:<br>
+            <input type="text" id="description" name="description">
+            <br>
+            Importance:<br>
+            <input type="radio" name="importance" value="1" checked> 1<br>
+            <input type="radio" name="importance" value="2"> 2<br>
+            <input type="radio" name="importance" value="3"> 3<br>
+            <input type="radio" name="importance" value="4"> 4<br>
+            <input type="radio" name="importance" value="5"> 5
+            <br>
+            Date:<br>
+            <input type="date" id="date" name="date">
+        </form>
+
         <a title="Save note" onclick="noteProApplication.createNote()">Save</a> <a title="Cancel" href="index.html">Cancel</a>
 
     </article>

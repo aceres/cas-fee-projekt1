@@ -9,15 +9,15 @@ var noteProApplication = {
     },
 
     createNote: function() {
-        // TODO: Id should be incremented automatically
+        // TODO: Id should be incremented automatically / eventually I have to remove the property id (we don't need it)
         var newNote = new Object();
         newNote = {
             id: 1,
-            title: "Neuer Task",
-            description: "Hier wird die genaue Beschreibung gemacht.",
-            level: "4",
-            dateDone: "12.12.2017",
-            checked: true
+            title: document.getElementById("title").value,
+            description: document.getElementById("description").value,
+            level: $("input:radio[name=importance]:checked").val(),
+            dateDone: document.getElementById("date").value,
+            checked: false
         }
         // Retrieve the object from the local storage to add a new note (new object)
         var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
