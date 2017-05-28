@@ -12,6 +12,10 @@ var checkedNotesCompiledHtml = null;
 
 $(function () {
 
+    // Initialize lists of notes
+    $("#listCheckedNote").hide();
+    $("#listAllNote").show();
+
     // Initialize data object (sample data)
     // TODO: Data - it is an example - remote it later
     var date1 = new Date("12.03.2012");
@@ -69,7 +73,6 @@ $(function () {
     };
 
 
-
     if (localStorage.getItem("localDataNote")) {
         // Get object from the localStorage
         console.log("Found!");
@@ -111,9 +114,12 @@ function sortByImportance() {
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
+        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
+        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
 }
 
@@ -134,9 +140,12 @@ function sortByCreatedDate() {
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
+        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
+        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
 }
 
@@ -157,9 +166,29 @@ function sortByFinishDate() {
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
+        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
+        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
+    }
+}
+
+var showAll = true;
+/* Show finished tasks only */
+function showFinishedTasks() {
+
+    if (showAll === true) {
+        $("#listCheckedNote").show();
+        $("#listAllNote").hide();
+        $("button#showAll").text("Show all notes");
+        showAll = false;
+    } else {
+        $("#listCheckedNote").hide();
+        $("#listAllNote").show();
+        $("button#showAll").text("Show finished notes only");
+        showAll = true;
     }
 }
 
@@ -180,9 +209,12 @@ function sortByTitle() {
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
+        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
+        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
 }
 
