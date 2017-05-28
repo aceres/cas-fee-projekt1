@@ -1,25 +1,30 @@
-// TODO: Do we need the $(document).ready()?
-$(function () {
-    // Grab the template script
-    var templateScriptAllNote = $("#template-list-all-note").html();
-    var templateScriptCheckedNote = $("#template-list-checked-note").html();
+// Grab the template script
+var templateScriptAllNote = $("#template-list-all-note").html();
+var templateScriptCheckedNote = $("#template-list-checked-note").html();
 
-    // Compile the template
-    var templateAllNote = Handlebars.compile(templateScriptAllNote);
-    var templateCheckedNote = Handlebars.compile(templateScriptCheckedNote);
+// Compile the template
+var templateAllNote = Handlebars.compile(templateScriptAllNote);
+var templateCheckedNote = Handlebars.compile(templateScriptCheckedNote);
+
+var localStorageDataNote = null;
+var allNotesCompiledHtml = null;
+var checkedNotesCompiledHtml = null;
+
+$(function () {
 
     // Initialize data object (sample data)
     // TODO: Data - it is an example - remote it later
     var date1 = new Date("12.03.2012");
     var saveDate1 = date1.valueOf();
     console.log("saveDate1: ", saveDate1);
+
     var dataNote = {
         appNote: [
             {
                 id: 1,
                 title: "UI testen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                importance: "2",
+                importance: 2,
                 createdDate: 1489017600000,
                 finishDate: saveDate1,
                 finished: true
@@ -28,7 +33,7 @@ $(function () {
                 id: 2,
                 title: "Hausaufgaben machen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                importance: "5",
+                importance: 5,
                 createdDate: 1489017600000,
                 finishDate: 1489017600000,
                 finished: true
@@ -37,7 +42,7 @@ $(function () {
                 id: 3,
                 title: "Für die Prüfung lernen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                importance: "1",
+                importance: 1,
                 createdDate: 1489017600000,
                 finishDate: 1492732800000,
                 finished: false
@@ -46,7 +51,7 @@ $(function () {
                 id: 4,
                 title: "Priorität 1: HTML umsetzen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                importance: "3",
+                importance: 3,
                 createdDate: 1489017600000,
                 finishDate: 1492732800000,
                 finished: false
@@ -55,7 +60,7 @@ $(function () {
                 id: 5,
                 title: "Dozent fragen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                importance: "4",
+                importance: 4,
                 createdDate: 1489017600000,
                 finishDate: 1495238400000,
                 finished: true
@@ -63,9 +68,7 @@ $(function () {
         ]
     };
 
-    var localStorageDataNote = null;
-    var allNotesCompiledHtml = null;
-    var checkedNotesCompiledHtml = null;
+
 
     if (localStorage.getItem("localDataNote")) {
         // Get object from the localStorage
@@ -101,10 +104,16 @@ function sortByImportance() {
         console.log("Before sorted: ", localStorageDataNote);
 
         localStorageDataNote.appNote.sort(function (a, b) {
-            return a.level - b.level
+            return a.importance - b.importance
         });
 
         console.log("After sorted: ", localStorageDataNote);
+        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
+
+        $("ul#listAllNote").empty();
+        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        $("ul#listAllNote").append(allNotesCompiledHtml);
     }
 }
 
@@ -122,6 +131,12 @@ function sortByCreatedDate() {
         });
 
         console.log("After sorted: ", localStorageDataNote);
+        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
+
+        $("ul#listAllNote").empty();
+        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        $("ul#listAllNote").append(allNotesCompiledHtml);
     }
 }
 
@@ -139,6 +154,12 @@ function sortByFinishDate() {
         });
 
         console.log("After sorted: ", localStorageDataNote);
+        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
+
+        $("ul#listAllNote").empty();
+        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        $("ul#listAllNote").append(allNotesCompiledHtml);
     }
 }
 
@@ -156,6 +177,12 @@ function sortByTitle() {
             return a.title.localeCompare(b.title);
         });
         console.log("After sorted: ", localStorageDataNote);
+        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
+
+        $("ul#listAllNote").empty();
+        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        $("ul#listAllNote").append(allNotesCompiledHtml);
     }
 }
 

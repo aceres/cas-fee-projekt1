@@ -66,10 +66,26 @@ var noteProApplication = {
 
         document.getElementById("title").value = objNote[0].title;
         document.getElementById("description").value = objNote[0].description;
-        // TODO: Remove it later!
+        // TODO: Remove it later! (console)
         console.log("date: ", objNote[0].finishDate);
         document.getElementById("date").value = moment(objNote[0].finishDate).format("YYYY-MM-DD");
         // TODO: Radio Button (Importance)!
+        //$("input:radio[name=importance]:checked").val() = objNote[0].importance;
+        console.log("objNote[0].importance: ", objNote[0].importance);
+        //$('input[name="importance"]:checked').value = objNote[0].importance;
+        //document.getElementsByName('importance').checked.value = objNote[0].importance;
+        //$("input[name='importance'][value="+objNote[0].importance+"]:checked");
+        document.formEditNote.importance.value = objNote[0].importance;
+
+        /*var radios = document.getElementsByName('importance');
+
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].value == objNote[0].importance) {
+                console.log("radios[i].value", radios[i].value);
+                $('input[name="importance"]:checked').prop( "checked", true );
+                break;
+            }
+        }*/
 
     },
 
