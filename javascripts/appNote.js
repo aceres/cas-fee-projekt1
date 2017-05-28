@@ -9,22 +9,38 @@ var noteProApplication = {
     },
 
     createNote: function() {
-        // TODO: Id should be incremented automatically / eventually I have to remove the property id (we don't need it)
-        var newNote = new Object();
-        newNote = {
-            id: 1,
-            title: document.getElementById("title").value,
-            description: document.getElementById("description").value,
-            level: $("input:radio[name=importance]:checked").val(),
-            dateDone: document.getElementById("date").value,
-            checked: false
+
+        var title = document.getElementById("title").value;
+        var description = document.getElementById("description").value;
+        //var date = document.getElementById("date").value;
+        console.log(document.getElementById("date").value);
+        var selectedDate = document.getElementById("date").value;
+        var defineAsDate = new Date(selectedDate);
+        var formatDate = defineAsDate.valueOf();
+        console.log("defineAsDate: ", defineAsDate);
+
+        if (title !== "" || description != "" || date != "") {
+
+            // TODO: Id should be incremented automatically / eventually I have to remove the property id (we don't need it)
+            var newNote = new Object();
+            newNote = {
+                id: 1,
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                level: $("input:radio[name=importance]:checked").val(),
+                dateDone: formatDate,
+                checked: false
+            }
+            // Retrieve the object from the local storage to add a new note (new object)
+            var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+            console.log("jsonLocalStorage: ", jsonLocalStorage);
+            jsonLocalStorage.appNote.push(newNote);
+            // Update the storage
+            localStorage.setItem("localDataNote", JSON.stringify(jsonLocalStorage));
+        } else {
+            // TODO: Refactoring - no id here!
+            document.getElementById("validation").innerHTML = "Please fill in all fields!";
         }
-        // Retrieve the object from the local storage to add a new note (new object)
-        var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
-        console.log("jsonLocalStorage: ", jsonLocalStorage);
-        jsonLocalStorage.appNote.push(newNote);
-        // Update the storage
-        localStorage.setItem("localDataNote", JSON.stringify(jsonLocalStorage));
     },
 
     changeStyle: function(value) {

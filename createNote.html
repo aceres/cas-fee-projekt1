@@ -21,7 +21,10 @@
         <h2>
             Menu
         </h2>
-        <a title="List" href="index.html">List</a>
+        <br>
+        <button title="List" onclick="window.location.href='index.html'" type="button">
+            List
+        </button>
     </nav>
     <article>
         <h2>
@@ -44,6 +47,7 @@
             <br>
             Date:<br>
             <input type="date" id="date" name="date">
+            <p id="validation"></p>
         </form>
 
         <a title="Save note" onclick="noteProApplication.createNote()">Save</a> <a title="Cancel" href="index.html">Cancel</a>
