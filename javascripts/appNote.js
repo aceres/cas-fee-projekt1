@@ -1,13 +1,11 @@
 var noteProApplication = {
 
-    function1: function($this) {
-
-    },
-
+    // Clear the local storage
     clearLocalStorage: function() {
         localStorage.clear();
     },
 
+    // Create Note
     createNote: function() {
 
         var title = document.getElementById("title").value;
@@ -43,6 +41,75 @@ var noteProApplication = {
         }
     },
 
+    // Get detail note
+    detailNote: function() {
+
+        var id = noteProApplication.getQueryVariable("id");
+        console.log("id: ", id);
+        var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+
+        // Find date with the fetched id
+        /*$.map(jsonLocalStorage, function(obj) {
+            console.log("obj: ", obj);
+            if (obj.id == id)
+                //console.log("obj: ", obj);
+                return obj;
+        });*/
+        console.log("jsonLocalStorage: ", jsonLocalStorage);
+
+        var objNote = jsonLocalStorage.appNote.filter(function(entry) {
+            return entry.id == id;
+        })
+        console.log("objNote: ", objNote);
+
+        document.getElementById("title").value = objNote[0].title;
+        document.getElementById("description").value = objNote[0].description;
+        // TODO: Remove it later!
+        console.log("date: ", objNote[0].dateDone);
+        document.getElementById("date").value = moment(objNote[0].dateDone).format("YYYY-MM-DD");
+        // TODO: Radio Button (Importance)!
+
+    },
+
+    // Update Note
+    updateNote: function() {
+
+        var id = noteProApplication.getQueryVariable("id");
+        var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+
+        jsonLocalStorage.appNote.forEach(function(entry) {
+            if (entry.id == id) {
+                entry.description = document.getElementById("title").value;
+                entry.description = document.getElementById("description").value;
+                var selectedDate = document.getElementById("date").value;
+                var defineAsDate = new Date(selectedDate);
+                var formatDate = defineAsDate.valueOf();
+                // TODO: Radio Button (Importance)
+
+            }
+        });
+        // TODO: Update it in the localStorage
+        localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
+
+        console.log("jsonLocalStorage: after update", jsonLocalStorage);
+
+    },
+
+    // Get Id from the URL
+    getQueryVariable: function(variable) {
+
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return(false);
+    },
+
+    // Change the style of the Note Application
     changeStyle: function(value) {
         var bg = document.body;
         if (value === "greyBg") {

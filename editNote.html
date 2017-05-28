@@ -7,11 +7,11 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
 
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="javascripts/handlebars-v4.0.5.js"></script>
+    <script type="text/javascript" src="javascripts/moment.min.js"></script>
 
     <script type="text/javascript" src="javascripts/appNote.js"></script>
 </head>
-<body>
+<body onload="noteProApplication.detailNote()">
 <header>
     <h1>Note Pro</h1>
 </header>
@@ -33,9 +33,32 @@
         <h2>
             Edit Note
         </h2>
+
+        <form id="formCreateNote">
+            Title:<br>
+            <input type="text" id="title" name="title">
+            <br>
+            Description:<br>
+            <input type="text" id="description" name="description">
+            <br>
+            Importance:<br>
+            <input type="radio" name="importance" value="1" checked> 1<br>
+            <input type="radio" name="importance" value="2"> 2<br>
+            <input type="radio" name="importance" value="3"> 3<br>
+            <input type="radio" name="importance" value="4"> 4<br>
+            <input type="radio" name="importance" value="5"> 5
+            <br>
+            Date:<br>
+            <input type="date" id="date" name="date">
+            <p id="validation"></p>
+        </form>
+
+        <a title="Update note" onclick="noteProApplication.updateNote()">Save</a> <a title="Cancel" href="index.html">Cancel</a>
     </article>
 </main>
 
-<footer>CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a></footer>
+<footer>
+    CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
+</footer>
 </body>
 </html>

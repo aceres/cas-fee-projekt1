@@ -71,10 +71,11 @@ ul {
 
 ul li:first-child {
     font-weight: bold;
+    background: #DDD;
 }
 
 ul li:nth-child(odd) {
-    background: #DDDDDD;
+    background: #EEE;
 }
 
 ul li:nth-child(even) {
@@ -88,6 +89,7 @@ ul li:hover {
 ul span {
     display: inline-block;
     vertical-align: top;
+    margin: 2px 2px;
 }
 
 ul span:nth-child(1) {
