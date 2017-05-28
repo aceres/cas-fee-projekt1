@@ -48,10 +48,13 @@
                         Description
                     </span>
                     <span>
-                        Level
+                        Importance
                     </span>
                     <span>
-                        Finished Date
+                        Created Date
+                    </span>
+                    <span>
+                        Finish Date
                     </span>
                     <span>
                     </span>
@@ -66,14 +69,17 @@
                         <span title="{{description}}">
                             {{description}}
                         </span>
-                        <span title="{{level}}">
-                            {{level}}
+                        <span title="{{importance}}">
+                            {{importance}}
                         </span>
-                        <span title="{{dateDone}}">
-                            {{formatDate dateDone "DD.MM.YYYY"}}
+                        <span title="{{createdDate}}">
+                            {{formatDate createdDate "DD.MM.YYYY"}}
                         </span>
-                        <span title="{{checked}}">
-                            <input type="checkbox" name="" value=""> {{checked}}
+                        <span title="{{finishDate}}">
+                            {{formatDate finishDate "DD.MM.YYYY"}}
+                        </span>
+                        <span title="{{finished}}">
+                            <input type="checkbox" name="" value="" {{{checkifchecked finished}}}> {{finished}}
                         </span>
                         <span>
                             <a title="Edit" href="editNote.html?id={{id}}">Edit</a>
@@ -99,10 +105,13 @@
                         Description
                     </span>
                     <span>
-                        Level
+                        Importance
                     </span>
                     <span>
-                        Finished Date
+                        Created Date
+                    </span>
+                    <span>
+                        Finish Date
                     </span>
                     <span>
                     </span>
@@ -110,7 +119,7 @@
                     </span>
                 </li>
                 {{#each appNote}}
-                    {{#checked}}
+                    {{#finished}}
                     <li>
                         <span title="{{title}}">
                             {{title}}
@@ -118,20 +127,23 @@
                         <span title="{{description}}">
                             {{description}}
                         </span>
-                        <span title="{{level}}">
-                            {{level}}
+                        <span title="{{importance}}">
+                            {{importance}}
                         </span>
-                        <span title="{{dateDone}}">
-                            {{formatDate dateDone "DD.MM.YYYY"}}
+                        <span title="{{createdDate}}">
+                            {{formatDate createdDate "DD.MM.YYYY"}}
                         </span>
-                        <span title="{{checked}}">
-                            <input type="checkbox" name="" value=""> {{checked}}
+                        <span title="{{finishDate}}">
+                            {{formatDate finishDate "DD.MM.YYYY"}}
+                        </span>
+                        <span title="{{finished}}">
+                            <input type="checkbox" name="" value=""> {{finished}}
                         </span>
                         <span>
                             <a title="Edit" href="editNote.html?id={{id}}">Edit</a>
                         </span>
                     </li>
-                    {{/checked}}
+                    {{/finished}}
                 {{/each}}
             </script>
 
@@ -140,15 +152,17 @@
             <h2>
                 Settings
             </h2>
+            <br>
             <select onchange="noteProApplication.changeStyle(this.value)">
                 <option value="greyBg">Grey Background (Standard)</option>
                 <option value="blackBg">Black Background</option>
             </select>
             <br>
-            <button onclick="" type="button">
+            <br>
+            <button onclick="sortByFinishDate()" type="button">
                 Sort by finished date
             </button>
-            <button onclick="" type="button">
+            <button onclick="sortByCreatedDate()" type="button">
                 Sort by created date
             </button>
             <button onclick="sortByImportance()" type="button">

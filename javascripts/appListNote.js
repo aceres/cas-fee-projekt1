@@ -19,41 +19,46 @@ $(function () {
                 id: 1,
                 title: "UI testen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                level: "2",
-                dateDone: saveDate1,
-                checked: true
+                importance: "2",
+                createdDate: 1489017600000,
+                finishDate: saveDate1,
+                finished: true
             },
             {
                 id: 2,
                 title: "Hausaufgaben machen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                level: "2",
-                dateDone: 1489017600000,
-                checked: true
+                importance: "5",
+                createdDate: 1489017600000,
+                finishDate: 1489017600000,
+                finished: true
             },
             {
                 id: 3,
                 title: "Für die Prüfung lernen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                level: "2",
-                dateDone: 1492732800000,
-                checked: false
+                importance: "1",
+                createdDate: 1489017600000,
+                finishDate: 1492732800000,
+                finished: false
             },
             {
                 id: 4,
                 title: "Priorität 1: HTML umsetzen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                level: "4",
-                dateDone: 1492732800000,
-                checked: true
+                importance: "3",
+                createdDate: 1489017600000,
+                finishDate: 1492732800000,
+                finished: false
             },
             {
                 id: 5,
                 title: "Dozent fragen",
                 description: "Hier wird die genaue Beschreibung gemacht.",
-                level: "4",
-                dateDone: 1495238400000,
-                checked: true
+                importance: "4",
+                createdDate: 1489017600000,
+                finishDate: 1495238400000,
+                finished: true
             }
         ]
     };
@@ -103,6 +108,40 @@ function sortByImportance() {
     }
 }
 
+/* Sort by created date */
+function sortByCreatedDate() {
+    if (localStorage.getItem("localDataNote")) {
+        // Get object from the localStorage
+        console.log("Found!");
+        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+
+        console.log("Before sorted: ", localStorageDataNote);
+
+        localStorageDataNote.appNote.sort(function (a, b) {
+            return a.createdDate - b.createdDate
+        });
+
+        console.log("After sorted: ", localStorageDataNote);
+    }
+}
+
+/* Sort by finish date */
+function sortByFinishDate() {
+    if (localStorage.getItem("localDataNote")) {
+        // Get object from the localStorage
+        console.log("Found!");
+        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+
+        console.log("Before sorted: ", localStorageDataNote);
+
+        localStorageDataNote.appNote.sort(function (a, b) {
+            return a.finishDate - b.finishDate
+        });
+
+        console.log("After sorted: ", localStorageDataNote);
+    }
+}
+
 /* Sort by title */
 function sortByTitle() {
     if (localStorage.getItem("localDataNote")) {
@@ -124,5 +163,10 @@ function sortByTitle() {
 Handlebars.registerHelper('formatDate', function (date, format) {
     var mmnt = moment(date);
     return mmnt.format(format);
+});
+
+/* Check whether checkbox should be marked as checked or not */
+Handlebars.registerHelper('checkifchecked', function(currentValue) {
+    return currentValue === true ? ' checked=&quot;checked&quot;' : '';
 });
 

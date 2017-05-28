@@ -97,7 +97,7 @@ ul span:nth-child(1) {
 }
 
 ul span:nth-child(2) {
-    width: 40%;
+    width: 35%;
 }
 
 ul span:nth-child(3) {
@@ -105,22 +105,25 @@ ul span:nth-child(3) {
 }
 
 ul span:nth-child(4) {
-    width: 15%;
+    width: 10%;
+}
+
+ul span:nth-child(5) {
+    width: 10%;
 }
 
 ul span:last-child {
-    width: 5%;
     float: right;
 }
 
-button {
+button,
+a {
     background-color: #CCC;
     border: none;
     color: #FFF;
     padding: 10px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 14px;
     margin: 4px 2px;
     cursor: pointer;
@@ -128,8 +131,15 @@ button {
     width: 70%;
 }
 
-button:hover {
+button:hover,
+a:hover {
     background-color: #dfdfdf;
+}
+
+span a {
+    width: 100px;
+    padding: 2px 20px;
+    margin: 2px 1px;
 }
 
 p#validation {

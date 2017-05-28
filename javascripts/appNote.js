@@ -16,6 +16,7 @@ var noteProApplication = {
         var defineAsDate = new Date(selectedDate);
         var formatDate = defineAsDate.valueOf();
         console.log("defineAsDate: ", defineAsDate);
+        var newDate = new Date();
 
         if (title !== "" || description != "" || date != "") {
 
@@ -25,9 +26,10 @@ var noteProApplication = {
                 id: 1,
                 title: document.getElementById("title").value,
                 description: document.getElementById("description").value,
-                level: $("input:radio[name=importance]:checked").val(),
-                dateDone: formatDate,
-                checked: false
+                importance: $("input:radio[name=importance]:checked").val(),
+                createdDate: newDate.valueOf(),
+                finishDate: formatDate,
+                finished: false
             }
             // Retrieve the object from the local storage to add a new note (new object)
             var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
@@ -65,8 +67,8 @@ var noteProApplication = {
         document.getElementById("title").value = objNote[0].title;
         document.getElementById("description").value = objNote[0].description;
         // TODO: Remove it later!
-        console.log("date: ", objNote[0].dateDone);
-        document.getElementById("date").value = moment(objNote[0].dateDone).format("YYYY-MM-DD");
+        console.log("date: ", objNote[0].finishDate);
+        document.getElementById("date").value = moment(objNote[0].finishDate).format("YYYY-MM-DD");
         // TODO: Radio Button (Importance)!
 
     },
@@ -77,22 +79,23 @@ var noteProApplication = {
         var id = noteProApplication.getQueryVariable("id");
         var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
 
+        var selectedDate = document.getElementById("date").value;
+        var defineAsDate = new Date(selectedDate);
+        var formatDate = defineAsDate.valueOf();
+
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id) {
-                entry.description = document.getElementById("title").value;
+                entry.title = document.getElementById("title").value;
                 entry.description = document.getElementById("description").value;
-                var selectedDate = document.getElementById("date").value;
-                var defineAsDate = new Date(selectedDate);
-                var formatDate = defineAsDate.valueOf();
-                // TODO: Radio Button (Importance)
-
+                entry.finishDate = formatDate;
+                entry.importance = $("input:radio[name=importance]:checked").val()
             }
         });
-        // TODO: Update it in the localStorage
+        // Update it in the localStorage too
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
 
+        // TODO: Updated data in the edit page
         console.log("jsonLocalStorage: after update", jsonLocalStorage);
-
     },
 
     // Get Id from the URL
