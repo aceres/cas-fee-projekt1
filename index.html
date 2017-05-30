@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Note Pro</title>
 
+    <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
 
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
@@ -23,10 +24,13 @@
                 Menu
             </h2>
             <br>
-            <button title="Create Note" onclick="window.location.href='createNote.html'" type="button">
+            <button id="btnCreateNote" title="Create Note" type="button">
                 Create Note
             </button>
-            <button title="Clear Local Storage" onclick="noteProApplication.clearLocalStorage()" type="button">
+            <button id="btnList" title="List" type="button">
+                List
+            </button>
+            <button id="btnClearLocalStorage" title="Clear Local Storage" type="button">
                 Clear Local Storage
             </button>
         </nav>
@@ -159,19 +163,19 @@
             </select>
             <br>
             <br>
-            <button onclick="sortByFinishDate()" type="button">
+            <button id="btnSortByFinishDate" type="button">
                 Sort by finished date
             </button>
-            <button onclick="sortByCreatedDate()" type="button">
+            <button id="btnSortByCreatedDate" type="button">
                 Sort by created date
             </button>
-            <button onclick="sortByImportance()" type="button">
+            <button id="btnSortByImportance" type="button">
                 Sort by importance
             </button>
-            <button onclick="sortByTitle()" type="button">
+            <button id="btnSortByTitle" type="button">
                 Sort by title
             </button>
-            <button id="showAll" onclick="showFinishedTasks()" type="button">
+            <button id="btnShowAllFinishedTasks" type="button">
                 Show finished notes only
             </button>
         </aside>

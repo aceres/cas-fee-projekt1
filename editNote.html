@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Note Pro</title>
 
+    <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
 
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
@@ -11,7 +12,7 @@
 
     <script type="text/javascript" src="javascripts/appNote.js"></script>
 </head>
-<body onload="noteProApplication.detailNote()">
+<body onload="noteProApplication.detailNote();noteProApplication.loadFunctionsForEdit()">
 <header>
     <h1>Note Pro</h1>
 </header>
@@ -22,10 +23,10 @@
             Menu
         </h2>
         <br>
-        <button title="List" onclick="window.location.href='index.html'" type="button">
+        <button id="btnList" title="List" type="button">
             List
         </button>
-        <button title="Create Note" onclick="window.location.href='createNote.html'" type="button">
+        <button id="btnCreateNote" title="Create Note" type="button">
             Create Note
         </button>
     </nav>

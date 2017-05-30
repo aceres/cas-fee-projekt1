@@ -1,5 +1,29 @@
 var noteProApplication = {
 
+    loadFunctionsForCreate: function() {
+
+        /* TODO: Avoid the duplicate here */
+        /* Ask the teacher about it */
+        /* List */
+        document.getElementById("btnList").addEventListener("click", function() {
+            window.location.href='index.html';
+        });
+    },
+
+    loadFunctionsForEdit: function() {
+
+        /* TODO: Avoid the duplicate here */
+        /* Ask the teacher about it */
+        /* Create Note */
+        document.getElementById("btnCreateNote").addEventListener("click", function() {
+            window.location.href='createNote.html';
+        });
+        /* List */
+        document.getElementById("btnList").addEventListener("click", function() {
+            window.location.href='index.html';
+        });
+    },
+
     // Clear the local storage
     clearLocalStorage: function() {
         localStorage.clear();
@@ -159,3 +183,5 @@ var noteProApplication = {
 
     }
 };
+
+

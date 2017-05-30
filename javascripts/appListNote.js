@@ -97,8 +97,10 @@ $(function () {
     $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
 });
 
+
+
 /* Sort by importance */
-function sortByImportance() {
+document.getElementById("btnSortByImportance").addEventListener("click", function() {
     if (localStorage.getItem("localDataNote")) {
         // Get object from the localStorage
         console.log("Found!");
@@ -121,10 +123,10 @@ function sortByImportance() {
         $("ul#listAllNote").append(allNotesCompiledHtml);
         $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
-}
+});
 
 /* Sort by created date */
-function sortByCreatedDate() {
+document.getElementById("btnSortByCreatedDate").addEventListener("click", function() {
     if (localStorage.getItem("localDataNote")) {
         // Get object from the localStorage
         console.log("Found!");
@@ -147,10 +149,10 @@ function sortByCreatedDate() {
         $("ul#listAllNote").append(allNotesCompiledHtml);
         $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
-}
+});
 
 /* Sort by finish date */
-function sortByFinishDate() {
+document.getElementById("btnSortByFinishDate").addEventListener("click", function() {
     if (localStorage.getItem("localDataNote")) {
         // Get object from the localStorage
         console.log("Found!");
@@ -173,27 +175,27 @@ function sortByFinishDate() {
         $("ul#listAllNote").append(allNotesCompiledHtml);
         $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
-}
+});
 
-var showAll = true;
+var btnShowAllFinishedTasks = true;
 /* Show finished tasks only */
-function showFinishedTasks() {
+document.getElementById("btnShowAllFinishedTasks").addEventListener("click", function() {
 
-    if (showAll === true) {
+    if (btnShowAllFinishedTasks === true) {
         $("#listCheckedNote").show();
         $("#listAllNote").hide();
-        $("button#showAll").text("Show all notes");
-        showAll = false;
+        $("button#btnShowAllFinishedTasks").text("Show all notes");
+        btnShowAllFinishedTasks = false;
     } else {
         $("#listCheckedNote").hide();
         $("#listAllNote").show();
-        $("button#showAll").text("Show finished notes only");
-        showAll = true;
+        $("button#btnShowAllFinishedTasks").text("Show finished notes only");
+        btnShowAllFinishedTasks = true;
     }
-}
+});
 
 /* Sort by title */
-function sortByTitle() {
+document.getElementById("btnSortByTitle").addEventListener("click", function() {
     if (localStorage.getItem("localDataNote")) {
         // Get object from the localStorage
         console.log("Found!");
@@ -216,7 +218,22 @@ function sortByTitle() {
         $("ul#listAllNote").append(allNotesCompiledHtml);
         $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
-}
+});
+
+/* Create Note */
+document.getElementById("btnCreateNote").addEventListener("click", function() {
+    window.location.href='createNote.html';
+});
+
+/* List */
+document.getElementById("btnList").addEventListener("click", function() {
+    window.location.href='index.html';
+});
+
+/* Clear Local Storage */
+document.getElementById("btnClearLocalStorage").addEventListener("click", function() {
+    noteProApplication.clearLocalStorage();
+});
 
 /* Format the date */
 Handlebars.registerHelper('formatDate', function (date, format) {
