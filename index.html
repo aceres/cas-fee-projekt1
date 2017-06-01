@@ -66,7 +66,7 @@
                     </span>
                 </li>
                 {{#each appNote}}
-                    <li>
+                    <li {{#if finished}} class="active" {{/if}}>
                         <span title="{{title}}">
                             {{title}}
                         </span>
@@ -91,64 +91,6 @@
                     </li>
                 {{/each}}
                 Number of rows: {{ appNote.length }}
-            </script>
-
-            <br>
-
-            <h4>
-                Checked notes
-            </h4>
-            <ul id="listCheckedNote">
-            </ul>
-            <script id="template-list-checked-note" type="text/x-handlebars-template">
-                <li>
-                    <span>
-                        Titel
-                    </span>
-                    <span>
-                        Description
-                    </span>
-                    <span>
-                        Importance
-                    </span>
-                    <span>
-                        Created Date
-                    </span>
-                    <span>
-                        Finish Date
-                    </span>
-                    <span>
-                    </span>
-                    <span>
-                    </span>
-                </li>
-                {{#each appNote}}
-                    {{#finished}}
-                    <li>
-                        <span title="{{title}}">
-                            {{title}}
-                        </span>
-                        <span title="{{description}}">
-                            {{description}}
-                        </span>
-                        <span title="{{importance}}">
-                            {{importance}}
-                        </span>
-                        <span title="{{createdDate}}">
-                            {{formatDate createdDate "DD.MM.YYYY"}}
-                        </span>
-                        <span title="{{finishDate}}">
-                            {{formatDate finishDate "DD.MM.YYYY"}}
-                        </span>
-                        <span title="{{finished}}">
-                            <input type="checkbox" name="" value="" {{{checkifchecked finished}}}>
-                        </span>
-                        <span>
-                            <a title="Edit" href="editNote.html?id={{id}}">Edit</a>
-                        </span>
-                    </li>
-                    {{/finished}}
-                {{/each}}
             </script>
 
         </article>

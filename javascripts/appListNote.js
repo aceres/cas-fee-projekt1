@@ -1,20 +1,13 @@
 // Grab the template script
 var templateScriptAllNote = $("#template-list-all-note").html();
-var templateScriptCheckedNote = $("#template-list-checked-note").html();
 
 // Compile the template
 var templateAllNote = Handlebars.compile(templateScriptAllNote);
-var templateCheckedNote = Handlebars.compile(templateScriptCheckedNote);
 
 var localStorageDataNote = null;
 var allNotesCompiledHtml = null;
-var checkedNotesCompiledHtml = null;
 
 $(function () {
-
-    // Initialize lists of notes
-    $("#listCheckedNote").hide();
-    $("#listAllNote").show();
 
     // Initialize data object (sample data)
     // TODO: Data - it is an example - remote it later
@@ -80,21 +73,17 @@ $(function () {
         //window.location.reload();
         // Pass our data to the template
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
     } else {
         // Add object to the localStorage
         console.log("Not found!");
         localStorage.setItem("localDataNote", JSON.stringify(dataNote));
         // Pass our data to the template
         allNotesCompiledHtml = templateAllNote(dataNote);
-        checkedNotesCompiledHtml = templateCheckedNote(dataNote);
     }
 
     // Add the compiled html to the page
     // Display all notes
     $("ul#listAllNote").append(allNotesCompiledHtml);
-    // Display checked notes only
-    $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
 });
 
 
@@ -119,9 +108,7 @@ document.getElementById("btnSortByImportance").addEventListener("click", functio
         $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
-        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
 });
 
@@ -144,10 +131,8 @@ document.getElementById("btnSortByCreatedDate").addEventListener("click", functi
         $("ul#listAllNote").empty();
         $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
-        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
 });
 
@@ -171,9 +156,7 @@ document.getElementById("btnSortByFinishDate").addEventListener("click", functio
         $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
-        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
 });
 
@@ -181,14 +164,19 @@ var btnShowAllFinishedTasks = true;
 /* Show finished tasks only */
 document.getElementById("btnShowAllFinishedTasks").addEventListener("click", function() {
 
-    if (btnShowAllFinishedTasks === true) {
-        $("#listCheckedNote").show();
-        $("#listAllNote").hide();
+    if(btnShowAllFinishedTasks === true) {
+        $("li.active").removeClass("active").addClass("hidden");
+
+        $("li:not('.hidden'):even").css("background-color", "#fff");
+        $("li:not('.hidden'):odd").css("background-color", "#eee");
         $("button#btnShowAllFinishedTasks").text("Show all notes");
         btnShowAllFinishedTasks = false;
     } else {
-        $("#listCheckedNote").hide();
-        $("#listAllNote").show();
+
+        $("li.hidden").removeClass("hidden").addClass("active");
+
+        $("li:even").css("background-color", "#fff");
+        $("li:odd").css("background-color", "#eee");
         $("button#btnShowAllFinishedTasks").text("Show finished notes only");
         btnShowAllFinishedTasks = true;
     }
@@ -214,9 +202,7 @@ document.getElementById("btnSortByTitle").addEventListener("click", function() {
         $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
-        $("ul#listCheckedNote").append(checkedNotesCompiledHtml);
     }
 });
 
@@ -235,6 +221,8 @@ document.getElementById("btnClearLocalStorage").addEventListener("click", functi
     noteProApplication.clearLocalStorage();
 });
 
+/* Handlebars */
+
 /* Format the date */
 Handlebars.registerHelper('formatDate', function (date, format) {
     var mmnt = moment(date);
@@ -245,4 +233,26 @@ Handlebars.registerHelper('formatDate', function (date, format) {
 Handlebars.registerHelper('checkifchecked', function(currentValue) {
     return currentValue === true ? ' checked=&quot;checked&quot;' : '';
 });
+
+// TODO: Not working well
+// Handlebars.registerHelper("stripes", function(array, even, odd, options) {
+//     if (array && array.length > 0) {
+//         var buffer = "";
+//         for (var i = 0, j = array.length; i < j; i++) {
+//             var item = array[i];
+//
+//             // we'll just put the appropriate stripe class name onto the item for now
+//             item.stripeClass = (i % 2 == 0 ? even : odd);
+//
+//             // show the inside of the block
+//             buffer += options.fn(item);
+//         }
+//
+//         // return the finished buffer
+//         return buffer;
+//     }
+//     else {
+//         return options.elseFn();
+//     }
+// });
 

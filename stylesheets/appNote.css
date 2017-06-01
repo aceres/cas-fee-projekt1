@@ -70,16 +70,34 @@ ul {
 }
 
 ul li:first-child {
-    font-weight: bold;
-    background: #DDD;
+    font-weight: bold !important;
+    background: #939393 !important;
+    border-radius: 4px;
 }
 
-ul li:nth-child(odd) {
+ul li:nth-of-type(odd) {
     background: #EEE;
 }
 
-ul li:nth-child(even) {
+ul li:nth-of-type(even) {
     background: #FFFFFF;
+}
+
+/* Test with new solution (for handlebars) */
+/*li,
+li.hidden:nth-child(even) + li:nth-of-type(odd) + li:nth-of-type(even),
+li.hidden:nth-child(even) + li.hidden:nth-child(odd) ~ li:nth-of-type(odd) {
+    background: khaki;
+}
+
+li:nth-child(even),
+li.hidden:nth-child(even) ~ li:nth-of-type(odd), li.hidden:nth-child(even) + li.hidden:nth-child(odd) ~ li:nth-of-type(even) {
+    background: indianred;
+}*/
+
+/* handlebars */
+.hidden {
+    display: none;
 }
 
 ul li:hover {
