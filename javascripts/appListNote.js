@@ -105,7 +105,6 @@ document.getElementById("btnSortByImportance").addEventListener("click", functio
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
-        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
@@ -129,9 +128,8 @@ document.getElementById("btnSortByCreatedDate").addEventListener("click", functi
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
-        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        checkedNotesCompiledHtml = templateCheckedNote(localStorageDataNote);
+        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
     }
 });
@@ -153,7 +151,6 @@ document.getElementById("btnSortByFinishDate").addEventListener("click", functio
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
-        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
@@ -199,7 +196,6 @@ document.getElementById("btnSortByTitle").addEventListener("click", function() {
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
         $("ul#listAllNote").empty();
-        $("ul#listCheckedNote").empty();
         var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         $("ul#listAllNote").append(allNotesCompiledHtml);
@@ -232,6 +228,12 @@ Handlebars.registerHelper('formatDate', function (date, format) {
 /* Check whether checkbox should be marked as checked or not */
 Handlebars.registerHelper('checkifchecked', function(currentValue) {
     return currentValue === true ? ' checked=&quot;checked&quot;' : '';
+});
+
+Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
+    if(!showFinishedNotesOnly) {
+        return options.fn(this);
+    }
 });
 
 // TODO: Not working well
