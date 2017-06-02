@@ -1,15 +1,15 @@
 // Grab the template script
-var templateScriptAllNote = $("#template-list-all-note").html();
+let templateScriptAllNote = $("#template-list-all-note").html();
 
 // Compile the template
-var templateAllNote = Handlebars.compile(templateScriptAllNote);
+let templateAllNote = Handlebars.compile(templateScriptAllNote);
 
-var localStorageDataNote = null;
-var allNotesCompiledHtml = null;
+let localStorageDataNote = null;
+let allNotesCompiledHtml = null;
 
 $(function () {
 
-    var dataNote = {
+    let dataNote = {
         appNote: [
             {
                 id: 1,
@@ -80,17 +80,11 @@ $(function () {
     $("ul#listAllNote").append(allNotesCompiledHtml);
 });
 
-
-var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-
 const btnSortByImportance = document.getElementById("btnSortByImportance");
 const btnSortByCreatedDate = document.getElementById("btnSortByCreatedDate");
 const btnSortByFinishDate = document.getElementById("btnSortByFinishDate");
 const btnSortByTitle = document.getElementById("btnSortByTitle");
 const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks");
-const btnCreateNote = document.getElementById("btnCreateNote");
-const btnList = document.getElementById("btnList");
-const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
 
 /* Sort by importance */
 btnSortByImportance.addEventListener("click", function() {
@@ -98,7 +92,7 @@ btnSortByImportance.addEventListener("click", function() {
     if (localStorage.getItem("localDataNote")) {
 
         localStorageDataNote.appNote.sort(function (a, b) {
-            return a.importance - b.importance
+            return b.importance - a.importance
         });
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
@@ -149,7 +143,7 @@ btnSortByTitle.addEventListener("click", function() {
 });
 
 /* Show finished tasks only */
-var txtShowAllFinishedTasks = true;
+let txtShowAllFinishedTasks = true;
 
 btnShowAllFinishedTasks.addEventListener("click", function() {
 
@@ -172,31 +166,19 @@ btnShowAllFinishedTasks.addEventListener("click", function() {
 
 /* Re-render the list of notes */
 function reRenderList(localStorageDataNote) {
+
+    console.log(localStorageDataNote);
+
     $("ul#listAllNote").empty();
-    var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+    localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
     allNotesCompiledHtml = templateAllNote(localStorageDataNote);
     $("ul#listAllNote").append(allNotesCompiledHtml);
 }
 
-/* Create Note */
-btnCreateNote.addEventListener("click", function() {
-    window.location.href='createNote.html';
-});
-
-/* List */
-btnList.addEventListener("click", function() {
-    window.location.href='index.html';
-});
-
-/* Clear Local Storage */
-btnClearLocalStorage.addEventListener("click", function() {
-    noteProApplication.clearLocalStorage();
-});
-
 /* Handlebars */
 /* Format the date */
 Handlebars.registerHelper('formatDate', function (date, format) {
-    var mmnt = moment(date);
+    let mmnt = moment(date);
     return mmnt.format(format);
 });
 

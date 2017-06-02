@@ -11,6 +11,7 @@
     <script type="text/javascript" src="javascripts/handlebars-v4.0.5.js"></script>
     <script type="text/javascript" src="javascripts/moment.min.js"></script>
 
+    <script type="text/javascript" src="javascripts/route.js"></script>
     <script type="text/javascript" src="javascripts/appNote.js"></script>
 </head>
 <body>
@@ -27,8 +28,8 @@
             <button id="btnCreateNote" title="Create Note" type="button">
                 Create Note
             </button>
-            <button id="btnList" title="List" type="button">
-                List
+            <button id="btnReloadList" title="Reload List" type="button">
+                Reload list
             </button>
             <button id="btnClearLocalStorage" title="Clear Local Storage" type="button">
                 Clear Local Storage
@@ -86,7 +87,7 @@
                             <input type="checkbox" name="" value="" {{{checkifchecked finished}}}>
                         </span>
                         <span>
-                            <a title="Edit" href="editNote.html?id={{id}}">Edit</a>
+                            <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>
                         </span>
                     </li>
                 {{/each}}
