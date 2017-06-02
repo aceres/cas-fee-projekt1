@@ -11,18 +11,24 @@ window.onload = function() {
     });
 
     /* List */
-    btnBackToList.addEventListener("click", function () {
-        window.location.href = 'index.html';
-    });
+    if (btnBackToList) {
+        btnBackToList.addEventListener("click", function () {
+            window.location.href = 'index.html';
+        });
+    }
 
     /* Refresh */
-    btnReloadList.addEventListener("click", function () {
-        window.location.href = 'index.html';
-    });
+    if (btnReloadList) {
+        btnReloadList.addEventListener("click", function () {
+            location.reload();
+        });
+    }
 
     /* Clear Local Storage */
-    btnClearLocalStorage.addEventListener("click", function () {
-        noteProApplication.clearLocalStorage();
-    });
+    if (btnClearLocalStorage) {
+        btnClearLocalStorage.addEventListener("click", function () {
+            noteProApplication.clearLocalStorage();
+        });
+    }
 
 }
