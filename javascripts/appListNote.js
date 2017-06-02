@@ -9,12 +9,6 @@ var allNotesCompiledHtml = null;
 
 $(function () {
 
-    // Initialize data object (sample data)
-    // TODO: Data - it is an example - remote it later
-    var date1 = new Date("12.03.2012");
-    var saveDate1 = date1.valueOf();
-    console.log("saveDate1: ", saveDate1);
-
     var dataNote = {
         appNote: [
             {
@@ -23,7 +17,7 @@ $(function () {
                 description: "Hier wird die genaue Beschreibung gemacht.",
                 importance: 2,
                 createdDate: 1489017600000,
-                finishDate: saveDate1,
+                finishDate: 1492732800000,
                 finished: true
             },
             {
@@ -65,15 +59,15 @@ $(function () {
         ]
     };
 
-
     if (localStorage.getItem("localDataNote")) {
+
         // Get object from the localStorage
         console.log("Found!");
         localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        //window.location.reload();
         // Pass our data to the template
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
     } else {
+
         // Add object to the localStorage
         console.log("Not found!");
         localStorage.setItem("localDataNote", JSON.stringify(dataNote));
@@ -87,138 +81,119 @@ $(function () {
 });
 
 
+var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+
+const btnSortByImportance = document.getElementById("btnSortByImportance");
+const btnSortByCreatedDate = document.getElementById("btnSortByCreatedDate");
+const btnSortByFinishDate = document.getElementById("btnSortByFinishDate");
+const btnSortByTitle = document.getElementById("btnSortByTitle");
+const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks");
+const btnCreateNote = document.getElementById("btnCreateNote");
+const btnList = document.getElementById("btnList");
+const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
 
 /* Sort by importance */
-document.getElementById("btnSortByImportance").addEventListener("click", function() {
-    if (localStorage.getItem("localDataNote")) {
-        // Get object from the localStorage
-        console.log("Found!");
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+btnSortByImportance.addEventListener("click", function() {
 
-        console.log("Before sorted: ", localStorageDataNote);
+    if (localStorage.getItem("localDataNote")) {
 
         localStorageDataNote.appNote.sort(function (a, b) {
             return a.importance - b.importance
         });
-
-        console.log("After sorted: ", localStorageDataNote);
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        $("ul#listAllNote").empty();
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        $("ul#listAllNote").append(allNotesCompiledHtml);
+        reRenderList(localStorageDataNote);
     }
 });
 
 /* Sort by created date */
-document.getElementById("btnSortByCreatedDate").addEventListener("click", function() {
-    if (localStorage.getItem("localDataNote")) {
-        // Get object from the localStorage
-        console.log("Found!");
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+btnSortByCreatedDate.addEventListener("click", function() {
 
-        console.log("Before sorted: ", localStorageDataNote);
+    if (localStorage.getItem("localDataNote")) {
 
         localStorageDataNote.appNote.sort(function (a, b) {
             return a.createdDate - b.createdDate
         });
-
-        console.log("After sorted: ", localStorageDataNote);
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        $("ul#listAllNote").empty();
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        $("ul#listAllNote").append(allNotesCompiledHtml);
+        reRenderList(localStorageDataNote);
     }
 });
 
 /* Sort by finish date */
-document.getElementById("btnSortByFinishDate").addEventListener("click", function() {
-    if (localStorage.getItem("localDataNote")) {
-        // Get object from the localStorage
-        console.log("Found!");
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+btnSortByFinishDate.addEventListener("click", function() {
 
-        console.log("Before sorted: ", localStorageDataNote);
+    if (localStorage.getItem("localDataNote")) {
 
         localStorageDataNote.appNote.sort(function (a, b) {
             return a.finishDate - b.finishDate
         });
-
-        console.log("After sorted: ", localStorageDataNote);
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        $("ul#listAllNote").empty();
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        $("ul#listAllNote").append(allNotesCompiledHtml);
-    }
-});
-
-var btnShowAllFinishedTasks = true;
-/* Show finished tasks only */
-document.getElementById("btnShowAllFinishedTasks").addEventListener("click", function() {
-
-    if(btnShowAllFinishedTasks === true) {
-        $("li.active").removeClass("active").addClass("hidden");
-
-        $("li:not('.hidden'):even").css("background-color", "#fff");
-        $("li:not('.hidden'):odd").css("background-color", "#eee");
-        $("button#btnShowAllFinishedTasks").text("Show all notes");
-        btnShowAllFinishedTasks = false;
-    } else {
-
-        $("li.hidden").removeClass("hidden").addClass("active");
-
-        $("li:even").css("background-color", "#fff");
-        $("li:odd").css("background-color", "#eee");
-        $("button#btnShowAllFinishedTasks").text("Show finished notes only");
-        btnShowAllFinishedTasks = true;
+        reRenderList(localStorageDataNote);
     }
 });
 
 /* Sort by title */
-document.getElementById("btnSortByTitle").addEventListener("click", function() {
-    if (localStorage.getItem("localDataNote")) {
-        // Get object from the localStorage
-        console.log("Found!");
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        console.log("typeof: ", typeof localStorageDataNote);
+btnSortByTitle.addEventListener("click", function() {
 
-        console.log("Before sorted: ", localStorageDataNote);
+    if (localStorage.getItem("localDataNote")) {
 
         localStorageDataNote.appNote.sort(function (a, b) {
             return a.title.localeCompare(b.title);
         });
-        console.log("After sorted: ", localStorageDataNote);
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        $("ul#listAllNote").empty();
-        var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        $("ul#listAllNote").append(allNotesCompiledHtml);
+        reRenderList(localStorageDataNote);
     }
 });
 
+/* Show finished tasks only */
+var txtShowAllFinishedTasks = true;
+
+btnShowAllFinishedTasks.addEventListener("click", function() {
+
+    if(txtShowAllFinishedTasks === true) {
+
+        $("li.active").removeClass("active").addClass("hidden");
+        $("li:not('.hidden'):even").css("background-color", "#fff");
+        $("li:not('.hidden'):odd").css("background-color", "#eee");
+        $("button#btnShowAllFinishedTasks").text("Show all notes");
+        txtShowAllFinishedTasks = false;
+    } else {
+
+        $("li.hidden").removeClass("hidden").addClass("active");
+        $("li:even").css("background-color", "#fff");
+        $("li:odd").css("background-color", "#eee");
+        $("button#btnShowAllFinishedTasks").text("Show finished notes only");
+        txtShowAllFinishedTasks = true;
+    }
+});
+
+/* Re-render the list of notes */
+function reRenderList(localStorageDataNote) {
+    $("ul#listAllNote").empty();
+    var localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+    allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+    $("ul#listAllNote").append(allNotesCompiledHtml);
+}
+
 /* Create Note */
-document.getElementById("btnCreateNote").addEventListener("click", function() {
+btnCreateNote.addEventListener("click", function() {
     window.location.href='createNote.html';
 });
 
 /* List */
-document.getElementById("btnList").addEventListener("click", function() {
+btnList.addEventListener("click", function() {
     window.location.href='index.html';
 });
 
 /* Clear Local Storage */
-document.getElementById("btnClearLocalStorage").addEventListener("click", function() {
+btnClearLocalStorage.addEventListener("click", function() {
     noteProApplication.clearLocalStorage();
 });
 
 /* Handlebars */
-
 /* Format the date */
 Handlebars.registerHelper('formatDate', function (date, format) {
     var mmnt = moment(date);
@@ -230,31 +205,9 @@ Handlebars.registerHelper('checkifchecked', function(currentValue) {
     return currentValue === true ? ' checked=&quot;checked&quot;' : '';
 });
 
+/* Show all notes and hide unfinished notes */
 Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
     if(!showFinishedNotesOnly) {
         return options.fn(this);
     }
 });
-
-// TODO: Not working well
-// Handlebars.registerHelper("stripes", function(array, even, odd, options) {
-//     if (array && array.length > 0) {
-//         var buffer = "";
-//         for (var i = 0, j = array.length; i < j; i++) {
-//             var item = array[i];
-//
-//             // we'll just put the appropriate stripe class name onto the item for now
-//             item.stripeClass = (i % 2 == 0 ? even : odd);
-//
-//             // show the inside of the block
-//             buffer += options.fn(item);
-//         }
-//
-//         // return the finished buffer
-//         return buffer;
-//     }
-//     else {
-//         return options.elseFn();
-//     }
-// });
-

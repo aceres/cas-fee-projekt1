@@ -74,18 +74,9 @@ var noteProApplication = {
         console.log("id: ", id);
         var jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
 
-        // Find date with the fetched id
-        /*$.map(jsonLocalStorage, function(obj) {
-            console.log("obj: ", obj);
-            if (obj.id == id)
-                //console.log("obj: ", obj);
-                return obj;
-        });*/
-        console.log("jsonLocalStorage: ", jsonLocalStorage);
-
         var objNote = jsonLocalStorage.appNote.filter(function(entry) {
             return entry.id == id;
-        })
+        });
         console.log("objNote: ", objNote);
 
         document.getElementById("title").value = objNote[0].title;
