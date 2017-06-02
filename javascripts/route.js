@@ -1,4 +1,4 @@
-window.onload = function() {
+function bodyOnloadHandler() {
 
     const btnCreateNote = document.getElementById("btnCreateNote");
     const btnBackToList = document.getElementById("btnBackToList");
@@ -6,9 +6,11 @@ window.onload = function() {
     const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
 
     /* Create Note */
-    btnCreateNote.addEventListener("click", function () {
-        window.location.href = 'detailNote.html?id=0';
-    });
+    if (btnCreateNote) {
+        btnCreateNote.addEventListener("click", function () {
+            window.location.href = 'detailNote.html?id=0';
+        });
+    }
 
     /* List */
     if (btnBackToList) {
@@ -30,5 +32,4 @@ window.onload = function() {
             noteProApplication.clearLocalStorage();
         });
     }
-
 }
