@@ -94,7 +94,8 @@ noteProApplication = (function() {
             document.getElementById("title").value = objNote[0].title;
             document.getElementById("description").value = objNote[0].description;
             document.getElementById("date").value = moment(objNote[0].finishDate).format("YYYY-MM-DD");
-            document.formNote.importance.value = objNote[0].importance;
+            //document.formNote.importance.value = objNote[0].importance;
+            $("input[name='importance'][value='"+objNote[0].importance+"']").attr("checked", true);
 
         } else {
 
