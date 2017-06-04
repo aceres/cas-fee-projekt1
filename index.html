@@ -28,9 +28,6 @@
             <button id="btnCreateNote" title="Create Note" type="button">
                 Create Note
             </button>
-            <button id="btnReloadList" title="Reload List" type="button">
-                Reload list
-            </button>
             <button id="btnClearLocalStorage" title="Clear Local Storage" type="button">
                 Clear Local Storage
             </button>
@@ -91,7 +88,7 @@
                             {{formatDate finishDate "DD.MM.YYYY"}}
                         </span>
                         <span title="{{finished}}">
-                            <input type="checkbox" name="" onclick="noteProApplication.checkedNoteAsFinished({{id}})" value="" {{{checkIfChecked finished}}}>
+                            <input type="checkbox" name="" onclick="noteProApplication.checkNoteAsFinished({{id}})" value="" {{{checkIfChecked finished}}}>
                         </span>
                         <span>
                             <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>

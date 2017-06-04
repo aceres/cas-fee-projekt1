@@ -2,7 +2,6 @@ function bodyOnloadHandler() {
 
     const btnCreateNote = document.getElementById("btnCreateNote");
     const btnBackToList = document.getElementById("btnBackToList");
-    const btnReloadList = document.getElementById("btnReloadList");
     const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
 
     /* Create Note */
@@ -19,17 +18,13 @@ function bodyOnloadHandler() {
         });
     }
 
-    /* Refresh */
-    if (btnReloadList) {
-        btnReloadList.addEventListener("click", function () {
-            location.reload();
-        });
-    }
-
     /* Clear Local Storage */
     if (btnClearLocalStorage) {
         btnClearLocalStorage.addEventListener("click", function () {
             noteProApplication.clearLocalStorage();
+            // Get the standard json data
+            // TODO: Check this if that works!
+            location.reload();
         });
     }
 }

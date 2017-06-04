@@ -5,8 +5,6 @@ if (typeof noteProApplication === "undefined") {
     let noteProApplication = {};
 }
 
-let dataLocalStorage = null;
-
 /* Revealing Module Pattern */
 noteProApplication = (function() {
 
@@ -16,15 +14,20 @@ noteProApplication = (function() {
     }
 
     // Get local storage
-    let dataLocalStorage = function() {
+    let fetchDataLocalStorage = function() {
         let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
         return jsonLocalStorage;
+    }
+
+    // Update local storage
+    let updateDataLocalStorage = function(jsonLocalStorage) {
+        localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
     
     // Set new ID for creating new note
     let maxId = function() {
 
-        let jsonLocalStorage = noteProApplication.dataLocalStorage();
+        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
 
         // TODO: Define what reduce does!
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
@@ -51,8 +54,6 @@ noteProApplication = (function() {
         // TODO: Valid Date
         if (title !== "" && description != "" && defineAsDate != "") {
 
-            console.log("filled");
-
             let newNote = {
                 id: id,
                 title: document.getElementById("title").value,
@@ -63,10 +64,10 @@ noteProApplication = (function() {
                 finished: false
             }
             // Retrieve the object from the local storage to add a new note (new object)
-            let jsonLocalStorage = noteProApplication.dataLocalStorage();
+            let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
             jsonLocalStorage.appNote.push(newNote);
             // Update the storage
-            localStorage.setItem("localDataNote", JSON.stringify(jsonLocalStorage));
+            updateDataLocalStorage(jsonLocalStorage);
         } else {
             document.getElementById("validation").innerHTML = "Please fill in all fields!";
         }
@@ -82,7 +83,7 @@ noteProApplication = (function() {
             $(".formCreateNote").hide();
             $(".formEditeNote").show();
 
-            let jsonLocalStorage = noteProApplication.dataLocalStorage();
+            let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
 
             let objNote = jsonLocalStorage.appNote.filter(function (entry) {
                 return entry.id == id;
@@ -102,7 +103,7 @@ noteProApplication = (function() {
     let updateNote = function() {
 
         let id = noteProApplication.getQueryVariable("id");
-        let jsonLocalStorage = noteProApplication.dataLocalStorage();
+        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
 
         let selectedDate = document.getElementById("date").value;
         let defineAsDate = new Date(selectedDate);
@@ -117,13 +118,13 @@ noteProApplication = (function() {
             }
         });
         // Update it in the localStorage too
-        localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
+        updateDataLocalStorage(jsonLocalStorage);
     }
 
     // Mark Note as checked (finished)
-    let checkedNoteAsFinished = function(id) {
+    let checkNoteAsFinished = function(id) {
 
-        let jsonLocalStorage = noteProApplication.dataLocalStorage();
+        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
 
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id && entry.finished == false) {
@@ -134,8 +135,7 @@ noteProApplication = (function() {
         });
 
         // Update it in the localStorage too
-        localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
-
+        updateDataLocalStorage(jsonLocalStorage);
         window.location.reload();
     }
 
@@ -167,7 +167,6 @@ noteProApplication = (function() {
                 tagBg[i].style.backgroundColor = "#FFFFFF";
             }
             document.getElementById("listAllNote").style.color = "#000000";
-            document.getElementById("listCheckedNote").style.color = "#000000";
         } else {
             bg.style.backgroundColor = "#000000";
             bg.style.color = "#FFFFFF";
@@ -179,19 +178,19 @@ noteProApplication = (function() {
                 tagBg[i].style.backgroundColor = "#666666";
             }
             document.getElementById("listAllNote").style.color = "#000000";
-            document.getElementById("listCheckedNote").style.color = "#000000";
         }
 
     }
 
     return {
         clearLocalStorage: clearLocalStorage,
-        dataLocalStorage: dataLocalStorage,
+        fetchDataLocalStorage: fetchDataLocalStorage,
+        updateDataLocalStorage: updateDataLocalStorage,
         maxId: maxId,
         createNote: createNote,
         detailNote: detailNote,
         updateNote: updateNote,
-        checkedNoteAsFinished: checkedNoteAsFinished,
+        checkNoteAsFinished: checkNoteAsFinished,
         getQueryVariable: getQueryVariable,
         changeStyle: changeStyle
     };
