@@ -5,15 +5,16 @@ if (typeof noteProApplication === "undefined") {
     let noteProApplication = {};
 }
 
-noteProApplication = {
+/* Revealing Module Pattern */
+noteProApplication = (function() {
 
     // Clear the local storage
-    clearLocalStorage: function() {
+    let clearLocalStorage = function() {
         localStorage.clear();
-    },
+    }
     
     // Set new ID for creating new note
-    maxId: function() {
+    let maxId = function() {
 
         let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
 
@@ -26,10 +27,10 @@ noteProApplication = {
             }
         });
         return maxId.id+1
-    },
+    }
 
     // Create Note
-    createNote: function() {
+    let createNote = function() {
 
         let id = noteProApplication.maxId();
         let title = document.getElementById("title").value;
@@ -61,10 +62,10 @@ noteProApplication = {
         } else {
             document.getElementById("validation").innerHTML = "Please fill in all fields!";
         }
-    },
+    }
 
     // Get detail note
-    detailNote: function() {
+    let detailNote = function() {
 
         /*var url = 'example.com/page.html?134',
             hash = url.split('?')[1];
@@ -100,11 +101,10 @@ noteProApplication = {
             $(".formCreateNote").show();
             $(".formEditNote").hide();
         }
-
-    },
+    }
 
     // Update Note
-    updateNote: function() {
+    let updateNote = function() {
 
         let id = noteProApplication.getQueryVariable("id");
         let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
@@ -123,10 +123,10 @@ noteProApplication = {
         });
         // Update it in the localStorage too
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
-    },
+    }
 
     // Mark Note as checked (finished)
-    checkedNoteAsFinished: function(id) {
+    let checkedNoteAsFinished = function(id) {
 
         console.log("id: ", id);
 
@@ -145,10 +145,10 @@ noteProApplication = {
 
         // TODO: Refresh the page
         window.location.reload();
-    },
+    }
 
     // Get Id from the URL
-    getQueryVariable: function(variable) {
+    let getQueryVariable = function(variable) {
 
         let query = window.location.search.substring(1);
         let vars = query.split("&");
@@ -159,10 +159,10 @@ noteProApplication = {
             }
         }
         return(false);
-    },
+    }
 
     // Change the style of the Note Application
-    changeStyle: function(value) {
+    let changeStyle = function(value) {
         let bg = document.body;
         if (value === "greyBg") {
             bg.style.backgroundColor = "#EEEEEE";
@@ -191,6 +191,17 @@ noteProApplication = {
         }
 
     }
-};
+
+    return {
+        clearLocalStorage: clearLocalStorage,
+        maxId: maxId,
+        createNote: createNote,
+        detailNote: detailNote,
+        updateNote: updateNote,
+        checkedNoteAsFinished: checkedNoteAsFinished,
+        getQueryVariable: getQueryVariable,
+        changeStyle: changeStyle
+    };
+})();
 
 

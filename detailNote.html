@@ -38,17 +38,19 @@
 
             <form name="formNote">
                 Title:<br>
-                <input type="text" id="title" name="title" autofocus>
+                <input type="text" id="title" name="title" placeholder="Insert title..." autofocus>
                 <br>
                 Description:<br>
-                <input type="text" id="description" name="description">
+                <input type="text" id="description" placeholder="Insert description..." name="description">
                 <br>
                 Importance:<br>
-                <input type="radio" name="importance" value="1" checked> 1<br>
-                <input type="radio" name="importance" value="2"> 2<br>
-                <input type="radio" name="importance" value="3"> 3<br>
-                <input type="radio" name="importance" value="4"> 4<br>
-                <input type="radio" name="importance" value="5"> 5
+                <div class="importance">
+                    <input type="radio" name="importance" value="1" checked> <span>1</span>
+                    <input type="radio" name="importance" value="2"> <span>2</span>
+                    <input type="radio" name="importance" value="3"> <span>3</span>
+                    <input type="radio" name="importance" value="4"> <span>4</span>
+                    <input type="radio" name="importance" value="5"> <span>5</span>
+                </div>
                 <br>
                 Date:<br>
                 <input type="date" id="date" name="date">

@@ -138,6 +138,31 @@ a {
     width: 100%;
 }
 
+/* Form */
+form {
+    margin-bottom: 15px;
+}
+
+/* Input */
+input[type=text] {
+    width: 40%;
+    padding: 2px 2px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+/* Importance / Detail note */
+.importance {
+    display: inline-block;
+    line-height: 22px;
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.importance span {
+    margin-right: 10px;
+}
+
 button:hover,
 a:hover {
     background-color: #dfdfdf;
