@@ -84,7 +84,7 @@
                             {{formatDate finishDate "DD.MM.YYYY"}}
                         </span>
                         <span title="{{finished}}">
-                            <input type="checkbox" name="" value="" {{{checkifchecked finished}}}>
+                            <input type="checkbox" name="" onclick="noteProApplication.checkedNoteAsFinished({{id}})" value="" {{{checkifchecked finished}}}>
                         </span>
                         <span>
                             <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>

@@ -9,7 +9,7 @@ let allNotesCompiledHtml = null;
 
 $(function () {
 
-    let dataNote = {
+    const dataNote = {
         appNote: [
             {
                 id: 1,

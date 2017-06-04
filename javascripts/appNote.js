@@ -125,6 +125,28 @@ noteProApplication = {
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     },
 
+    // Mark Note as checked (finished)
+    checkedNoteAsFinished: function(id) {
+
+        console.log("id: ", id);
+
+        let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+
+        jsonLocalStorage.appNote.forEach(function(entry) {
+            if (entry.id == id && entry.finished == false) {
+                entry.finished = true;
+            } else if (entry.id == id && entry.finished == true) {
+                entry.finished = false;
+            }
+        });
+
+        // Update it in the localStorage too
+        localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
+
+        // TODO: Refresh the page
+        window.location.reload();
+    },
+
     // Get Id from the URL
     getQueryVariable: function(variable) {
 
