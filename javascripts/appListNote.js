@@ -76,7 +76,7 @@ $(function () {
     } else {
 
         // Add object to the localStorage
-        localStorage.setItem("localDataNote", JSON.stringify(dataNote));
+        updateLocalStorage(dataNote);
         // Pass our data to the template
         allNotesCompiledHtml = templateAllNote(dataNote);
     }
@@ -99,15 +99,15 @@ $(function () {
         }
     }
 
-    function reveal(el) {
-        el.text(el.attr("data-original-text"));
-    }
-
     $(".truncated").each(function () {
         truncate($(this));
     });
 
-    $("a").on("click", function(e) {
+    function reveal(el) {
+        el.text(el.attr("data-original-text"));
+    }
+
+    $("a.more").on("click", function(e) {
         e.preventDefault();
         if ($(this).text() === "More") {
             $(this).text("Less");
@@ -127,8 +127,8 @@ btnSortByImportance.addEventListener("click", function() {
         localStorageDataNote.appNote.sort(function (a, b) {
             return b.importance - a.importance
         });
-        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
+        updateLocalStorage(localStorageDataNote);
         reRenderList();
     }
 });
@@ -141,8 +141,8 @@ btnSortByCreatedDate.addEventListener("click", function() {
         localStorageDataNote.appNote.sort(function (a, b) {
             return a.createdDate - b.createdDate
         });
-        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
+        updateLocalStorage(localStorageDataNote);
         reRenderList();
     }
 });
@@ -155,8 +155,8 @@ btnSortByFinishDate.addEventListener("click", function() {
         localStorageDataNote.appNote.sort(function (a, b) {
             return a.finishDate - b.finishDate
         });
-        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
+        updateLocalStorage(localStorageDataNote);
         reRenderList();
     }
 });
@@ -169,8 +169,8 @@ btnSortByTitle.addEventListener("click", function() {
         localStorageDataNote.appNote.sort(function (a, b) {
             return a.title.localeCompare(b.title);
         });
-        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
+        updateLocalStorage(localStorageDataNote);
         reRenderList();
     }
 });
@@ -224,7 +224,7 @@ Handlebars.registerHelper('checkIfChecked', function(currentValue) {
 
 // Show all notes and hide unfinished notes
 Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
-    if(!showFinishedNotesOnly) {
+    if (!showFinishedNotesOnly) {
         return options.fn(this);
     }
 });
