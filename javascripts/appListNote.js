@@ -14,7 +14,7 @@ $(function () {
             {
                 id: 1,
                 title: "UI testen",
-                description: "Hier wird die genaue Beschreibung gemacht.",
+                description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
                 importance: 2,
                 createdDate: 1489017600000,
                 finishDate: 1492732800000,
@@ -32,7 +32,7 @@ $(function () {
             {
                 id: 3,
                 title: "Für die Prüfung lernen",
-                description: "Hier wird die genaue Beschreibung gemacht.",
+                description: "2. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
                 importance: 1,
                 createdDate: 1489017600000,
                 finishDate: 1492732800000,
@@ -41,7 +41,7 @@ $(function () {
             {
                 id: 4,
                 title: "Priorität 1: HTML umsetzen",
-                description: "Hier wird die genaue Beschreibung gemacht.",
+                description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
                 importance: 3,
                 createdDate: 1489017600000,
                 finishDate: 1492732800000,
@@ -50,7 +50,7 @@ $(function () {
             {
                 id: 5,
                 title: "Dozent fragen",
-                description: "Hier wird die genaue Beschreibung gemacht.",
+                description: "Da wird die ungenaue Beschreibung vorgestellt.",
                 importance: 4,
                 createdDate: 1489017600000,
                 finishDate: 1495238400000,
@@ -62,14 +62,12 @@ $(function () {
     if (localStorage.getItem("localDataNote")) {
 
         // Get object from the localStorage
-        console.log("Found!");
         localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         // Pass our data to the template
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
     } else {
 
         // Add object to the localStorage
-        console.log("Not found!");
         localStorage.setItem("localDataNote", JSON.stringify(dataNote));
         // Pass our data to the template
         allNotesCompiledHtml = templateAllNote(dataNote);
@@ -78,6 +76,39 @@ $(function () {
     // Add the compiled html to the page
     // Display all notes
     $("ul#listAllNote").append(allNotesCompiledHtml);
+
+    /* Accordion (Description) */
+    let charLimit = 120;
+    function truncate(el) {
+
+        let text = el.text();
+        let countText = text.trim().length;
+        if (countText < 120) {
+            el.parent().parent().next().hide();
+        } else {
+            el.attr("data-original-text", text);
+            el.text(text.substring(0, charLimit) + "...");
+        }
+    }
+
+    function reveal(el) {
+        el.text(el.attr("data-original-text"));
+    }
+
+    $(".truncated").each(function () {
+        truncate($(this));
+    });
+
+    $("a").on("click", function(e) {
+        e.preventDefault();
+        if ($(this).text() === "Show") {
+            $(this).text("Hide");
+            reveal($(this).prev().find(".truncated"));
+        } else {
+            $(this).text("Show");
+            truncate($(this).prev().find(".truncated"));
+        }
+    });
 });
 
 const btnSortByImportance = document.getElementById("btnSortByImportance");
@@ -96,7 +127,7 @@ btnSortByImportance.addEventListener("click", function() {
         });
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        reRenderList(localStorageDataNote);
+        reRenderList();
     }
 });
 
@@ -110,7 +141,7 @@ btnSortByCreatedDate.addEventListener("click", function() {
         });
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        reRenderList(localStorageDataNote);
+        reRenderList();
     }
 });
 
@@ -124,7 +155,7 @@ btnSortByFinishDate.addEventListener("click", function() {
         });
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        reRenderList(localStorageDataNote);
+        reRenderList();
     }
 });
 
@@ -138,13 +169,12 @@ btnSortByTitle.addEventListener("click", function() {
         });
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
 
-        reRenderList(localStorageDataNote);
+        reRenderList();
     }
 });
 
 /* Show finished tasks only */
 let txtShowAllFinishedTasks = true;
-
 btnShowAllFinishedTasks.addEventListener("click", function() {
 
     if(txtShowAllFinishedTasks === true) {
@@ -165,12 +195,10 @@ btnShowAllFinishedTasks.addEventListener("click", function() {
 });
 
 /* Re-render the list of notes */
-function reRenderList(localStorageDataNote) {
-
-    console.log(localStorageDataNote);
+function reRenderList() {
 
     $("ul#listAllNote").empty();
-    localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+    let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
     allNotesCompiledHtml = templateAllNote(localStorageDataNote);
     $("ul#listAllNote").append(allNotesCompiledHtml);
 }
@@ -178,12 +206,12 @@ function reRenderList(localStorageDataNote) {
 /* Handlebars */
 /* Format the date */
 Handlebars.registerHelper('formatDate', function (date, format) {
-    let mmnt = moment(date);
-    return mmnt.format(format);
+    let momentData = moment(date);
+    return momentData.format(format);
 });
 
 /* Check whether checkbox should be marked as checked or not */
-Handlebars.registerHelper('checkifchecked', function(currentValue) {
+Handlebars.registerHelper('checkIfChecked', function(currentValue) {
     return currentValue === true ? ' checked=&quot;checked&quot;' : '';
 });
 

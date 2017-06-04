@@ -72,7 +72,14 @@
                             {{title}}
                         </span>
                         <span title="{{description}}">
-                            {{description}}
+                            <div class="wrap">
+                              <div>
+                                <p class="truncated">
+                                    {{description}}
+                                </p>
+                              </div>
+                            </div>
+                            <a href="#">Show</a>
                         </span>
                         <span title="{{importance}}">
                             {{importance}}
@@ -84,7 +91,7 @@
                             {{formatDate finishDate "DD.MM.YYYY"}}
                         </span>
                         <span title="{{finished}}">
-                            <input type="checkbox" name="" onclick="noteProApplication.checkedNoteAsFinished({{id}})" value="" {{{checkifchecked finished}}}>
+                            <input type="checkbox" name="" onclick="noteProApplication.checkedNoteAsFinished({{id}})" value="" {{{checkIfChecked finished}}}>
                         </span>
                         <span>
                             <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>

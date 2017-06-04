@@ -5,6 +5,8 @@ if (typeof noteProApplication === "undefined") {
     let noteProApplication = {};
 }
 
+let dataLocalStorage = null;
+
 /* Revealing Module Pattern */
 noteProApplication = (function() {
 
@@ -12,11 +14,17 @@ noteProApplication = (function() {
     let clearLocalStorage = function() {
         localStorage.clear();
     }
+
+    // Get local storage
+    let dataLocalStorage = function() {
+        let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+        return jsonLocalStorage;
+    }
     
     // Set new ID for creating new note
     let maxId = function() {
 
-        let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+        let jsonLocalStorage = noteProApplication.dataLocalStorage();
 
         // TODO: Define what reduce does!
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
@@ -55,7 +63,7 @@ noteProApplication = (function() {
                 finished: false
             }
             // Retrieve the object from the local storage to add a new note (new object)
-            let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+            let jsonLocalStorage = noteProApplication.dataLocalStorage();
             jsonLocalStorage.appNote.push(newNote);
             // Update the storage
             localStorage.setItem("localDataNote", JSON.stringify(jsonLocalStorage));
@@ -67,15 +75,6 @@ noteProApplication = (function() {
     // Get detail note
     let detailNote = function() {
 
-        /*var url = 'example.com/page.html?134',
-            hash = url.split('?')[1];
-
-        if (hash) {
-            alert(hash)
-        } else {
-            // do something else
-        }*/
-
         let id = noteProApplication.getQueryVariable("id");
 
         if (id != 0) {
@@ -83,22 +82,17 @@ noteProApplication = (function() {
             $(".formCreateNote").hide();
             $(".formEditeNote").show();
 
-            console.log("id: ", id);
-            let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+            let jsonLocalStorage = noteProApplication.dataLocalStorage();
 
             let objNote = jsonLocalStorage.appNote.filter(function (entry) {
                 return entry.id == id;
             });
-            console.log("objNote: ", objNote);
 
             document.getElementById("title").value = objNote[0].title;
             document.getElementById("description").value = objNote[0].description;
             document.getElementById("date").value = moment(objNote[0].finishDate).format("YYYY-MM-DD");
-            //document.formNote.importance.value = objNote[0].importance;
             $("input[name='importance'][value='"+objNote[0].importance+"']").attr("checked", true);
-
         } else {
-
             $(".formCreateNote").show();
             $(".formEditNote").hide();
         }
@@ -108,7 +102,7 @@ noteProApplication = (function() {
     let updateNote = function() {
 
         let id = noteProApplication.getQueryVariable("id");
-        let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+        let jsonLocalStorage = noteProApplication.dataLocalStorage();
 
         let selectedDate = document.getElementById("date").value;
         let defineAsDate = new Date(selectedDate);
@@ -129,9 +123,7 @@ noteProApplication = (function() {
     // Mark Note as checked (finished)
     let checkedNoteAsFinished = function(id) {
 
-        console.log("id: ", id);
-
-        let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
+        let jsonLocalStorage = noteProApplication.dataLocalStorage();
 
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id && entry.finished == false) {
@@ -144,7 +136,6 @@ noteProApplication = (function() {
         // Update it in the localStorage too
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
 
-        // TODO: Refresh the page
         window.location.reload();
     }
 
@@ -195,6 +186,7 @@ noteProApplication = (function() {
 
     return {
         clearLocalStorage: clearLocalStorage,
+        dataLocalStorage: dataLocalStorage,
         maxId: maxId,
         createNote: createNote,
         detailNote: detailNote,
