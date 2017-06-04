@@ -3,9 +3,17 @@ let templateScriptAllNote = $("#template-list-all-note").html();
 
 // Compile the template
 let templateAllNote = Handlebars.compile(templateScriptAllNote);
-
-let localStorageDataNote = null;
 let allNotesCompiledHtml = null;
+
+// LocalStorage
+let localStorageDataNote = null;
+
+// Button
+const btnSortByImportance = document.getElementById("btnSortByImportance");
+const btnSortByCreatedDate = document.getElementById("btnSortByCreatedDate");
+const btnSortByFinishDate = document.getElementById("btnSortByFinishDate");
+const btnSortByTitle = document.getElementById("btnSortByTitle");
+const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks");
 
 $(function () {
 
@@ -101,23 +109,17 @@ $(function () {
 
     $("a").on("click", function(e) {
         e.preventDefault();
-        if ($(this).text() === "Show") {
-            $(this).text("Hide");
+        if ($(this).text() === "More") {
+            $(this).text("Less");
             reveal($(this).prev().find(".truncated"));
         } else {
-            $(this).text("Show");
+            $(this).text("More");
             truncate($(this).prev().find(".truncated"));
         }
     });
 });
 
-const btnSortByImportance = document.getElementById("btnSortByImportance");
-const btnSortByCreatedDate = document.getElementById("btnSortByCreatedDate");
-const btnSortByFinishDate = document.getElementById("btnSortByFinishDate");
-const btnSortByTitle = document.getElementById("btnSortByTitle");
-const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks");
-
-/* Sort by importance */
+// Sort by importance
 btnSortByImportance.addEventListener("click", function() {
 
     if (localStorage.getItem("localDataNote")) {
@@ -131,7 +133,7 @@ btnSortByImportance.addEventListener("click", function() {
     }
 });
 
-/* Sort by created date */
+// Sort by created date
 btnSortByCreatedDate.addEventListener("click", function() {
 
     if (localStorage.getItem("localDataNote")) {
@@ -145,7 +147,7 @@ btnSortByCreatedDate.addEventListener("click", function() {
     }
 });
 
-/* Sort by finish date */
+// Sort by finish date
 btnSortByFinishDate.addEventListener("click", function() {
 
     if (localStorage.getItem("localDataNote")) {
@@ -159,7 +161,7 @@ btnSortByFinishDate.addEventListener("click", function() {
     }
 });
 
-/* Sort by title */
+// Sort by title
 btnSortByTitle.addEventListener("click", function() {
 
     if (localStorage.getItem("localDataNote")) {
@@ -173,7 +175,7 @@ btnSortByTitle.addEventListener("click", function() {
     }
 });
 
-/* Show finished tasks only */
+// Show finished tasks only
 let txtShowAllFinishedTasks = true;
 btnShowAllFinishedTasks.addEventListener("click", function() {
 
@@ -194,7 +196,7 @@ btnShowAllFinishedTasks.addEventListener("click", function() {
     }
 });
 
-/* Re-render the list of notes */
+// Re-render the list of notes
 function reRenderList() {
 
     $("ul#listAllNote").empty();
@@ -203,19 +205,24 @@ function reRenderList() {
     $("ul#listAllNote").append(allNotesCompiledHtml);
 }
 
-/* Handlebars */
-/* Format the date */
+// Update the local storage
+function updateLocalStorage(localStorageDataNote) {
+    localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
+}
+
+// Handlebars
+// Format the date
 Handlebars.registerHelper('formatDate', function (date, format) {
     let momentData = moment(date);
     return momentData.format(format);
 });
 
-/* Check whether checkbox should be marked as checked or not */
+// Check whether checkbox should be marked as checked or not
 Handlebars.registerHelper('checkIfChecked', function(currentValue) {
     return currentValue === true ? ' checked=&quot;checked&quot;' : '';
 });
 
-/* Show all notes and hide unfinished notes */
+// Show all notes and hide unfinished notes
 Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
     if(!showFinishedNotesOnly) {
         return options.fn(this);
