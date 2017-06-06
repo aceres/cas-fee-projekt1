@@ -36,16 +36,16 @@
                 Edit Note
             </h2>
 
-            <p name="formNote">
+            <form name="formNote">
                 <p>
                     <label for="title">Title:</label>
                     <input type="text" id="title" name="title" placeholder="Insert title..." autofocus>
                 </p>
                 <p>
                     <label for="description">Description:</label>
-                    <textarea type="text" cols="200" rows="4" id="description" placeholder="Insert description..." name="description"></textarea>
+                    <textarea cols="200" rows="4" id="description" placeholder="Insert description..." name="description"></textarea>
                 </p>
-                </p>
+
                     <label>Importance:</label>
                     <div class="importance">
                         <input type="radio" name="importance" value="1" checked> <label>1</label>
@@ -54,8 +54,8 @@
                         <input type="radio" name="importance" value="4"> <label>4</label>
                         <input type="radio" name="importance" value="5"> <label>5</label>
                     </div>
-                </p>
-                </p>
+
+                <p>
                     <label>Date:</label>
                     <input type="date" id="date" name="date">
                 </p>
