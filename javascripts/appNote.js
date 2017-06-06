@@ -8,6 +8,8 @@ if (typeof noteProApplication === "undefined") {
 /* Revealing Module Pattern */
 noteProApplication = (function() {
 
+    "use strict";
+
     // Clear the local storage
     let clearLocalStorage = function() {
         localStorage.clear();

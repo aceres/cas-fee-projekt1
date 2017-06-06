@@ -9,6 +9,9 @@ let allNotesCompiledHtml = null;
 let localStorageDataNote = null;
 
 (function($, window, document) {
+
+    "use strict";
+
     $(function () {
 
         const dataNote = {
