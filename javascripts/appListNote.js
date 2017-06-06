@@ -64,6 +64,7 @@ let localStorageDataNote = null;
             ]
         };
 
+        // if null is false
         if (localStorage.getItem("localDataNote")) {
 
             // Get object from the localStorage
@@ -71,11 +72,11 @@ let localStorageDataNote = null;
             // Pass our data to the template
             allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         } else {
-
             // Add object to the localStorage
             updateLocalStorage(dataNote);
+            localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
             // Pass our data to the template
-            allNotesCompiledHtml = templateAllNote(dataNote);
+            allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         }
 
         // Add the compiled html to the page
@@ -133,12 +134,6 @@ function toggleRow() {
 let txtShowAllFinishedTasks = true;
 function buttonClickListener(e) {
 
-    if (localStorage.getItem("localDataNote")) {
-        console.log("Local data exists!");
-    } else {
-        console.log("Local data not exists!");
-    }
-
     switch (e.currentTarget.id) {
 
         case "btnSortByImportance":
@@ -148,6 +143,7 @@ function buttonClickListener(e) {
             });
             reRenderList(localStorageDataNote);
             break;
+
         case "btnSortByCreatedDate":
 
             localStorageDataNote.appNote.sort(function (a, b) {
@@ -155,6 +151,7 @@ function buttonClickListener(e) {
             });
             reRenderList(localStorageDataNote);
             break;
+
         case "btnSortByFinishDate":
 
             localStorageDataNote.appNote.sort(function (a, b) {
@@ -162,6 +159,7 @@ function buttonClickListener(e) {
             });
             reRenderList(localStorageDataNote);
             break;
+
         case "btnSortByTitle":
 
             localStorageDataNote.appNote.sort(function (a, b) {
@@ -169,6 +167,7 @@ function buttonClickListener(e) {
             });
             reRenderList(localStorageDataNote);
             break;
+
         case "btnShowAllFinishedTasks":
 
             if (txtShowAllFinishedTasks === true) {

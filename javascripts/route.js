@@ -1,3 +1,18 @@
+var router = (function () {
+
+    "use strict";
+
+    let route = function(url) {
+        window.location = url;
+    }
+
+    return {
+        route: route
+    };
+
+})();
+
+
 function bodyOnloadHandler() {
 
     const btnCreateNote = document.getElementById("btnCreateNote");
@@ -7,24 +22,22 @@ function bodyOnloadHandler() {
     /* Create Note */
     if (btnCreateNote) {
         btnCreateNote.addEventListener("click", function () {
-            window.location.href = 'detailNote.html?id=0';
+            router.route("detailNote.html?id=0");
         });
     }
 
     /* List */
     if (btnBackToList) {
         btnBackToList.addEventListener("click", function () {
-            window.location.href = 'index.html';
+            router.route("index.html");
         });
     }
 
     /* Clear Local Storage */
     if (btnClearLocalStorage) {
         btnClearLocalStorage.addEventListener("click", function () {
-            noteProApplication.clearLocalStorage();
-            // Get the standard json data
-            // TODO: Check this if that works!
-            location.reload();
+            localStorage.clear();
+            window.location.reload("index.html");
         });
     }
 }

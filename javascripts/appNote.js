@@ -10,11 +10,6 @@ noteProApplication = (function() {
 
     "use strict";
 
-    // Clear the local storage
-    let clearLocalStorage = function() {
-        localStorage.clear();
-    }
-
     // Get local storage
     let fetchDataLocalStorage = function() {
         let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
@@ -185,7 +180,6 @@ noteProApplication = (function() {
     }
 
     return {
-        clearLocalStorage: clearLocalStorage,
         fetchDataLocalStorage: fetchDataLocalStorage,
         updateDataLocalStorage: updateDataLocalStorage,
         maxId: maxId,
