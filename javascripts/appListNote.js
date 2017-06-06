@@ -8,13 +8,6 @@ let allNotesCompiledHtml = null;
 // LocalStorage
 let localStorageDataNote = null;
 
-// Button
-const btnSortByImportance = document.getElementById("btnSortByImportance");
-const btnSortByCreatedDate = document.getElementById("btnSortByCreatedDate");
-const btnSortByFinishDate = document.getElementById("btnSortByFinishDate");
-const btnSortByTitle = document.getElementById("btnSortByTitle");
-const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks");
-
 (function($, window, document) {
     $(function () {
 
@@ -89,6 +82,12 @@ const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks
         // Initialize for open / close detail row (description)
         toggleRow();
 
+        // Button (Registration)
+        btnSortByImportance.addEventListener("click", buttonClickListener);
+        btnSortByCreatedDate.addEventListener("click", buttonClickListener);
+        btnSortByFinishDate.addEventListener("click", buttonClickListener);
+        btnSortByTitle.addEventListener("click", buttonClickListener);
+        btnShowAllFinishedTasks.addEventListener("click", buttonClickListener);
     });
 }(window.jQuery, window, document));
 
@@ -128,8 +127,68 @@ function toggleRow() {
     });
 }
 
+let txtShowAllFinishedTasks = true;
+function buttonClickListener(e) {
+
+    if (localStorage.getItem("localDataNote")) {
+        console.log("Local data exists!");
+    } else {
+        console.log("Local data not exists!");
+    }
+
+    switch (e.currentTarget.id) {
+
+        case "btnSortByImportance":
+
+            localStorageDataNote.appNote.sort(function (a, b) {
+                return b.importance - a.importance
+            });
+            reRenderList(localStorageDataNote);
+            break;
+        case "btnSortByCreatedDate":
+
+            localStorageDataNote.appNote.sort(function (a, b) {
+                return a.createdDate - b.createdDate
+            });
+            reRenderList(localStorageDataNote);
+            break;
+        case "btnSortByFinishDate":
+
+            localStorageDataNote.appNote.sort(function (a, b) {
+                return a.finishDate - b.finishDate
+            });
+            reRenderList(localStorageDataNote);
+            break;
+        case "btnSortByTitle":
+
+            localStorageDataNote.appNote.sort(function (a, b) {
+                return a.title.localeCompare(b.title);
+            });
+            reRenderList(localStorageDataNote);
+            break;
+        case "btnShowAllFinishedTasks":
+
+            if (txtShowAllFinishedTasks === true) {
+
+                $("li.active").removeClass("active").addClass("hidden");
+                $("li:not('.hidden'):even").css("background-color", "#fff");
+                $("li:not('.hidden'):odd").css("background-color", "#eee");
+                $("button#btnShowAllFinishedTasks").text("Show all notes");
+                txtShowAllFinishedTasks = false;
+            } else {
+
+                $("li.hidden").removeClass("hidden").addClass("active");
+                $("li:even").css("background-color", "#fff");
+                $("li:odd").css("background-color", "#eee");
+                $("button#btnShowAllFinishedTasks").text("Show finished notes only");
+                txtShowAllFinishedTasks = true;
+            }
+            break;
+    }
+}
+
 // Sort by importance
-btnSortByImportance.addEventListener("click", function() {
+/*btnSortByImportance.addEventListener("click", function() {
 
     if (localStorage.getItem("localDataNote")) {
 
@@ -199,7 +258,7 @@ btnShowAllFinishedTasks.addEventListener("click", function() {
         $("button#btnShowAllFinishedTasks").text("Show finished notes only");
         txtShowAllFinishedTasks = true;
     }
-});
+});*/
 
 // Re-render the list of notes
 function reRenderList(localData) {
