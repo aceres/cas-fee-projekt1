@@ -86,40 +86,47 @@ const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks
         // Display all notes
         $("ul#listAllNote").append(allNotesCompiledHtml);
 
-        /* Accordion (Description) */
-        let charLimit = 120;
-        function truncate(el) {
+        // Initialize for open / close detail row (description)
+        toggleRow();
 
-            let text = el.text();
-            let countText = text.trim().length;
-            if (countText < 120) {
-                el.parent().parent().next().hide();
-            } else {
-                el.attr("data-original-text", text);
-                el.text(text.substring(0, charLimit) + "...");
-            }
-        }
-
-        $(".truncated").each(function () {
-            truncate($(this));
-        });
-
-        function reveal(el) {
-            el.text(el.attr("data-original-text"));
-        }
-
-        $("a.more").on("click", function(e) {
-            e.preventDefault();
-            if ($(this).text() === "More") {
-                $(this).text("Less");
-                reveal($(this).prev().find(".truncated"));
-            } else {
-                $(this).text("More");
-                truncate($(this).prev().find(".truncated"));
-            }
-        });
     });
 }(window.jQuery, window, document));
+
+// Accordion (Description)
+function toggleRow() {
+    let charLimit = 120;
+
+    function truncate(el) {
+
+        let text = el.text();
+        let countText = text.trim().length;
+        if (countText < 120) {
+            el.parent().parent().next().hide();
+        } else {
+            el.attr("data-original-text", text);
+            el.text(text.substring(0, charLimit) + "...");
+        }
+    }
+
+    $(".truncated").each(function () {
+        truncate($(this));
+    });
+
+    function reveal(el) {
+        el.text(el.attr("data-original-text"));
+    }
+
+    $("a.more").on("click", function (e) {
+        e.preventDefault();
+        if ($(this).text() === "More") {
+            $(this).text("Less");
+            reveal($(this).prev().find(".truncated"));
+        } else {
+            $(this).text("More");
+            truncate($(this).prev().find(".truncated"));
+        }
+    });
+}
 
 // Sort by importance
 btnSortByImportance.addEventListener("click", function() {
@@ -130,8 +137,7 @@ btnSortByImportance.addEventListener("click", function() {
             return b.importance - a.importance
         });
 
-        updateLocalStorage(localStorageDataNote);
-        reRenderList();
+        reRenderList(localStorageDataNote);
     }
 });
 
@@ -144,8 +150,7 @@ btnSortByCreatedDate.addEventListener("click", function() {
             return a.createdDate - b.createdDate
         });
 
-        updateLocalStorage(localStorageDataNote);
-        reRenderList();
+        reRenderList(localStorageDataNote);
     }
 });
 
@@ -158,8 +163,7 @@ btnSortByFinishDate.addEventListener("click", function() {
             return a.finishDate - b.finishDate
         });
 
-        updateLocalStorage(localStorageDataNote);
-        reRenderList();
+        reRenderList(localStorageDataNote);
     }
 });
 
@@ -172,8 +176,7 @@ btnSortByTitle.addEventListener("click", function() {
             return a.title.localeCompare(b.title);
         });
 
-        updateLocalStorage(localStorageDataNote);
-        reRenderList();
+        reRenderList(localStorageDataNote);
     }
 });
 
@@ -199,12 +202,14 @@ btnShowAllFinishedTasks.addEventListener("click", function() {
 });
 
 // Re-render the list of notes
-function reRenderList() {
+function reRenderList(localData) {
 
+    updateLocalStorage(localData);
     $("ul#listAllNote").empty();
     let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
     allNotesCompiledHtml = templateAllNote(localStorageDataNote);
     $("ul#listAllNote").append(allNotesCompiledHtml);
+    toggleRow();
 }
 
 // Update the local storage
