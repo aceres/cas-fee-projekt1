@@ -1,4 +1,3 @@
-// Handlebars
 // Format the date
 Handlebars.registerHelper('formatDate', function (date, format) {
     let momentData = moment(date);

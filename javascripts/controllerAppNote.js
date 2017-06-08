@@ -1,222 +1,206 @@
-let noteProApplication = {};
-
-// We need to do a check before we create the namespace
-if (typeof noteProApplication === "undefined") {
-    let noteProApplication = {};
-}
-
-/* Revealing Module Pattern */
-noteProApplication = (function() {
+(function($, window, document) {
 
     "use strict";
 
-    // Initialize and register buttons
-    const btnCreateNote = document.getElementById("btnCreateNote");
-    const btnBackToList = document.getElementById("btnBackToList");
-    const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
+    // Grab the template script
+    let templateScriptAllNote = $("#template-list-all-note").html();
 
-    /* Create Note */
-    if (btnCreateNote) {
-        btnCreateNote.addEventListener("click", function () {
-            router.route("detailNote.html?id=0");
-        });
-    }
+    // Compile the template
+    let templateAllNote = Handlebars.compile(templateScriptAllNote);
+    let allNotesCompiledHtml = null;
 
-    /* List */
-    if (btnBackToList) {
-        btnBackToList.addEventListener("click", function () {
-            router.route("index.html");
-        });
-    }
+    // LocalStorage
+    let localStorageDataNote = null;
 
-    /* Clear Local Storage */
-    if (btnClearLocalStorage) {
-        btnClearLocalStorage.addEventListener("click", function () {
-            localStorage.clear();
-            window.location.reload("index.html");
-        });
-    }
+    $(function () {
 
-    // Get local storage
-    let fetchDataLocalStorage = function() {
-        let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
-        return jsonLocalStorage;
-    }
+        const dataNote = {
+            appNote: [
+                {
+                    id: 1,
+                    title: "UI testen",
+                    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    importance: 2,
+                    createdDate: 1489017600000,
+                    finishDate: 1492732800000,
+                    finished: true
+                },
+                {
+                    id: 2,
+                    title: "Hausaufgaben machen",
+                    description: "Hier wird die genaue Beschreibung gemacht.",
+                    importance: 5,
+                    createdDate: 1489017600000,
+                    finishDate: 1489017600000,
+                    finished: true
+                },
+                {
+                    id: 3,
+                    title: "Für die Prüfung lernen",
+                    description: "2. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    importance: 1,
+                    createdDate: 1489017600000,
+                    finishDate: 1492732800000,
+                    finished: false
+                },
+                {
+                    id: 4,
+                    title: "Priorität 1: HTML umsetzen",
+                    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+                    importance: 3,
+                    createdDate: 1489017600000,
+                    finishDate: 1492732800000,
+                    finished: false
+                },
+                {
+                    id: 5,
+                    title: "Dozent fragen",
+                    description: "Da wird die ungenaue Beschreibung vorgestellt.",
+                    importance: 4,
+                    createdDate: 1489017600000,
+                    finishDate: 1495238400000,
+                    finished: true
+                }
+            ]
+        };
 
-    // Update local storage
-    let updateDataLocalStorage = function(jsonLocalStorage) {
-        localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
-    }
-    
-    // Set new ID for creating new note
-    let maxId = function() {
+        // if null is false
+        if (localStorage.getItem("localDataNote")) {
 
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+            // Get object from the localStorage
+            localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+            // Pass our data to the template
+            allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        } else {
+            // Add object to the localStorage
+            updateLocalStorage(dataNote);
+            localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+            // Pass our data to the template
+            allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        }
 
-        // TODO: Define what reduce does!
-        let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
-            if (+current.id > +prev.id) {
-                return current;
+        // Add the compiled html to the page
+        // Display all notes
+        $("ul#listAllNote").append(allNotesCompiledHtml);
+
+        // Initialize for open / close detail row (description)
+        toggleRow();
+
+        // Button (Registration)
+        btnSortByImportance.addEventListener("click", buttonClickListener);
+        btnSortByCreatedDate.addEventListener("click", buttonClickListener);
+        btnSortByFinishDate.addEventListener("click", buttonClickListener);
+        btnSortByTitle.addEventListener("click", buttonClickListener);
+        btnShowAllFinishedTasks.addEventListener("click", buttonClickListener);
+    });
+
+    // Accordion (Description)
+    function toggleRow() {
+        let charLimit = 120;
+
+        function truncate(el) {
+
+            let text = el.text();
+            let countText = text.trim().length;
+            if (countText < 120) {
+                el.parent().parent().next().hide();
             } else {
-                return prev;
+                el.attr("data-original-text", text);
+                el.text(text.substring(0, charLimit) + "...");
             }
-        });
-        return maxId.id+1
-    }
-
-    // Create Note
-    let createNote = function() {
-
-        let id = noteProApplication.maxId();
-        let title = document.getElementById("title").value;
-        let description = document.getElementById("description").value;
-        let selectedDate = document.getElementById("date").value;
-        let defineAsDate = new Date(selectedDate);
-        let formatDate = defineAsDate.valueOf();
-        let newDate = new Date();
-
-        // TODO: Valid Date
-        if (title !== "" && description != "" && defineAsDate != "") {
-
-            let newNote = {
-                id: id,
-                title: document.getElementById("title").value,
-                description: document.getElementById("description").value,
-                importance: $("input:radio[name=importance]:checked").val(),
-                createdDate: newDate.valueOf(),
-                finishDate: formatDate,
-                finished: false
-            }
-            // Retrieve the object from the local storage to add a new note (new object)
-            let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
-            jsonLocalStorage.appNote.push(newNote);
-            // Update the storage
-            updateDataLocalStorage(jsonLocalStorage);
-        } else {
-            document.getElementById("validation").innerHTML = "Please fill in all fields!";
         }
-    }
 
-    // Get detail note
-    let detailNote = function() {
-
-        let id = noteProApplication.getQueryVariable("id");
-
-        if (id != 0) {
-
-            $(".formCreateNote").hide();
-            $(".formEditeNote").show();
-
-            let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
-
-            let objNote = jsonLocalStorage.appNote.filter(function (entry) {
-                return entry.id == id;
-            });
-
-            document.getElementById("title").value = objNote[0].title;
-            document.getElementById("description").value = objNote[0].description;
-            document.getElementById("date").value = moment(objNote[0].finishDate).format("YYYY-MM-DD");
-            $("input[name='importance'][value='"+objNote[0].importance+"']").attr("checked", true);
-        } else {
-            $(".formCreateNote").show();
-            $(".formEditNote").hide();
-        }
-    }
-
-    // Update Note
-    let updateNote = function() {
-
-        let id = noteProApplication.getQueryVariable("id");
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
-
-        let selectedDate = document.getElementById("date").value;
-        let defineAsDate = new Date(selectedDate);
-        let formatDate = defineAsDate.valueOf();
-
-        jsonLocalStorage.appNote.forEach(function(entry) {
-            if (entry.id == id) {
-                entry.title = document.getElementById("title").value;
-                entry.description = document.getElementById("description").value;
-                entry.finishDate = formatDate;
-                entry.importance = $("input:radio[name=importance]:checked").val()
-            }
-        });
-        // Update it in the localStorage too
-        updateDataLocalStorage(jsonLocalStorage);
-    }
-
-    // Mark Note as checked (finished)
-    let checkNoteAsFinished = function(id) {
-
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
-
-        jsonLocalStorage.appNote.forEach(function(entry) {
-            if (entry.id == id && entry.finished == false) {
-                entry.finished = true;
-            } else if (entry.id == id && entry.finished == true) {
-                entry.finished = false;
-            }
+        $(".truncated").each(function () {
+            truncate($(this));
         });
 
-        // Update it in the localStorage too
-        updateDataLocalStorage(jsonLocalStorage);
-        window.location.reload();
-    }
-
-    // Get Id from the URL
-    let getQueryVariable = function(variable) {
-
-        let query = window.location.search.substring(1);
-        let vars = query.split("&");
-        for (let i=0; i < vars.length; i++) {
-            let pair = vars[i].split("=");
-            if (pair[0] == variable) {
-                return pair[1];
-            }
-        }
-        return(false);
-    }
-
-    // Change the style of the Note Application
-    let changeStyle = function(value) {
-        let bg = document.body;
-        if (value === "greyBg") {
-            bg.style.backgroundColor = "#EEEEEE";
-            bg.style.color = "#000000";
-
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
-
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#FFFFFF";
-            }
-            document.getElementById("listAllNote").style.color = "#000000";
-        } else {
-            bg.style.backgroundColor = "#000000";
-            bg.style.color = "#FFFFFF";
-
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
-
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#666666";
-            }
-            document.getElementById("listAllNote").style.color = "#000000";
+        function reveal(el) {
+            el.text(el.attr("data-original-text"));
         }
 
+        $("a.more").on("click", function (e) {
+            e.preventDefault();
+            if ($(this).text() === "More") {
+                $(this).text("Less");
+                reveal($(this).prev().find(".truncated"));
+            } else {
+                $(this).text("More");
+                truncate($(this).prev().find(".truncated"));
+            }
+        });
     }
 
-    return {
-        fetchDataLocalStorage: fetchDataLocalStorage,
-        updateDataLocalStorage: updateDataLocalStorage,
-        maxId: maxId,
-        createNote: createNote,
-        detailNote: detailNote,
-        updateNote: updateNote,
-        checkNoteAsFinished: checkNoteAsFinished,
-        getQueryVariable: getQueryVariable,
-        changeStyle: changeStyle
-    };
-})();
+    let txtShowAllFinishedTasks = true;
+    function buttonClickListener(e) {
 
+        switch (e.currentTarget.id) {
 
+            case "btnSortByImportance":
+
+                localStorageDataNote.appNote.sort(function (a, b) {
+                    return b.importance - a.importance
+                });
+                reRenderList(localStorageDataNote);
+                break;
+
+            case "btnSortByCreatedDate":
+
+                localStorageDataNote.appNote.sort(function (a, b) {
+                    return a.createdDate - b.createdDate
+                });
+                reRenderList(localStorageDataNote);
+                break;
+
+            case "btnSortByFinishDate":
+
+                localStorageDataNote.appNote.sort(function (a, b) {
+                    return a.finishDate - b.finishDate
+                });
+                reRenderList(localStorageDataNote);
+                break;
+
+            case "btnSortByTitle":
+
+                localStorageDataNote.appNote.sort(function (a, b) {
+                    return a.title.localeCompare(b.title);
+                });
+                reRenderList(localStorageDataNote);
+                break;
+
+            case "btnShowAllFinishedTasks":
+
+                if (txtShowAllFinishedTasks === true) {
+
+                    $("li.active").removeClass("active").addClass("hidden");
+                    $("li:not('.hidden'):even").css("background-color", "#fff");
+                    $("li:not('.hidden'):odd").css("background-color", "#eee");
+                    $("button#btnShowAllFinishedTasks").text("Show all notes");
+                    txtShowAllFinishedTasks = false;
+                } else {
+
+                    $("li.hidden").removeClass("hidden").addClass("active");
+                    $("li:even").css("background-color", "#fff");
+                    $("li:odd").css("background-color", "#eee");
+                    $("button#btnShowAllFinishedTasks").text("Show finished notes only");
+                    txtShowAllFinishedTasks = true;
+                }
+                break;
+        }
+    }
+
+    // Re-render the list of notes
+    function reRenderList(localData) {
+
+        updateLocalStorage(localData);
+        $("ul#listAllNote").empty();
+        let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+        $("ul#listAllNote").append(allNotesCompiledHtml);
+        toggleRow();
+    }
+
+    // Update the local storage
+    function updateLocalStorage(localStorageDataNote) {
+        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
+    }
+}(window.jQuery, window, document));
