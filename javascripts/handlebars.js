@@ -25,6 +25,5 @@ Handlebars.registerHelper('countStars', function(stars, block) {
     while(++i <= stars) {
         accum += block.fn(i);
     }
-
     return accum;
 });

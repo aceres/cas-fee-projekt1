@@ -47,7 +47,7 @@ noteProApplication = (function() {
     let updateDataLocalStorage = function(jsonLocalStorage) {
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
-    
+
     // Set new ID for creating new note
     let maxId = function() {
 
@@ -216,6 +216,11 @@ noteProApplication = (function() {
         getQueryVariable: getQueryVariable,
         changeStyle: changeStyle
     };
+
+    // Exposed API facilities
+    //export default { createNote, updateNote };
 })();
+
+
 
 
