@@ -15,3 +15,16 @@ Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
         return options.fn(this);
     }
 });
+
+// Show stars
+Handlebars.registerHelper('countStars', function(stars, block) {
+
+    var accum = '',
+        i = 0;
+
+    while(++i <= stars) {
+        accum += block.fn(i);
+    }
+
+    return accum;
+});

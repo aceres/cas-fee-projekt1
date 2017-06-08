@@ -75,8 +75,10 @@
                             </div>
                             <a class="more" href="#">More</a>
                         </span>
-                        <span title="{{importance}}">
-                            {{importance}}
+                        <span title="Level {{importance}}">
+                            {{#countStars importance}}
+                                <div class="pacman" title="{{this}}"></div>
+                            {{/countStars}}
                         </span>
                         <span title="{{createdDate}}">
                             {{formatDate createdDate "DD.MM.YYYY"}}

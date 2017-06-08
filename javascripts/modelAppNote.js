@@ -203,7 +203,6 @@ noteProApplication = (function() {
             }
             document.getElementById("listAllNote").style.color = "#000000";
         }
-
     }
 
     return {

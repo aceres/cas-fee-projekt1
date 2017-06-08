@@ -1,4 +1,7 @@
+// IIFE - Immediately Invoked Function Expression
 (function($, window, document) {
+
+    // The $ is now locally scoped
 
     "use strict";
 
@@ -13,6 +16,7 @@
     let localStorageDataNote = null;
 
     $(function () {
+        // The DOM is ready!
 
         const dataNote = {
             appNote: [
@@ -94,8 +98,9 @@
         btnShowAllFinishedTasks.addEventListener("click", buttonClickListener);
     });
 
-    // Accordion (Description)
+    // Toggle row (for long descriptions)
     function toggleRow() {
+
         let charLimit = 120;
 
         function truncate(el) {
@@ -140,7 +145,7 @@
                 localStorageDataNote.appNote.sort(function (a, b) {
                     return b.importance - a.importance
                 });
-                reRenderList(localStorageDataNote);
+                renderNotes(localStorageDataNote);
                 break;
 
             case "btnSortByCreatedDate":
@@ -148,7 +153,7 @@
                 localStorageDataNote.appNote.sort(function (a, b) {
                     return a.createdDate - b.createdDate
                 });
-                reRenderList(localStorageDataNote);
+                renderNotes(localStorageDataNote);
                 break;
 
             case "btnSortByFinishDate":
@@ -156,7 +161,7 @@
                 localStorageDataNote.appNote.sort(function (a, b) {
                     return a.finishDate - b.finishDate
                 });
-                reRenderList(localStorageDataNote);
+                renderNotes(localStorageDataNote);
                 break;
 
             case "btnSortByTitle":
@@ -164,7 +169,7 @@
                 localStorageDataNote.appNote.sort(function (a, b) {
                     return a.title.localeCompare(b.title);
                 });
-                reRenderList(localStorageDataNote);
+                renderNotes(localStorageDataNote);
                 break;
 
             case "btnShowAllFinishedTasks":
@@ -188,9 +193,8 @@
         }
     }
 
-    // Re-render the list of notes
-    function reRenderList(localData) {
-
+    // Render notes
+    function renderNotes(localData) {
         updateLocalStorage(localData);
         $("ul#listAllNote").empty();
         let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
