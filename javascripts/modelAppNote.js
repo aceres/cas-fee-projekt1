@@ -8,32 +8,56 @@ if (typeof noteProApplication === "undefined") {
 /* Revealing Module Pattern */
 noteProApplication = (function() {
 
-    //"use strict";
+    "use strict";
 
     // Initialize and register buttons
     const btnCreateNote = document.getElementById("btnCreateNote");
     const btnBackToList = document.getElementById("btnBackToList");
     const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
+    const btnSaveNote = document.getElementById("btnSaveNote");
+    const btnUpdateNote = document.getElementById("btnUpdateNote");
+    const btnDeleteNote = document.getElementById("btnDeleteNote");
 
-    /* Create Note */
+    // Create Note
     if (btnCreateNote) {
         btnCreateNote.addEventListener("click", function () {
             router.route("detailNote.html?id=0");
         });
     }
 
-    /* List */
+    // List
     if (btnBackToList) {
         btnBackToList.addEventListener("click", function () {
             router.route("index.html");
         });
     }
 
-    /* Clear Local Storage */
+    // Clear Local Storage
     if (btnClearLocalStorage) {
         btnClearLocalStorage.addEventListener("click", function () {
             localStorage.clear();
             router.route("index.html");
+        });
+    }
+
+    // Save Note
+    if (btnSaveNote) {
+        btnSaveNote.addEventListener("click", function () {
+            noteProApplication.createNote();
+        });
+    }
+
+    // Update Note
+    if (btnUpdateNote) {
+        btnUpdateNote.addEventListener("click", function () {
+            noteProApplication.updateNote();
+        });
+    }
+
+    // Delete Note
+    if (btnDeleteNote) {
+        btnDeleteNote.addEventListener("click", function () {
+            noteProApplication.deleteNote();
         });
     }
 
@@ -104,8 +128,11 @@ noteProApplication = (function() {
 
         if (id != 0) {
 
-            $(".formCreateNote").hide();
-            $(".formEditeNote").show();
+            $("#btnSaveNote").hide();
+            $("#btnDeleteNote").show();
+            $("#btnUpdateNote").show();
+            $(".titleUpdateNote").show();
+            $(".titleCreateNote").hide();
 
             let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
 
@@ -118,8 +145,12 @@ noteProApplication = (function() {
             document.getElementById("date").value = moment(objNote[0].finishDate).format("YYYY-MM-DD");
             $("input[name='importance'][value='"+objNote[0].importance+"']").attr("checked", true);
         } else {
-            $(".formCreateNote").show();
-            $(".formEditNote").hide();
+
+            $("#btnSaveNote").show();
+            $("#btnDeleteNote").hide();
+            $("#btnUpdateNote").hide();
+            $(".titleCreateNote").show();
+            $(".titleUpdateNote").hide();
         }
     }
 
