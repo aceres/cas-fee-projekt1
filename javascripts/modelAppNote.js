@@ -13,6 +13,9 @@ noteProApplication = (function() {
     $(function () {
         // The DOM is ready!
         noteProApplication.detailNote();
+
+        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+        console.log("bgStyle: ", jsonLocalStorage.bgStyle.color);
     });
 
     // Get local storage

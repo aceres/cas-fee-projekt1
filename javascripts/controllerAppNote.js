@@ -17,9 +17,13 @@
     let localStorageDataNote = null;
 
     $(function () {
+
         // The DOM is ready!
 
         const dataNote = {
+            bgStyle: {
+                color: "greyBg"
+            },
             appNote: [
                 {
                     id: 1,
@@ -97,6 +101,7 @@
         btnSortByFinishDate.addEventListener("click", buttonClickListener);
         btnSortByTitle.addEventListener("click", buttonClickListener);
         btnShowAllFinishedTasks.addEventListener("click", buttonClickListener);
+        selectStyle.addEventListener("change", buttonClickListener);
     });
 
     // Toggle row (for long descriptions)
@@ -139,6 +144,35 @@
     let txtShowAllFinishedTasks = true;
     function buttonClickListener(e) {
 
+        // Style
+        let bg = document.body;
+        if (e.currentTarget.value === "greyBg") {
+            bg.style.backgroundColor = "#EEEEEE";
+            bg.style.color = "#000000";
+
+            let tagBg = document.getElementsByClassName("changeBg");
+            let len =  tagBg.length;
+
+            for (let i=0; i < len; i++){
+                tagBg[i].style.backgroundColor = "#FFFFFF";
+            }
+            document.getElementById("listAllNote").style.color = "#000000";
+        }
+
+        if (e.currentTarget.value === "blackBg") {
+            bg.style.backgroundColor = "#000000";
+            bg.style.color = "#FFFFFF";
+
+            let tagBg = document.getElementsByClassName("changeBg");
+            let len =  tagBg.length;
+
+            for (let i=0; i < len; i++){
+                tagBg[i].style.backgroundColor = "#666666";
+            }
+            document.getElementById("listAllNote").style.color = "#000000";
+        }
+
+        // Settings buttons
         switch (e.currentTarget.id) {
 
             case "btnSortByImportance":
@@ -210,33 +244,5 @@
     }
 
     // Exposed API facilities
-    //export default { buttonClickListener };
+    //export default { changeStyle };
 }(jQuery, window, document));
-
-// Change the style of the Note Application
-function changeStyle(value) {
-    let bg = document.body;
-    if (value === "greyBg") {
-        bg.style.backgroundColor = "#EEEEEE";
-        bg.style.color = "#000000";
-
-        let tagBg = document.getElementsByClassName("changeBg");
-        let len =  tagBg.length;
-
-        for (let i=0; i < len; i++){
-            tagBg[i].style.backgroundColor = "#FFFFFF";
-        }
-        document.getElementById("listAllNote").style.color = "#000000";
-    } else {
-        bg.style.backgroundColor = "#000000";
-        bg.style.color = "#FFFFFF";
-
-        let tagBg = document.getElementsByClassName("changeBg");
-        let len =  tagBg.length;
-
-        for (let i=0; i < len; i++){
-            tagBg[i].style.backgroundColor = "#666666";
-        }
-        document.getElementById("listAllNote").style.color = "#000000";
-    }
-}
