@@ -226,9 +226,9 @@ label.star:before {
     height: 0px;
     display: inline-block;
     border-right: 10px solid transparent;
-    border-top: 10px solid #FE7;
-    border-left: 10px solid #FE7;
-    border-bottom: 10px solid #FE7;
+    border-top: 10px solid #f4eb14;
+    border-left: 10px solid #f4eb14;
+    border-bottom: 10px solid #f4eb14;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;

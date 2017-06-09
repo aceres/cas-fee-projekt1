@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Note Pro</title>
-
     <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-
     <script type="text/javascript" src="javascripts/lib/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
 </head>
-<body onload="noteProApplication.detailNote()">
+<body>
     <header>
         <h1>Note Pro</h1>
     </header>
-
     <main>
         <nav>
             <h2>
@@ -33,7 +30,6 @@
             <h2 class="titleUpdateNote">
                 Edit Note
             </h2>
-
             <form name="formNote">
                 <p>
                     <label for="title">Title:</label>
@@ -64,18 +60,15 @@
                 <br>
                 <p id="validation"></p>
             </form>
-
-            <a id="btnSaveNote" title="Save note">Save</a> <a id="btnUpdateNote" title="Update note">Update</a>
+            <a id="btnSaveNote" title="Save note">Save</a>
+            <a id="btnUpdateNote" title="Update note">Update</a>
             <a id="btnDeleteNote" title="Delete note">Delete</a>
-            <a title="Cancel" href="index.html">Cancel</a>
-
+            <a id="btnCancelNote" title="Cancel">Cancel</a>
         </article>
     </main>
-
     <footer>
         CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
     </footer>
-
     <script type="text/javascript" src="javascripts/routeAppNote.js"></script>
     <script type="text/javascript" src="javascripts/modelAppNote.js"></script>
     <script type="text/javascript" src="javascripts/sharedAppNote.js"></script>

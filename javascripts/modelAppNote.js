@@ -10,56 +10,10 @@ noteProApplication = (function() {
 
     "use strict";
 
-    // Initialize and register buttons
-    const btnCreateNote = document.getElementById("btnCreateNote");
-    const btnBackToList = document.getElementById("btnBackToList");
-    const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
-    const btnSaveNote = document.getElementById("btnSaveNote");
-    const btnUpdateNote = document.getElementById("btnUpdateNote");
-    const btnDeleteNote = document.getElementById("btnDeleteNote");
-
-    // Create Note
-    if (btnCreateNote) {
-        btnCreateNote.addEventListener("click", function () {
-            router.route("detailNote.html?id=0");
-        });
-    }
-
-    // List
-    if (btnBackToList) {
-        btnBackToList.addEventListener("click", function () {
-            router.route("index.html");
-        });
-    }
-
-    // Clear Local Storage
-    if (btnClearLocalStorage) {
-        btnClearLocalStorage.addEventListener("click", function () {
-            localStorage.clear();
-            router.route("index.html");
-        });
-    }
-
-    // Save Note
-    if (btnSaveNote) {
-        btnSaveNote.addEventListener("click", function () {
-            noteProApplication.createNote();
-        });
-    }
-
-    // Update Note
-    if (btnUpdateNote) {
-        btnUpdateNote.addEventListener("click", function () {
-            noteProApplication.updateNote();
-        });
-    }
-
-    // Delete Note
-    if (btnDeleteNote) {
-        btnDeleteNote.addEventListener("click", function () {
-            noteProApplication.deleteNote();
-        });
-    }
+    $(function () {
+        // The DOM is ready!
+        noteProApplication.detailNote();
+    });
 
     // Get local storage
     let fetchDataLocalStorage = function() {
@@ -124,7 +78,7 @@ noteProApplication = (function() {
     // Get detail note
     let detailNote = function() {
 
-        let id = noteProApplication.getQueryVariable("id");
+        let id = noteProApplication.getId("id");
 
         if (id != 0) {
 
@@ -157,7 +111,7 @@ noteProApplication = (function() {
     // Update Note
     let updateNote = function() {
 
-        let id = noteProApplication.getQueryVariable("id");
+        let id = noteProApplication.getId("id");
         let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
 
         let selectedDate = document.getElementById("date").value;
@@ -179,7 +133,7 @@ noteProApplication = (function() {
     // Delete Note
     let deleteNote = function() {
 
-        let id = noteProApplication.getQueryVariable("id");
+        let id = noteProApplication.getId("id");
         let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
 
         for (let i=0; i < jsonLocalStorage.appNote.length; i++){
@@ -189,7 +143,7 @@ noteProApplication = (function() {
         }
         // Update it in the localStorage too
         updateDataLocalStorage(jsonLocalStorage);
-        router.route("index.html");
+        router.navigateTo("index.html");
     }
 
     // Mark Note as checked (finished)
@@ -211,7 +165,7 @@ noteProApplication = (function() {
     }
 
     // Get Id from the URL
-    let getQueryVariable = function(nodeId) {
+    let getId = function(nodeId) {
 
         let query = window.location.search.substring(1);
         let vars = query.split("&");
@@ -224,34 +178,6 @@ noteProApplication = (function() {
         return(false);
     }
 
-    // Change the style of the Note Application
-    let changeStyle = function(value) {
-        let bg = document.body;
-        if (value === "greyBg") {
-            bg.style.backgroundColor = "#EEEEEE";
-            bg.style.color = "#000000";
-
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
-
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#FFFFFF";
-            }
-            document.getElementById("listAllNote").style.color = "#000000";
-        } else {
-            bg.style.backgroundColor = "#000000";
-            bg.style.color = "#FFFFFF";
-
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
-
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#666666";
-            }
-            document.getElementById("listAllNote").style.color = "#000000";
-        }
-    }
-
     return {
         fetchDataLocalStorage: fetchDataLocalStorage,
         updateDataLocalStorage: updateDataLocalStorage,
@@ -261,8 +187,7 @@ noteProApplication = (function() {
         updateNote: updateNote,
         deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,
-        getQueryVariable: getQueryVariable,
-        changeStyle: changeStyle
+        getId: getId
     };
 
     // Exposed API facilities

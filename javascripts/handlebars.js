@@ -19,11 +19,11 @@ Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
 // Show stars
 Handlebars.registerHelper('countStars', function(stars, block) {
 
-    var accum = '',
+    var count = '',
         i = 0;
 
     while(++i <= stars) {
-        accum += block.fn(i);
+        count += block.fn(i);
     }
-    return accum;
+    return count;
 });

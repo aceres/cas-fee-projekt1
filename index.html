@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Note Pro</title>
-
     <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
-
     <script type="text/javascript" src="javascripts/lib/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/handlebars-v4.0.5.js"></script>
     <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
@@ -15,7 +13,6 @@
     <header class="changeBg">
         <h1>Note Pro</h1>
     </header>
-
     <main>
         <nav class="changeBg">
             <h2>
@@ -96,14 +93,13 @@
                 {{/each}}
                 Number of rows: {{ appNote.length }}
             </script>
-
         </article>
         <aside class="changeBg">
             <h2>
                 Settings
             </h2>
             <br>
-            <select onchange="noteProApplication.changeStyle(this.value)">
+            <select onchange="changeStyle(this.value)">
                 <option value="greyBg">Grey Background (Standard)</option>
                 <option value="blackBg">Black Background</option>
             </select>
@@ -126,11 +122,9 @@
             </button>
         </aside>
     </main>
-
     <footer class="changeBg">
         CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
     </footer>
-
     <script type="text/javascript" src="javascripts/routeAppNote.js"></script>
     <script type="text/javascript" src="javascripts/modelAppNote.js"></script>
     <script type="text/javascript" src="javascripts/controllerAppNote.js"></script>
