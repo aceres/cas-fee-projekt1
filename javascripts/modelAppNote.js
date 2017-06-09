@@ -8,7 +8,7 @@ if (typeof noteProApplication === "undefined") {
 /* Revealing Module Pattern */
 noteProApplication = (function() {
 
-    "use strict";
+    //"use strict";
 
     // Initialize and register buttons
     const btnCreateNote = document.getElementById("btnCreateNote");
@@ -33,7 +33,7 @@ noteProApplication = (function() {
     if (btnClearLocalStorage) {
         btnClearLocalStorage.addEventListener("click", function () {
             localStorage.clear();
-            window.location.reload("index.html");
+            router.route("index.html");
         });
     }
 
@@ -145,6 +145,22 @@ noteProApplication = (function() {
         updateDataLocalStorage(jsonLocalStorage);
     }
 
+    // Delete Note
+    let deleteNote = function() {
+
+        let id = noteProApplication.getQueryVariable("id");
+        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+
+        for (let i=0; i < jsonLocalStorage.appNote.length; i++){
+            if(jsonLocalStorage.appNote[i].id == id){
+                jsonLocalStorage.appNote.splice(i,1);
+            }
+        }
+        // Update it in the localStorage too
+        updateDataLocalStorage(jsonLocalStorage);
+        router.route("index.html");
+    }
+
     // Mark Note as checked (finished)
     let checkNoteAsFinished = function(id) {
 
@@ -164,13 +180,13 @@ noteProApplication = (function() {
     }
 
     // Get Id from the URL
-    let getQueryVariable = function(variable) {
+    let getQueryVariable = function(nodeId) {
 
         let query = window.location.search.substring(1);
         let vars = query.split("&");
         for (let i=0; i < vars.length; i++) {
             let pair = vars[i].split("=");
-            if (pair[0] == variable) {
+            if (pair[0] == nodeId) {
                 return pair[1];
             }
         }
@@ -212,6 +228,7 @@ noteProApplication = (function() {
         createNote: createNote,
         detailNote: detailNote,
         updateNote: updateNote,
+        deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,
         getQueryVariable: getQueryVariable,
         changeStyle: changeStyle
@@ -220,7 +237,6 @@ noteProApplication = (function() {
     // Exposed API facilities
     //export default { createNote, updateNote };
 })();
-
 
 
 

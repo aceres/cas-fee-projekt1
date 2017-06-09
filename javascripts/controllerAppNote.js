@@ -207,4 +207,7 @@
     function updateLocalStorage(localStorageDataNote) {
         localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
     }
+
+    // Exposed API facilities
+    //export default { buttonClickListener };
 }(window.jQuery, window, document));
