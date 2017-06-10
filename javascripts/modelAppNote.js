@@ -86,21 +86,16 @@ modelNoteProApplication = (function() {
     }
 
     // Update Note
-    function updateNote() {
+    function updateNote(id, title, description, finishDate, importance) {
 
-        let id = modelNoteProApplication.getId("id");
         let jsonLocalStorage = modelNoteProApplication.fetchDataLocalStorage();
-
-        let selectedDate = document.getElementById("date").value;
-        let defineAsDate = new Date(selectedDate);
-        let formatDate = defineAsDate.valueOf();
 
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id) {
-                entry.title = document.getElementById("title").value;
-                entry.description = document.getElementById("description").value;
-                entry.finishDate = formatDate;
-                entry.importance = $("input:radio[name=importance]:checked").val()
+                entry.title = title;
+                entry.description = description;
+                entry.finishDate = finishDate;
+                entry.importance = importance
             }
         });
 

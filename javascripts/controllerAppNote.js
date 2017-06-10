@@ -198,11 +198,18 @@
         if (btnUpdateNote) {
             btnUpdateNote.addEventListener("click", function () {
 
+                let id = modelNoteProApplication.getId("id");
                 let title = document.getElementById("title").value;
                 let description = document.getElementById("description").value;
 
+                let selectedDate = document.getElementById("date").value;
+                let defineAsDate = new Date(selectedDate);
+                let formatDate = defineAsDate.valueOf();
+
+                let importance = $("input:radio[name=importance]:checked").val()
+
                 if (title !== "" && description != "") {
-                    modelNoteProApplication.updateNote();
+                    modelNoteProApplication.updateNote(id, title, description, formatDate, importance);
                     $(".success").show();
                     $(".warning").hide();
                     showNotification();
