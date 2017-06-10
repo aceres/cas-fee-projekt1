@@ -3,15 +3,29 @@
 (function ($, window, document, undefined) {
 
     // The $ is now locally scoped
-
     "use strict";
 
-    // Grab the template script
-    let templateScriptAllNote = $("#template-list-all-note").html();
+    // If the detail page appears, so ignore the handlebars
+    let checkIfDetailPageExists = modelNoteProApplication.getId("id");
 
-    // Compile the template
-    let templateAllNote = Handlebars.compile(templateScriptAllNote);
+    // Grab the template script
+    let templateScriptAllNote = null;
+    let templateAllNote = null;
     let allNotesCompiledHtml = null;
+
+    if (checkIfDetailPageExists === false) {
+        // For the list
+        // Handlebars will be loaded!
+        templateScriptAllNote = $("#template-list-all-note").html();
+
+        // Compile the template
+        templateAllNote = Handlebars.compile(templateScriptAllNote);
+        allNotesCompiledHtml = null;
+    } else {
+        // For the edit / update detail only
+        // Handlebars will not be included!
+        showDetailNote();
+    }
 
     // LocalStorage
     let localStorageDataNote = null;
@@ -78,14 +92,21 @@
 
             // Get object from the localStorage
             localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-            // Pass our data to the template
-            allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+
+            if (checkIfDetailPageExists === false) {
+                // Pass our data to the template
+                allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+            }
         } else {
+
             // Add object to the localStorage
             updateLocalStorage(dataNote);
             localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-            // Pass our data to the template
-            allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+
+            if (checkIfDetailPageExists === false) {
+                // Pass our data to the template
+                allNotesCompiledHtml = templateAllNote(localStorageDataNote);
+            }
         }
 
         // Add the compiled html to the page
@@ -95,13 +116,119 @@
         // Initialize for open / close detail row (description)
         toggleRow();
 
-        // Button (Registration)
-        btnSortByImportance.addEventListener("click", buttonClickListener);
-        btnSortByCreatedDate.addEventListener("click", buttonClickListener);
-        btnSortByFinishDate.addEventListener("click", buttonClickListener);
-        btnSortByTitle.addEventListener("click", buttonClickListener);
-        btnShowAllFinishedTasks.addEventListener("click", buttonClickListener);
-        selectStyle.addEventListener("change", buttonClickListener);
+        // Register and initialize buttons / select
+        const btnSortByImportance = document.getElementById("btnSortByImportance");
+        const btnSortByCreatedDate = document.getElementById("btnSortByCreatedDate");
+        const btnSortByFinishDate = document.getElementById("btnSortByFinishDate");
+        const btnSortByTitle = document.getElementById("btnSortByTitle");
+        const btnShowAllFinishedTasks = document.getElementById("btnShowAllFinishedTasks");
+        const selectStyle = document.getElementById("selectStyle");
+
+        const btnCreateNote = document.getElementById("btnCreateNote");
+        const btnBackToList = document.getElementById("btnBackToList");
+        const btnClearLocalStorage = document.getElementById("btnClearLocalStorage");
+        const btnSaveNote = document.getElementById("btnSaveNote");
+        const btnUpdateNote = document.getElementById("btnUpdateNote");
+        const btnDeleteNote = document.getElementById("btnDeleteNote");
+        const btnCancelNote = document.getElementById("btnCancelNote");
+
+        // Sort by importance / created date / finish date / title
+        // Show finished tasks only / select style
+        if (btnSortByImportance || btnSortByCreatedDate || btnSortByFinishDate || btnSortByTitle || btnShowAllFinishedTasks || selectStyle) {
+
+            btnSortByImportance.addEventListener("click", buttonClickListener);
+            btnSortByCreatedDate.addEventListener("click", buttonClickListener);
+            btnSortByFinishDate.addEventListener("click", buttonClickListener);
+            btnSortByTitle.addEventListener("click", buttonClickListener);
+            btnShowAllFinishedTasks.addEventListener("click", buttonClickListener);
+            selectStyle.addEventListener("change", buttonClickListener);
+        }
+
+        // Check note as finished
+        $('#listAllNote').on('change', 'input[type=checkbox]', function(e) {
+            modelNoteProApplication.checkNoteAsFinished(this.value)
+        });
+
+        // Create Note
+        if (btnCreateNote) {
+            btnCreateNote.addEventListener("click", function () {
+                router.navigateTo("detailNote.html?id=0");
+            });
+        }
+
+        // List
+        if (btnBackToList) {
+            btnBackToList.addEventListener("click", function () {
+                router.navigateTo("index.html");
+            });
+        }
+
+        // Clear Local Storage
+        if (btnClearLocalStorage) {
+            btnClearLocalStorage.addEventListener("click", function () {
+                localStorage.clear();
+                router.navigateTo("index.html");
+            });
+        }
+
+        // Save Note
+        if (btnSaveNote) {
+            btnSaveNote.addEventListener("click", function () {
+
+                let title = document.getElementById("title").value;
+                let description = document.getElementById("description").value;
+                let selectedDate = document.getElementById("date").value;
+                let importance = $("input:radio[name=importance]:checked").val();
+
+                if (title !== "" && description != "") {
+                    modelNoteProApplication.saveNote(title, description, selectedDate, importance);
+                    $(".success").show();
+                    $(".warning").hide();
+                    showNotification();
+                } else {
+                    document.getElementById("validation").innerHTML = "Please fill in all fields!";
+                    $(".warning").show();
+                    $(".success").hide();
+                    showNotification();
+                }
+            });
+        }
+
+        // Update Note
+        if (btnUpdateNote) {
+            btnUpdateNote.addEventListener("click", function () {
+
+                let title = document.getElementById("title").value;
+                let description = document.getElementById("description").value;
+
+                if (title !== "" && description != "") {
+                    modelNoteProApplication.updateNote();
+                    $(".success").show();
+                    $(".warning").hide();
+                    showNotification();
+                } else {
+                    document.getElementById("validation").innerHTML = "Please fill in all fields!";
+                    $(".warning").show();
+                    $(".success").hide();
+                    showNotification();
+                }
+            });
+        }
+
+        // Delete Note
+        if (btnDeleteNote) {
+            btnDeleteNote.addEventListener("click", function () {
+                modelNoteProApplication.deleteNote();
+            });
+        }
+
+        // Cancel Note
+        if (btnCancelNote) {
+            btnCancelNote.addEventListener("click", function () {
+                router.navigateTo("index.html");
+            });
+        }
+
     });
 
     // Toggle row (for long descriptions)
@@ -225,6 +352,46 @@
                     txtShowAllFinishedTasks = true;
                 }
                 break;
+        }
+    }
+
+    function showNotification() {
+
+        let close = document.getElementsByClassName("closebtn");
+        let i;
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function(){
+                let div = this.parentElement;
+                div.style.opacity = "0";
+                setTimeout(function(){ div.style.display = "none"; }, 600);
+            }
+        }
+    }
+
+    // Detail note
+    function showDetailNote() {
+
+        modelNoteProApplication.loadDetailNote();
+        let objectNote = modelNoteProApplication.loadDetailNote();
+
+        if (typeof objectNote === 'object' && objectNote.id != 0) {
+            $("#btnSaveNote").hide();
+            $("#btnDeleteNote").show();
+            $("#btnUpdateNote").show();
+            $(".titleUpdateNote").show();
+            $(".titleCreateNote").hide();
+
+            document.getElementById("title").value = objectNote.title;
+            document.getElementById("description").value = objectNote.description;
+            document.getElementById("date").value = moment(objectNote.finishDate).format("YYYY-MM-DD");
+            $("input[name='importance'][value='"+objectNote.importance+"']").attr("checked", true);
+        } else {
+            $("#btnSaveNote").show();
+            $("#btnDeleteNote").hide();
+            $("#btnUpdateNote").hide();
+            $(".titleCreateNote").show();
+            $(".titleUpdateNote").hide();
         }
     }
 

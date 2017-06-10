@@ -1,40 +1,38 @@
-let noteProApplication = {};
+let modelNoteProApplication = {};
 
 // We need to do a check before we create the namespace
-if (typeof noteProApplication === "undefined") {
-    let noteProApplication = {};
+if (typeof modelNoteProApplication === "undefined") {
+    let modelNoteProApplication = {};
 }
 
 /* Revealing Module Pattern */
-noteProApplication = (function() {
+modelNoteProApplication = (function() {
 
     "use strict";
 
     $(function () {
         // The DOM is ready!
-        noteProApplication.detailNote();
-
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
-        console.log("bgStyle: ", jsonLocalStorage.bgStyle.color);
     });
 
     // Get local storage
     let fetchDataLocalStorage = function() {
+
         let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
         return jsonLocalStorage;
     }
 
     // Update local storage
     let updateDataLocalStorage = function(jsonLocalStorage) {
+
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
 
     // Set new ID for creating new note
     let maxId = function() {
 
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+        let jsonLocalStorage = modelNoteProApplication.fetchDataLocalStorage();
 
-        // TODO: Define what reduce does!
+        // TODO: Refactor
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
             if (+current.id > +prev.id) {
                 return current;
@@ -46,76 +44,52 @@ noteProApplication = (function() {
     }
 
     // Create Note
-    let createNote = function() {
+    function saveNote(title, description, selectedDate, importance) {
 
-        let id = noteProApplication.maxId();
-        let title = document.getElementById("title").value;
-        let description = document.getElementById("description").value;
-        let selectedDate = document.getElementById("date").value;
+        let id = modelNoteProApplication.maxId();
         let defineAsDate = new Date(selectedDate);
         let formatDate = defineAsDate.valueOf();
         let newDate = new Date();
 
-        // TODO: Valid Date
-        if (title !== "" && description != "" && defineAsDate != "") {
-
-            let newNote = {
-                id: id,
-                title: document.getElementById("title").value,
-                description: document.getElementById("description").value,
-                importance: $("input:radio[name=importance]:checked").val(),
-                createdDate: newDate.valueOf(),
-                finishDate: formatDate,
-                finished: false
-            }
-            // Retrieve the object from the local storage to add a new note (new object)
-            let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
-            jsonLocalStorage.appNote.push(newNote);
-            // Update the storage
-            updateDataLocalStorage(jsonLocalStorage);
-        } else {
-            document.getElementById("validation").innerHTML = "Please fill in all fields!";
+        let newNote = {
+            id: id,
+            title: title,
+            description: description,
+            importance: importance,
+            createdDate: newDate.valueOf(),
+            finishDate: formatDate,
+            finished: false
         }
+
+        let jsonLocalStorage = modelNoteProApplication.fetchDataLocalStorage();
+        jsonLocalStorage.appNote.push(newNote);
+
+        updateDataLocalStorage(jsonLocalStorage);
     }
 
     // Get detail note
-    let detailNote = function() {
+    function loadDetailNote() {
 
-        let id = noteProApplication.getId("id");
+        let id = modelNoteProApplication.getId("id");
 
         if (id != 0) {
 
-            $("#btnSaveNote").hide();
-            $("#btnDeleteNote").show();
-            $("#btnUpdateNote").show();
-            $(".titleUpdateNote").show();
-            $(".titleCreateNote").hide();
-
-            let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+            let jsonLocalStorage = modelNoteProApplication.fetchDataLocalStorage();
 
             let objNote = jsonLocalStorage.appNote.filter(function (entry) {
                 return entry.id == id;
             });
 
-            document.getElementById("title").value = objNote[0].title;
-            document.getElementById("description").value = objNote[0].description;
-            document.getElementById("date").value = moment(objNote[0].finishDate).format("YYYY-MM-DD");
-            $("input[name='importance'][value='"+objNote[0].importance+"']").attr("checked", true);
-        } else {
-
-            $("#btnSaveNote").show();
-            $("#btnDeleteNote").hide();
-            $("#btnUpdateNote").hide();
-            $(".titleCreateNote").show();
-            $(".titleUpdateNote").hide();
+            // TODO: Refactor
+            return objNote[0];
         }
     }
 
     // Update Note
-    let updateNote = function() {
+    function updateNote() {
 
-        let id = noteProApplication.getId("id");
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+        let id = modelNoteProApplication.getId("id");
+        let jsonLocalStorage = modelNoteProApplication.fetchDataLocalStorage();
 
         let selectedDate = document.getElementById("date").value;
         let defineAsDate = new Date(selectedDate);
@@ -129,30 +103,30 @@ noteProApplication = (function() {
                 entry.importance = $("input:radio[name=importance]:checked").val()
             }
         });
-        // Update it in the localStorage too
+
         updateDataLocalStorage(jsonLocalStorage);
     }
 
     // Delete Note
-    let deleteNote = function() {
+    function deleteNote() {
 
-        let id = noteProApplication.getId("id");
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+        let id = modelNoteProApplication.getId("id");
+        let jsonLocalStorage = modelNoteProApplication.fetchDataLocalStorage();
 
         for (let i=0; i < jsonLocalStorage.appNote.length; i++){
             if(jsonLocalStorage.appNote[i].id == id){
                 jsonLocalStorage.appNote.splice(i,1);
             }
         }
-        // Update it in the localStorage too
+
         updateDataLocalStorage(jsonLocalStorage);
         router.navigateTo("index.html");
     }
 
-    // Mark Note as checked (finished)
-    let checkNoteAsFinished = function(id) {
+    // Mark Note as finished only
+    function checkNoteAsFinished(id) {
 
-        let jsonLocalStorage = noteProApplication.fetchDataLocalStorage();
+        let jsonLocalStorage = modelNoteProApplication.fetchDataLocalStorage();
 
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id && entry.finished == false) {
@@ -162,22 +136,23 @@ noteProApplication = (function() {
             }
         });
 
-        // Update it in the localStorage too
         updateDataLocalStorage(jsonLocalStorage);
-        window.location.reload();
+        router.reload();
     }
 
     // Get Id from the URL
-    let getId = function(nodeId) {
+    function getId(nodeId) {
 
         let query = window.location.search.substring(1);
         let vars = query.split("&");
+
         for (let i=0; i < vars.length; i++) {
             let pair = vars[i].split("=");
             if (pair[0] == nodeId) {
                 return pair[1];
             }
         }
+
         return(false);
     }
 
@@ -185,8 +160,8 @@ noteProApplication = (function() {
         fetchDataLocalStorage: fetchDataLocalStorage,
         updateDataLocalStorage: updateDataLocalStorage,
         maxId: maxId,
-        createNote: createNote,
-        detailNote: detailNote,
+        saveNote: saveNote,
+        loadDetailNote: loadDetailNote,
         updateNote: updateNote,
         deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,

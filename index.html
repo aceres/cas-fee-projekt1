@@ -5,8 +5,8 @@
     <title>Note Pro</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
-    <script type="text/javascript" src="javascripts/lib/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="javascripts/lib/handlebars-v4.0.5.js"></script>
+    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/handlebars.js"></script>
     <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
 </head>
 <body>
@@ -84,7 +84,7 @@
                             {{formatDate finishDate "DD.MM.YYYY"}}
                         </span>
                         <span title="{{finished}}">
-                            <input type="checkbox" name="" onclick="noteProApplication.checkNoteAsFinished({{id}})" value="" {{{checkIfChecked finished}}}>
+                            <input type="checkbox" id="checkNoteAsFinished" name="nameCheckNoteAsFinsihed" value="{{id}}" {{{checkIfChecked finished}}}>
                         </span>
                         <span>
                             <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>

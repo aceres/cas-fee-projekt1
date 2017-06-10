@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="javascripts/lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
 </head>
 <body>
@@ -58,7 +58,14 @@
                     <input type="date" id="date" name="date">
                 </p>
                 <br>
-                <p id="validation"></p>
+                <div class="alert warning">
+                    <span class="closebtn">&times;</span>
+                    <strong>Not valid!</strong> <span id="validation"></span>
+                </div>
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Success!</strong> Successful saved / updated!
+                </div>
             </form>
             <a id="btnSaveNote" title="Save note">Save</a>
             <a id="btnUpdateNote" title="Update note">Update</a>
@@ -71,6 +78,7 @@
     </footer>
     <script type="text/javascript" src="javascripts/routeAppNote.js"></script>
     <script type="text/javascript" src="javascripts/modelAppNote.js"></script>
+    <script type="text/javascript" src="javascripts/controllerAppNote.js"></script>
     <script type="text/javascript" src="javascripts/sharedAppNote.js"></script>
 </body>
 </html>
