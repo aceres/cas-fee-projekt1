@@ -36,7 +36,7 @@
             <ul id="listAllNote">
             </ul>
             <script id="template-list-all-note" type="text/x-handlebars-template">
-                <li>
+                <li class="headerTitle">
                     <span>
                         Titel
                     </span>
@@ -91,7 +91,9 @@
                         </span>
                     </li>
                 {{/each}}
-                Number of rows: {{ appNote.length }}
+                <li class="footerRowLength">
+                    Number of rows: <span class="rowAllLength">{{ appNote.length }}</span><span class="rowCheckedLength">{{ appNote.length }}</span>
+                </li>
             </script>
         </article>
         <aside class="changeBg">

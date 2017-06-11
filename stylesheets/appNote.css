@@ -75,6 +75,16 @@ ul li:first-child {
     border-radius: 4px;
 }
 
+/* Length of rows */
+ul li:last-child {
+    background-color: #FFF !important;
+}
+
+ul li:last-child span:last-child {
+    float: none !important;
+}
+
+/* Stripes */
 ul li:nth-of-type(odd) {
     background: #EEE;
 }
@@ -120,6 +130,15 @@ ul span:nth-child(5) {
 
 ul span:last-child {
     float: right;
+}
+
+span.rowAllLength,
+span.rowCheckedLength {
+    margin: 0;
+}
+
+span.rowCheckedLength {
+    display: none;
 }
 
 /* Button */
@@ -246,9 +265,17 @@ label.star:before {
     margin-bottom: 15px;
 }
 
-.alert.success {background-color: #4CAF50;}
-.alert.info {background-color: #2196F3;}
-.alert.warning {background-color: #ff9800;}
+.alert.success {
+    background-color: #4CAF50;
+}
+
+.alert.info {
+    background-color: #2196F3;
+}
+
+.alert.warning {
+    background-color: #ff9800;
+}
 
 .closebtn {
     margin-left: 15px;

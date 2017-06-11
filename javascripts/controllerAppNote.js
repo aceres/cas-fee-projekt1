@@ -350,6 +350,11 @@
                     $("li:not('.hidden'):odd").css("background-color", "#eee");
                     $("button#btnShowAllFinishedTasks").text("Show all notes");
                     txtShowAllFinishedTasks = false;
+                    $("span.rowAllLength").hide();
+                    let newCountRow = $("#listAllNote").children(":not(.hidden, .headerTitle, .footerRowLength)").length;
+                    console.log("newCountRow: ", newCountRow);
+                    $("span.rowCheckedLength").text(newCountRow);
+                    $("span.rowCheckedLength").show();
                 } else {
 
                     $("li.hidden").removeClass("hidden").addClass("active");
@@ -357,6 +362,8 @@
                     $("li:odd").css("background-color", "#eee");
                     $("button#btnShowAllFinishedTasks").text("Show finished notes only");
                     txtShowAllFinishedTasks = true;
+                    $("span.rowAllLength").show();
+                    $("span.rowCheckedLength").hide();
                 }
                 break;
         }
