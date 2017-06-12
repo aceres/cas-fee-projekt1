@@ -31,6 +31,10 @@
 
 Weitere Information und Bewertungen, siehe Folie: CAS-FEE-2017-InfosProjektePrüfungNoten.pdf (ab Seite 10)
 
+### JS Code Style
+
+- http://airbnb.io/javascript/
+
 ### Installation (Setup)
 
 ```
