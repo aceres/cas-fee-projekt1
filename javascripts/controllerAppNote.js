@@ -104,6 +104,7 @@
             // Add object to the localStorage
             updateLocalStorage(dataNote);
             localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+            loadSkin();
 
             if (checkIfDetailPageExists === false) {
                 // Pass our data to the template
