@@ -388,9 +388,9 @@
         console.log("objectStyle.styleSkin.name: ", objectStyle.styleSkin);
 
         // Initialize Style by loading
-        /*$("#selectStyle option").filter(function() {
+        $("#selectStyle option").filter(function() {
             return this.value == objectStyle.styleSkin.name;
-        }).prop('selected', true);*/
+        }).prop('selected', true);
 
         let bg = document.body;
 
