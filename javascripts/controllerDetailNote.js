@@ -114,7 +114,6 @@
         }
     });
 
-    // TODO: Refactor / DRY
     function loadSkin() {
 
         let checkIfDetailPageExists = modelNoteProApplication.getId("id");
@@ -125,33 +124,22 @@
             return this.value == objectStyle.styleSkin.name;
         }).prop('selected', true);
 
-        let bg = document.body;
+        let nodeList = $('body').find('.changeBg');
 
         if (objectStyle.styleSkin.name === "greyBg") {
-            bg.style.backgroundColor = "#EEEEEE";
-            bg.style.color = "#000000";
 
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len = tagBg.length;
+            nodeList.addClass("greyBg");
+            nodeList.toggleClass("blackBg");
 
-            for (let i = 0; i < len; i++) {
-                tagBg[i].style.backgroundColor = "#FFFFFF";
-            }
             if (!checkIfDetailPageExists) {
                 document.getElementById("listAllNote").style.color = "#000000";
             }
         }
 
         if (objectStyle.styleSkin.name === "blackBg") {
-            bg.style.backgroundColor = "#000000";
-            bg.style.color = "#FFFFFF";
 
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
-
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#666666";
-            }
+            nodeList.addClass("blackBg");
+            nodeList.removeClass("greyBg");
 
             if (!checkIfDetailPageExists) {
                 document.getElementById("listAllNote").style.color = "#000000";

@@ -104,37 +104,66 @@ ul li:nth-of-type(even) {
     display: none;
 }
 
-ul li:hover {
-    background: #CCCCCC;
+table {
+    font-size: 12px;;
+    width: 100%
 }
 
-ul span {
-    display: inline-block;
-    vertical-align: top;
-    margin: 2px 2px;
+table th {
+    text-align: left;
+    font-weight: bold;
+    background-color: #CCC;
 }
 
-ul span:nth-child(1) {
+table th:first-child(1) {
     width: 20%;
 }
-
-ul span:nth-child(2) {
-    width: 35%;
+table th:nth-child(2) {
+    width: 30%;
 }
-
-ul span:nth-child(3) {
+table th:nth-child(3) {
+    width: 15%;
+}
+table th:nth-child(4) {
+    width: 10%;
+}
+table th:nth-child(5) {
+    width: 10%;
+}
+table th:nth-child(6) {
+    width: 5%;
+}
+table th:last-child {
     width: 10%;
 }
 
-ul span:nth-child(4) {
-    width: 10%;
+table a {
+    padding: 2px;
+    float: right;
+    width: 100px;
 }
 
-ul span:nth-child(5) {
-    width: 10%;
+table a.more {
+    padding: 2px 4px;
+    margin-top: 4px;
+    display: inline-block;
+    width: 200px;
 }
 
-ul span:last-child {
+tr {
+    background-color: #FFF;
+}
+
+tr:nth-child(2n+2) {
+    background-color: #dfdfdf;
+}
+
+/* TODO: Michael G */
+tr:hover {
+    background-color: #CCCCCC !important;
+}
+
+td:last-child {
     float: right;
 }
 
@@ -296,4 +325,20 @@ label.star:before {
 
 .closebtn:hover {
     color: black;
+}
+
+/* Apply Skin */
+.greyBg {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.blackBg {
+    background-color: #666666;
+    color: #FFFFFF;
+}
+
+/* TODO: Refactor */
+#listAllNote {
+    color: #000000;
 }

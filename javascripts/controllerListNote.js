@@ -38,7 +38,6 @@
         // Display all notes
         $("#listAllNote").append(allNotesCompiledHtml);
 
-        // TODO: Refactor this (sessionStorage)
         loadSkin();
 
         // Initialize for open / close detail row (description)
@@ -210,38 +209,22 @@
     function applySkin(e) {
 
         let objectStyle = JSON.parse(localStorage.getItem("localDataNote"));
-        let bg = document.body;
+        let nodeList = $('body').find('.changeBg');
 
         if (e.currentTarget.value === "greyBg") {
-            bg.style.backgroundColor = "#EEEEEE";
-            bg.style.color = "#000000";
 
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
-
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#FFFFFF";
-            }
-            document.getElementById("listAllNote").style.color = "#000000";
-            setStyle(objectStyle, e.currentTarget.value)
+            nodeList.addClass("greyBg");
+            nodeList.toggleClass("blackBg");
         }
 
         if (e.currentTarget.value === "blackBg") {
-            bg.style.backgroundColor = "#000000";
-            bg.style.color = "#FFFFFF";
 
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
-
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#666666";
-            }
-            document.getElementById("listAllNote").style.color = "#000000";
-            setStyle(objectStyle, e.currentTarget.value)
+            nodeList.addClass("blackBg");
+            nodeList.removeClass("greyBg");
         }
+        setStyle(objectStyle, e.currentTarget.value)
     }
 
-    // TODO: Refactor / DRY
     function loadSkin() {
 
         let checkIfDetailPageExists = modelNoteProApplication.getId("id");
@@ -252,33 +235,23 @@
             return this.value == objectStyle.styleSkin.name;
         }).prop('selected', true);
 
-        let bg = document.body;
+        let nodeList = $('body').find('.changeBg');
 
         if (objectStyle.styleSkin.name === "greyBg") {
-            bg.style.backgroundColor = "#EEEEEE";
-            bg.style.color = "#000000";
 
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len = tagBg.length;
+            nodeList.addClass("greyBg");
+            nodeList.toggleClass("blackBg");
 
-            for (let i = 0; i < len; i++) {
-                tagBg[i].style.backgroundColor = "#FFFFFF";
-            }
             if (!checkIfDetailPageExists) {
                 document.getElementById("listAllNote").style.color = "#000000";
             }
         }
 
         if (objectStyle.styleSkin.name === "blackBg") {
-            bg.style.backgroundColor = "#000000";
-            bg.style.color = "#FFFFFF";
 
-            let tagBg = document.getElementsByClassName("changeBg");
-            let len =  tagBg.length;
+            nodeList.addClass("blackBg");
+            nodeList.removeClass("greyBg");
 
-            for (let i=0; i < len; i++){
-                tagBg[i].style.backgroundColor = "#666666";
-            }
             if (!checkIfDetailPageExists) {
                 document.getElementById("listAllNote").style.color = "#000000";
             }
