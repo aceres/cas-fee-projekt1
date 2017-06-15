@@ -19,65 +19,12 @@
     templateAllNote = Handlebars.compile(templateScriptAllNote);
     allNotesCompiledHtml = null;
 
-    // LocalStorage
     let localStorageDataNote = null;
 
     $(function () {
 
         // The DOM is ready!
-
-        const dataNote = {
-            "appNote": [
-                {
-                    "id": 1,
-                    "title": "UI testen",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-                    "importance": 2,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1492732800000,
-                    "finished": true
-                },
-                {
-                    "id": 2,
-                    "title": "Hausaufgaben machen",
-                    "description": "Hier wird die genaue Beschreibung gemacht.",
-                    "importance": 5,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1489017600000,
-                    "finished": true
-                },
-                {
-                    "id": 3,
-                    "title": "Für die Prüfung lernen",
-                    "description": "2. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-                    "importance": 1,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1492732800000,
-                    "finished": false
-                },
-                {
-                    "id": 4,
-                    "title": "Priorität 1: HTML umsetzen",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-                    "importance": 3,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1492732800000,
-                    "finished": false
-                },
-                {
-                    "id": 5,
-                    "title": "Dozent fragen",
-                    "description": "Da wird die ungenaue Beschreibung vorgestellt.",
-                    "importance": 4,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1495238400000,
-                    "finished": true
-                }
-            ],
-            "styleSkin": {
-                "name": "bgGrey"
-            }
-        };
+        localStorageDataNote = modelNoteProApplication.initializeSampleData();
 
         // if null is false
         if (localStorage.getItem("localDataNote")) {
@@ -93,7 +40,7 @@
         } else {
 
             // Add object to the localStorage
-            updateLocalStorage(dataNote);
+            updateLocalStorage(localStorageDataNote);
             localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
 
             // Pass our data to the template
