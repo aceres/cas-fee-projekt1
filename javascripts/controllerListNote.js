@@ -18,9 +18,6 @@
     // Get data from local storage
     let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
 
-    // Initialize
-    let txtShowAllFinishedTasks = true;
-
     $(function () {
 
         // The DOM is ready!
@@ -101,6 +98,7 @@
                             return sortFunctions.sortByImportance(a, b);
                         });
                         render();
+                        checkIfFinishedTaskOnly();
                         break;
 
                     case "sortByCreatedDate":
@@ -109,6 +107,7 @@
                             return sortFunctions.sortByCreatedDate(a, b);
                         });
                         render();
+                        checkIfFinishedTaskOnly();
                         break;
 
                     case "sortByFinishDate":
@@ -117,6 +116,7 @@
                             return sortFunctions.sortByFinishDate(a, b);
                         });
                         render();
+                        checkIfFinishedTaskOnly();
                         break;
 
                     case "sortByTitle":
@@ -125,38 +125,48 @@
                             return a.title.localeCompare(b.title);
                         });
                         render();
+                        checkIfFinishedTaskOnly();
                         break;
 
                     case "showAllFinishedTasks":
-
-                        showAllFinishedTasksOnly();
+                        switchShowAllFinishedTasks();
+                        checkIfFinishedTaskOnly();
                         break;
                 }
             });
         }
     });
 
+    function switchShowAllFinishedTasks() {
+        if ($("#showAllFinishedTasks").attr("data-checked") === "false") {
+            $("#showAllFinishedTasks").attr("data-checked", "true");
+        } else {
+            $("#showAllFinishedTasks").attr("data-checked", "false");
+        }
+    }
 
-    function showAllFinishedTasksOnly() {
+    // Initialize
+    function checkIfFinishedTaskOnly() {
 
-        if (txtShowAllFinishedTasks === true) {
+        console.log("Test: ", $("#showAllFinishedTasks").attr("data-checked"));
+
+        if ($("#showAllFinishedTasks").attr("data-checked") === "true") {
 
             $("tr.active").removeClass("active").addClass("hidden");
             $("tr:not('.hidden'):even").css("background-color", "#fff");
             $("tr:not('.hidden'):odd").css("background-color", "#eee");
-            $("button#btnShowAllFinishedTasks").text("Show all notes");
-            txtShowAllFinishedTasks = false;
+            $("#showAllFinishedTasks").text("Show all notes");
             $("span.rowAllLength").hide();
             let newCountRow = $("#listAllNote").children(":not(.hidden, .headerTitle, .footerRowLength)").length;
             $("span.rowCheckedLength").text(newCountRow);
             $("span.rowCheckedLength").show();
+            console.log($("#showAllFinishedTasks").attr("data-checked"));
         } else {
 
             $("tr.hidden").removeClass("hidden").addClass("active");
             $("tr:even").css("background-color", "#fff");
             $("tr:odd").css("background-color", "#eee");
-            $("button#btnShowAllFinishedTasks").text("Show finished notes only");
-            txtShowAllFinishedTasks = true;
+            $("#showAllFinishedTasks").text("Show finished notes only");
             $("span.rowAllLength").show();
             $("span.rowCheckedLength").hide();
         }
