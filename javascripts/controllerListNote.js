@@ -137,6 +137,7 @@
         }
     });
 
+    // Switcher: All notes / Checked notes only
     function switchShowAllFinishedTasks() {
         if ($("#showAllFinishedTasks").attr("data-checked") === "false") {
             $("#showAllFinishedTasks").attr("data-checked", "true");
@@ -147,8 +148,6 @@
 
     // Initialize
     function checkIfFinishedTaskOnly() {
-
-        console.log("Test: ", $("#showAllFinishedTasks").attr("data-checked"));
 
         if ($("#showAllFinishedTasks").attr("data-checked") === "true") {
 
