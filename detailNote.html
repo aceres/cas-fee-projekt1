@@ -7,8 +7,6 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/font-aewsome.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
-    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
 </head>
 <body>
     <header class="changeBg">
@@ -20,7 +18,7 @@
                 Menu
             </h2>
             <br>
-            <button id="btnBackToList" title="Back to list" type="button">
+            <button class="button" id="list" title="Back to list" type="button">
                 Back to list
             </button>
         </nav>
@@ -68,18 +66,19 @@
                     <strong>Success!</strong> Successful saved / updated!
                 </div>
             </form>
-            <a id="btnSaveNote" title="Save note">Save</a>
-            <a id="btnUpdateNote" title="Update note">Update</a>
-            <a id="btnDeleteNote" title="Delete note">Delete</a>
-            <a id="btnCancelNote" title="Cancel">Cancel</a>
+            <a class="button" id="save" title="Save note">Save</a>
+            <a class="button" id="update" title="Update note">Update</a>
+            <a class="button" id="delete" title="Delete note">Delete</a>
+            <a class="button" id="cancel" title="Cancel">Cancel</a>
         </article>
     </main>
     <footer class="changeBg">
-        CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
+        CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" target="_blank" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
     </footer>
+    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
     <script type="text/javascript" src="javascripts/routeAppNote.js"></script>
     <script type="text/javascript" src="javascripts/modelAppNote.js"></script>
-    <script type="text/javascript" src="javascripts/controllerAppNote.js"></script>
-    <script type="text/javascript" src="javascripts/sharedAppNote.js"></script>
+    <script type="text/javascript" src="javascripts/controllerDetailNote.js"></script>
 </body>
 </html>

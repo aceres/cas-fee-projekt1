@@ -12,7 +12,6 @@ modelNoteProApplication = (function() {
 
     $(function () {
         // The DOM is ready!
-        // Here is model from MVC only / no needed to have contact with DOM directly
     });
 
     // Get local storage

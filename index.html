@@ -6,13 +6,14 @@
     <link rel="icon" href="html5.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
-    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/lib/handlebars.js"></script>
-    <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
 </head>
 <body>
     <header class="changeBg">
         <h1>Note Pro</h1>
+        <select class="select" id="selectStyle">
+            <option value="greyBg">Grey Background (Standard)</option>
+            <option value="blackBg">Black Background</option>
+        </select>
     </header>
     <main>
         <nav class="changeBg">
@@ -20,10 +21,10 @@
                 Menu
             </h2>
             <br>
-            <button id="btnCreateNote" title="Create Note" type="button">
+            <button class="button" id="createNote" title="Create Note" type="button">
                 Create Note
             </button>
-            <button id="btnClearLocalStorage" title="Clear Local Storage" type="button">
+            <button class="button" id="clearLocalStorage" title="Clear Local Storage" type="button">
                 Clear Local Storage
             </button>
         </nav>
@@ -34,36 +35,39 @@
             <h4>
                 All notes
             </h4>
-            <ul id="listAllNote">
-            </ul>
+            <table id="listAllNote">
+            </table>
             <script id="template-list-all-note" type="text/x-handlebars-template">
-                <li class="headerTitle">
-                    <span>
-                        Titel
-                    </span>
-                    <span>
-                        Description
-                    </span>
-                    <span>
-                        Importance
-                    </span>
-                    <span>
-                        Created Date
-                    </span>
-                    <span>
-                        Finish Date
-                    </span>
-                    <span>
-                    </span>
-                    <span>
-                    </span>
-                </li>
+                <thead>
+                    <tr class="headerTitle">
+                        <th>
+                            Titel
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Importance
+                        </th>
+                        <th>
+                            Created Date
+                        </th>
+                        <th>
+                            Finish Date
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
                 {{#each appNote}}
-                    <li {{#if finished}} class="active" {{/if}}>
-                        <span title="{{title}}">
+                    <tr {{#if finished}} class="active" {{/if}}>
+                        <td title="{{title}}">
                             {{title}}
-                        </span>
-                        <span title="{{description}}">
+                        </td>
+                        <td title="{{description}}">
                             <div class="wrap">
                               <div>
                                 <p class="truncated">
@@ -72,29 +76,32 @@
                               </div>
                             </div>
                             <a class="more" href="#">More</a>
-                        </span>
-                        <span title="Level {{importance}}">
+                        </td>
+                        <td title="Level {{importance}}">
                             {{#countStars importance}}
                                 <div class="pacman" title="{{this}}"></div>
                             {{/countStars}}
-                        </span>
-                        <span title="{{createdDate}}">
+                        </td>
+                        <td title="{{createdDate}}">
                             {{formatDate createdDate "DD.MM.YYYY"}}
-                        </span>
-                        <span title="{{finishDate}}">
+                        </td>
+                        <td title="{{finishDate}}">
                             {{formatDate finishDate "DD.MM.YYYY"}}
-                        </span>
-                        <span title="{{finished}}">
+                        </td>
+                        <td title="{{finished}}">
                             <input type="checkbox" id="checkNoteAsFinished" name="nameCheckNoteAsFinsihed" value="{{id}}" {{{checkIfChecked finished}}}>
-                        </span>
-                        <span>
+                        </td>
+                        <td>
                             <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>
-                        </span>
-                    </li>
+                        </td>
+                    </tr>
                 {{/each}}
-                <li class="footerRowLength">
-                    Number of rows: <span class="rowAllLength">{{ appNote.length }}</span><span class="rowCheckedLength">{{ appNote.length }}</span>
-                </li>
+                </tbody>
+                <tfoot>
+                    <tr class="footerRowLength">
+                        Number of rows: <span class="rowAllLength">{{ appNote.length }}</span><span class="rowCheckedLength">{{ appNote.length }}</span>
+                    </tr>
+                </tfoot>
             </script>
         </article>
         <aside class="changeBg">
@@ -102,36 +109,32 @@
                 Settings
             </h2>
             <br>
-            <select id="selectStyle">
-                <option value="greyBg">Grey Background (Standard)</option>
-                <option value="blackBg">Black Background</option>
-            </select>
-            <br>
-            <br>
-            <button id="btnSortByFinishDate" type="button">
+            <button class="button" id="sortByFinishDate" type="button">
                 Sort by finished date
             </button>
-            <button id="btnSortByCreatedDate" type="button">
+            <button class="button" id="sortByCreatedDate" type="button">
                 Sort by created date
             </button>
-            <button id="btnSortByImportance" type="button">
+            <button class="button" id="sortByImportance" type="button">
                 Sort by importance
             </button>
-            <button id="btnSortByTitle" type="button">
+            <button class="button" id="sortByTitle" type="button">
                 Sort by title
             </button>
-            <button id="btnShowAllFinishedTasks" type="button">
+            <button class="button" id="showAllFinishedTasks" type="button">
                 Show finished notes only
             </button>
         </aside>
     </main>
     <footer class="changeBg">
-        CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
+        CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a title="GitHub: aceres" target="_blank" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
     </footer>
+    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/lib/handlebars.js"></script>
+    <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
     <script type="text/javascript" src="javascripts/routeAppNote.js"></script>
     <script type="text/javascript" src="javascripts/modelAppNote.js"></script>
-    <script type="text/javascript" src="javascripts/controllerAppNote.js"></script>
-    <script type="text/javascript" src="javascripts/sharedAppNote.js"></script>
+    <script type="text/javascript" src="javascripts/controllerListNote.js"></script>
     <script type="text/javascript" src="javascripts/handlebars.js"></script>
 </body>
 </html>
