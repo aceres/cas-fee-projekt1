@@ -7,41 +7,31 @@
 
     // TODO: Define this as render function (render())
     // Grab the template script
-    let templateScriptAllNote = null;
-    let templateAllNote = null;
     let allNotesCompiledHtml = null;
 
-    // For the list
     // Handlebars will be loaded!
-    templateScriptAllNote = $("#template-list-all-note").html();
+    let templateScriptAllNote = $("#template-list-all-note").html();
 
     // Compile the template
-    templateAllNote = Handlebars.compile(templateScriptAllNote);
-    allNotesCompiledHtml = null;
+    let templateAllNote = Handlebars.compile(templateScriptAllNote);
 
-    let localStorageDataNote = null;
+    // Get data from local storage
+    let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+
+    // Initialize
+    let txtShowAllFinishedTasks = true;
 
     $(function () {
 
         // The DOM is ready!
-        localStorageDataNote = modelNoteProApplication.initializeSampleData();
+
+        // Initialize data, if local storage is empty
+        if (!localStorageDataNote) {
+            localStorageDataNote = modelNoteProApplication.initializeSampleData();
+        }
 
         // if null is false
-        if (localStorage.getItem("localDataNote")) {
-
-            // Get object from the localStorage
-            localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
-            // LoadSkin
-            loadSkin();
-
-            // Pass our data to the template
-            allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-
-        } else {
-
-            // Add object to the localStorage
-            updateLocalStorage(localStorageDataNote);
-            localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+        if (localStorageDataNote) {
 
             // Pass our data to the template
             allNotesCompiledHtml = templateAllNote(localStorageDataNote);
@@ -51,15 +41,17 @@
         // Display all notes
         $("#listAllNote").append(allNotesCompiledHtml);
 
+        // TODO: Refactor this (sessionStorage)
+        loadSkin();
+
         // Initialize for open / close detail row (description)
         toggleRow();
 
         // Check note as finished
-        $('#listAllNote').on('change', 'input[type=checkbox]', function(e) {
+        $('#listAllNote').on('change', 'input[type=checkbox]', function() {
             modelNoteProApplication.checkNoteAsFinished(this.value)
         });
 
-        let txtShowAllFinishedTasks = true;
         const button = document.getElementsByClassName("button");
         const select = document.getElementsByClassName("select");
 
@@ -84,7 +76,6 @@
 
         for (let i = 0; i < button.length; i++) {
 
-            // Because of node list (Array)
             button[i].addEventListener("click", function (event) {
 
                 switch (event.currentTarget.id) {
@@ -101,36 +92,31 @@
 
                     case "clearLocalStorage":
 
-                        localStorage.clear();
-                        router.navigateTo("index.html");
+                        modelNoteProApplication.clearDataLocalStorage();
                         break;
 
                     case "sortByImportance":
 
                         localStorageDataNote.appNote.sort(function (a, b) {
-                            //return b.importance - a.importance
                             return sortFunctions.sortByImportance(a, b);
                         });
-                        // TODO: We don't need to have render()
-                        renderNotes(localStorageDataNote);
+                        render();
                         break;
 
                     case "sortByCreatedDate":
 
                         localStorageDataNote.appNote.sort(function (a, b) {
-                            //return a.createdDate - b.createdDate
                             return sortFunctions.sortByCreatedDate(a, b);
                         });
-                        renderNotes(localStorageDataNote);
+                        render();
                         break;
 
                     case "sortByFinishDate":
 
                         localStorageDataNote.appNote.sort(function (a, b) {
-                            //return a.finishDate - b.finishDate
                             return sortFunctions.sortByFinishDate(a, b);
                         });
-                        renderNotes(localStorageDataNote);
+                        render();
                         break;
 
                     case "sortByTitle":
@@ -138,37 +124,43 @@
                         localStorageDataNote.appNote.sort(function (a, b) {
                             return a.title.localeCompare(b.title);
                         });
-                        renderNotes(localStorageDataNote);
+                        render();
                         break;
 
                     case "showAllFinishedTasks":
 
-                        if (txtShowAllFinishedTasks === true) {
-
-                            $("tr.active").removeClass("active").addClass("hidden");
-                            $("tr:not('.hidden'):even").css("background-color", "#fff");
-                            $("tr:not('.hidden'):odd").css("background-color", "#eee");
-                            $("button#btnShowAllFinishedTasks").text("Show all notes");
-                            txtShowAllFinishedTasks = false;
-                            $("span.rowAllLength").hide();
-                            let newCountRow = $("#listAllNote").children(":not(.hidden, .headerTitle, .footerRowLength)").length;
-                            $("span.rowCheckedLength").text(newCountRow);
-                            $("span.rowCheckedLength").show();
-                        } else {
-
-                            $("tr.hidden").removeClass("hidden").addClass("active");
-                            $("tr:even").css("background-color", "#fff");
-                            $("tr:odd").css("background-color", "#eee");
-                            $("button#btnShowAllFinishedTasks").text("Show finished notes only");
-                            txtShowAllFinishedTasks = true;
-                            $("span.rowAllLength").show();
-                            $("span.rowCheckedLength").hide();
-                        }
+                        showAllFinishedTasksOnly();
                         break;
                 }
             });
         }
     });
+
+
+    function showAllFinishedTasksOnly() {
+
+        if (txtShowAllFinishedTasks === true) {
+
+            $("tr.active").removeClass("active").addClass("hidden");
+            $("tr:not('.hidden'):even").css("background-color", "#fff");
+            $("tr:not('.hidden'):odd").css("background-color", "#eee");
+            $("button#btnShowAllFinishedTasks").text("Show all notes");
+            txtShowAllFinishedTasks = false;
+            $("span.rowAllLength").hide();
+            let newCountRow = $("#listAllNote").children(":not(.hidden, .headerTitle, .footerRowLength)").length;
+            $("span.rowCheckedLength").text(newCountRow);
+            $("span.rowCheckedLength").show();
+        } else {
+
+            $("tr.hidden").removeClass("hidden").addClass("active");
+            $("tr:even").css("background-color", "#fff");
+            $("tr:odd").css("background-color", "#eee");
+            $("button#btnShowAllFinishedTasks").text("Show finished notes only");
+            txtShowAllFinishedTasks = true;
+            $("span.rowAllLength").show();
+            $("span.rowCheckedLength").hide();
+        }
+    }
 
     // Toggle row (for long descriptions)
     // TODO: Check if this is needed - after table will be implemented
@@ -299,29 +291,11 @@
     }
 
     // Render notes
-    function renderNotes(localData) {
+    function render() {
 
-        updateLocalStorage(localData);
         $("#listAllNote").empty();
-        let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         $("#listAllNote").append(allNotesCompiledHtml);
         toggleRow();
     }
-
-    // Update the local storage
-    function updateLocalStorage(localStorageDataNote) {
-
-        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
-    }
-
-    // Clear Local Storage
-    function clearLocalStorage() {
-
-        localStorage.clear();
-        router.navigateTo("index.html");
-    }
-
-    // Exposed API facilities
-    //export default { changeStyle };
 }(jQuery, window, document));

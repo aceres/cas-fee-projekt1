@@ -5,15 +5,10 @@
     // The $ is now locally scoped
     "use strict";
 
-    // TODO: Define this as render function (render())
     loadDetailNote();
 
     // TODO: Later Session Storage
     loadSkin();
-
-    // LocalStorage
-    let localStorageDataNote = null;
-    //localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
 
     $(function () {
 
@@ -157,6 +152,7 @@
             for (let i=0; i < len; i++){
                 tagBg[i].style.backgroundColor = "#666666";
             }
+
             if (!checkIfDetailPageExists) {
                 document.getElementById("listAllNote").style.color = "#000000";
             }
@@ -201,12 +197,6 @@
             $(".titleCreateNote").show();
             $(".titleUpdateNote").hide();
         }
-    }
-
-    // Update the local storage
-    // TODO: This belong to the model
-    function updateLocalStorage(localStorageDataNote) {
-        localStorage.setItem('localDataNote', JSON.stringify(localStorageDataNote));
     }
 
 }(jQuery, window, document));
