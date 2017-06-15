@@ -134,12 +134,6 @@ modelNoteProApplication = (function() {
     // M: Update
     function updateNote(id, title, description, finishDate, importance) {
 
-        console.log("id: ", id);
-        console.log("title: ", title);
-        console.log("description: ", description);
-        console.log("finishDate:  ", finishDate);
-        console.log("importance:  ", importance);
-
         let jsonLocalStorage = dataLocalStorage();
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id) {

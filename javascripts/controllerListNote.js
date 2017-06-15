@@ -58,7 +58,6 @@
             "sortByFinishDate" : (a,b) => a.finishDate - b.finishDate
         }
 
-        // TODO: Ask Michael (select (change) vs. button (click))
         for (let x = 0; x < select.length; x++) {
             select[x].addEventListener("change", function (event) {
                 switch (event.currentTarget.id) {
@@ -159,7 +158,6 @@
             let newCountRow = $("#listAllNote").children(":not(.hidden, .headerTitle, .footerRowLength)").length;
             $("span.rowCheckedLength").text(newCountRow);
             $("span.rowCheckedLength").show();
-            console.log($("#showAllFinishedTasks").attr("data-checked"));
         } else {
 
             $("tr.hidden").removeClass("hidden").addClass("active");
