@@ -62,10 +62,7 @@ modelNoteProApplication = (function() {
                     "finishDate": 1495238400000,
                     "finished": true
                 }
-            ],
-            "styleSkin": {
-                "name": "bgGrey"
-            }
+            ]
         };
         localStorage.setItem('localDataNote', JSON.stringify(dataNote));
         return dataNote;

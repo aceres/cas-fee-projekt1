@@ -26,6 +26,8 @@
             localStorageDataNote = modelNoteProApplication.initializeSampleData();
             // Initialize Style
             style.initializeStyle();
+            // Show all notes from the begin
+            window.sessionStorage["showCheckedNotesOnly"] = false;
         }
 
         // if null is false
@@ -37,6 +39,11 @@
         // Add the compiled html to the page
         // Display all notes
         $("#listAllNote").append(allNotesCompiledHtml);
+
+        // If show all checked note is true
+        if (window.sessionStorage["showCheckedNotesOnly"] === "true") {
+            checkIfFinishedTaskOnly();
+        }
 
         // Load / Initialize style
         style.loadStyle();
@@ -140,16 +147,20 @@
     function switchShowAllFinishedTasks() {
         if ($("#showAllFinishedTasks").attr("data-checked") === "false") {
             $("#showAllFinishedTasks").attr("data-checked", "true");
+            window.sessionStorage["showCheckedNotesOnly"] = true;
         } else {
             $("#showAllFinishedTasks").attr("data-checked", "false");
+            window.sessionStorage["showCheckedNotesOnly"] = false;
         }
     }
 
     // Initialize
     function checkIfFinishedTaskOnly() {
 
-        if ($("#showAllFinishedTasks").attr("data-checked") === "true") {
+        //if ($("#showAllFinishedTasks").attr("data-checked") === "true") {
+        console.log("Test: ", window.sessionStorage["showCheckedNotesOnly"]);
 
+        if (window.sessionStorage["showCheckedNotesOnly"] === "true") {
             $("tr.active").removeClass("active").addClass("hidden");
             $("tr:not('.hidden'):even").css("background-color", "#fff");
             $("tr:not('.hidden'):odd").css("background-color", "#eee");

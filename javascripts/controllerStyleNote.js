@@ -33,12 +33,12 @@ style = (function () {
 
         // Initialize Style by loading
         $("#selectStyle option").filter(function() {
-            return this.value == sessionStorage["style"];
+            return this.value == window.sessionStorage["style"];
         }).prop('selected', true);
 
         let nodeList = $('body').find('.changeBg');
 
-        if (sessionStorage["style"] === "greyBg") {
+        if (window.sessionStorage["style"] === "greyBg") {
 
             nodeList.addClass("greyBg");
             nodeList.remove("blackBg");
@@ -48,7 +48,7 @@ style = (function () {
             }
         }
 
-        if (sessionStorage["style"] === "blackBg") {
+        if (window.sessionStorage["style"] === "blackBg") {
 
             nodeList.addClass("blackBg");
             nodeList.removeClass("greyBg");
@@ -60,13 +60,13 @@ style = (function () {
     }
 
     let initializeStyle = function() {
-        sessionStorage["style"] = "greyBg";
+        window.sessionStorage["style"] = "greyBg";
     }
 
     // Update style
     let saveStyle = function(styleName) {
 
-        sessionStorage["style"] = styleName;
+        window.sessionStorage["style"] = styleName;
     }
 
     // Make it public access
