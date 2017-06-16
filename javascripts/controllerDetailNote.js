@@ -120,22 +120,16 @@
         let objectNote = modelNoteProApplication.loadDetailNote();
 
         if (typeof objectNote === 'object' && objectNote.id != 0) {
-            $("#save").hide();
-            $("#delete").show();
-            $("#update").show();
-            $(".titleUpdateNote").show();
-            $(".titleCreateNote").hide();
+            $(".save").hide();
+            $(".update").show();
 
             $("#title").val(objectNote.title);
             $("#description").val(objectNote.description);
             $("#date").val(moment(objectNote.finishDate).format("YYYY-MM-DD"));
             $("input[name='importance'][value='"+objectNote.importance+"']").attr("checked", true);
         } else {
-            $("#save").show();
-            $("#delete").hide();
-            $("#update").hide();
-            $(".titleCreateNote").show();
-            $(".titleUpdateNote").hide();
+            $(".save").show();
+            $(".update").hide();
         }
     }
 }(jQuery, window, document));

@@ -29,7 +29,7 @@
 
         style.loadStyle();
 
-        toggleRow();
+        expandDescription();
 
         $('#listAllNote').on('change', 'input[type=checkbox]', function() {
             modelNoteProApplication.checkNoteAsFinished(this.value)
@@ -142,7 +142,7 @@
         }
     }
 
-    function toggleRow() {
+    function expandDescription() {
 
         let charLimit = 120;
 
@@ -187,7 +187,7 @@
         $("#listAllNote").empty();
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         $("#listAllNote").append(allNotesCompiledHtml);
-        toggleRow();
+        expandDescription();
         checkIfFinishedTaskOnly();
     }
 }(jQuery, window, document));
