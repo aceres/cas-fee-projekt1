@@ -1,9 +1,3 @@
-/* Basic Layout */
-* {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     font-family: Arial, sans-serif;
     font-size: 1.2em;
@@ -67,39 +61,6 @@ header select {
     right: 10px;
 }
 
-/* List of notes */
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.8em;
-}
-
-ul li:first-child {
-    font-weight: bold !important;
-    background: #939393 !important;
-    border-radius: 4px;
-}
-
-/* Length of rows */
-ul li:last-child {
-    background-color: #FFF !important;
-}
-
-ul li:last-child span:last-child {
-    float: none !important;
-}
-
-/* Stripes */
-ul li:nth-of-type(odd) {
-    background: #EEE;
-}
-
-ul li:nth-of-type(even) {
-    background: #FFFFFF;
-}
-
-/* Handlebars - Rows */
 .hidden {
     display: none;
 }
@@ -118,23 +79,33 @@ table th {
 table th:first-child(1) {
     width: 20%;
 }
+
 table th:nth-child(2) {
     width: 30%;
 }
+
 table th:nth-child(3) {
     width: 15%;
 }
+
 table th:nth-child(4) {
     width: 10%;
 }
+
 table th:nth-child(5) {
     width: 10%;
 }
+
 table th:nth-child(6) {
     width: 5%;
 }
+
 table th:last-child {
     width: 10%;
+}
+
+tr {
+    background-color: #FFF;
 }
 
 table td {
@@ -156,10 +127,6 @@ table a.more {
     width: 200px;
 }
 
-tr {
-    background-color: #FFF;
-}
-
 /* TODO: Michael G. */
 tr:hover {
     background-color: #CCCCCC !important;
@@ -178,7 +145,6 @@ span.rowCheckedLength {
     display: none;
 }
 
-/* Button */
 button,
 a {
     background-color: #CCC;
@@ -194,12 +160,14 @@ a {
     width: 100%;
 }
 
-/* Form */
 form {
     margin-bottom: 15px;
 }
 
-/* Input */
+p#validation {
+    color: #FF0000;
+}
+
 input[type=text],
 textarea {
     width: 40%;
@@ -230,12 +198,6 @@ span a {
     margin: 2px 1px;
 }
 
-/* Validation */
-p#validation {
-    color: #FF0000;
-}
-
-/* Stars */
 div.stars {
     width: 300px;
     display: inline-block;
@@ -291,7 +253,6 @@ label.star:before {
     border-bottom-right-radius: 10px;
 }
 
-/* Notification / Saved / Updated */
 .alert {
     display: none;
     padding: 20px;
@@ -329,7 +290,6 @@ label.star:before {
     color: black;
 }
 
-/* Apply Skin */
 .greyBg {
     background-color: #FFFFFF;
     color: #000000;
