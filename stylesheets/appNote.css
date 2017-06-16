@@ -299,3 +299,7 @@ label.star:before {
     background-color: #666666;
     color: #FFFFFF;
 }
+
+.blackBg #listAllNote {
+    color: #000;
+}

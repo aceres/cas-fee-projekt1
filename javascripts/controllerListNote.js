@@ -12,14 +12,12 @@
     $(function () {
 
         if (!localStorageDataNote) {
-
             localStorageDataNote = modelNoteProApplication.initializeSampleData();
             style.initializeStyle();
             window.sessionStorage["showCheckedNotesOnly"] = false;
         }
 
         if (localStorageDataNote) {
-
             allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         }
 
@@ -37,15 +35,14 @@
             modelNoteProApplication.checkNoteAsFinished(this.value)
         });
 
-        const button = document.getElementsByClassName("button");
-        const select = document.getElementsByClassName("select");
+        const button = $(".button");
+        const select = $(".select");
 
         for (let x = 0; x < select.length; x++) {
             select[x].addEventListener("change", function (event) {
                 switch (event.currentTarget.id) {
 
                     case "selectStyle":
-
                         style.applyStyle(event);
                         break;
                 }
@@ -60,28 +57,23 @@
         }
 
         for (let i = 0; i < button.length; i++) {
-
             button[i].addEventListener("click", function (event) {
 
                 switch (event.currentTarget.id) {
 
                     case "createNote":
-
                         createNote();
                         break;
 
                     case "list":
-
                         router.navigateTo("index.html");
                         break;
 
                     case "clearLocalStorage":
-
                         modelNoteProApplication.clearDataLocalStorage();
                         break;
 
                     case "sortByImportance":
-
                         localStorageDataNote.appNote.sort(function (a, b) {
                             return sortFunctions.sortByImportance(a, b);
                         });
@@ -89,7 +81,6 @@
                         break;
 
                     case "sortByCreatedDate":
-
                         localStorageDataNote.appNote.sort(function (a, b) {
                             return sortFunctions.sortByCreatedDate(a, b);
                         });
@@ -97,7 +88,6 @@
                         break;
 
                     case "sortByFinishDate":
-
                         localStorageDataNote.appNote.sort(function (a, b) {
                             return sortFunctions.sortByFinishDate(a, b);
                         });
@@ -105,7 +95,6 @@
                         break;
 
                     case "sortByTitle":
-
                         localStorageDataNote.appNote.sort(function (a, b) {
                             return sortFunctions.sortByTitle(a, b);
                         });

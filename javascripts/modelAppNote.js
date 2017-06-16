@@ -64,11 +64,11 @@ modelNoteProApplication = (function() {
     }
 
     let updateDataLocalStorage = function(jsonLocalStorage) {
-
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
 
     let maxId = function() {
+        let jsonLocalStorage = dataLocalStorage();
 
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
             if (+current.id > +prev.id) {

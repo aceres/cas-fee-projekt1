@@ -28,8 +28,6 @@ style = (function () {
 
     let loadStyle = function() {
 
-        let checkIfDetailPageExists = modelNoteProApplication.getId("id");
-
         $("#selectStyle option").filter(function() {
             return this.value == window.sessionStorage["style"];
         }).prop('selected', true);
@@ -37,23 +35,13 @@ style = (function () {
         let nodeList = $('body').find('.changeBg');
 
         if (window.sessionStorage["style"] === "greyBg") {
-
             nodeList.addClass("greyBg");
             nodeList.remove("blackBg");
-
-            if (!checkIfDetailPageExists) {
-                document.getElementById("listAllNote").style.color = "#000000";
-            }
         }
 
         if (window.sessionStorage["style"] === "blackBg") {
-
             nodeList.addClass("blackBg");
             nodeList.removeClass("greyBg");
-
-            if (!checkIfDetailPageExists) {
-                document.getElementById("listAllNote").style.color = "#000000";
-            }
         }
     }
 

@@ -18,27 +18,22 @@
                 switch (event.currentTarget.id) {
 
                     case "list":
-
                         ctrlList();
                         break;
 
                     case "save":
-
                         ctrlSave();
                         break;
 
                     case "update":
-
                         ctrlUpdate();
                         break;
 
                     case "delete":
-
                         ctrlDelete();
                         break;
 
                     case "cancel":
-
                         ctrlCancel();
                         break;
                 }
@@ -51,9 +46,9 @@
 
         function ctrlSave() {
 
-            let title = document.getElementById("title").value;
-            let description = document.getElementById("description").value;
-            let selectedDate = document.getElementById("date").value;
+            let title = $("#title").val();
+            let description = $("#description").val();
+            let selectedDate = $("#date").val();
             let importance = $("input:radio[name=importance]:checked").val();
 
             if (title !== "" && description != "") {
@@ -62,7 +57,6 @@
                 $(".warning").hide();
                 showNotification();
             } else {
-                document.getElementById("validation").innerHTML = "Please fill in all fields!";
                 $(".warning").show();
                 $(".success").hide();
                 showNotification();
@@ -72,10 +66,10 @@
         function ctrlUpdate() {
 
             let id = modelNoteProApplication.getId("id");
-            let title = document.getElementById("title").value;
-            let description = document.getElementById("description").value;
+            let title = $("#title").val();
+            let description = $("#description").val();
 
-            let selectedDate = document.getElementById("date").value;
+            let selectedDate = $("#date").val();
             let defineAsDate = new Date(selectedDate);
             let formatDate = defineAsDate.valueOf();
 
@@ -89,7 +83,6 @@
                 showNotification();
             } else {
 
-                document.getElementById("validation").innerHTML = "Please fill in all fields!";
                 $(".warning").show();
                 $(".success").hide();
                 showNotification();
@@ -107,14 +100,16 @@
 
     function showNotification() {
 
-        let close = document.getElementsByClassName("closebtn");
+        let close = $(".closebtn");
         let i;
 
         for (i = 0; i < close.length; i++) {
             close[i].onclick = function(){
                 let div = this.parentElement;
                 div.style.opacity = "0";
-                setTimeout(function(){ div.style.display = "none"; }, 600);
+                setTimeout(function() {
+                    div.style.display = "none";
+                }, 600);
             }
         }
     }
@@ -125,23 +120,22 @@
         let objectNote = modelNoteProApplication.loadDetailNote();
 
         if (typeof objectNote === 'object' && objectNote.id != 0) {
-            $(".save").hide();
-            $(".delete").show();
-            $(".update").show();
+            $("#save").hide();
+            $("#delete").show();
+            $("#update").show();
             $(".titleUpdateNote").show();
             $(".titleCreateNote").hide();
 
-            document.getElementById("title").value = objectNote.title;
-            document.getElementById("description").value = objectNote.description;
-            document.getElementById("date").value = moment(objectNote.finishDate).format("YYYY-MM-DD");
+            $("#title").val(objectNote.title);
+            $("#description").val(objectNote.description);
+            $("#date").val(moment(objectNote.finishDate).format("YYYY-MM-DD"));
             $("input[name='importance'][value='"+objectNote.importance+"']").attr("checked", true);
         } else {
-            $(".save").show();
-            $(".delete").hide();
-            $(".update").hide();
+            $("#save").show();
+            $("#delete").hide();
+            $("#update").hide();
             $(".titleCreateNote").show();
             $(".titleUpdateNote").hide();
         }
     }
-
 }(jQuery, window, document));
