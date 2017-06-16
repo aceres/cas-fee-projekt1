@@ -189,12 +189,12 @@ modelNoteProApplication = (function() {
         return jsonLocalStorage;
     }
 
-    let getSessionStorage = function() {
-        return window.sessionStorage["showCheckedNotesOnly"];
+    let getSessionStorage = function(sessionId) {
+        return window.sessionStorage[sessionId];
     }
 
-    let setSessionStorage = function(flag) {
-        window.sessionStorage["showCheckedNotesOnly"] = flag;
+    let setSessionStorage = function(sessionId, flag) {
+        window.sessionStorage[sessionId] = flag;
     }
 
     return {
@@ -203,11 +203,11 @@ modelNoteProApplication = (function() {
         clearDataLocalStorage: clearDataLocalStorage,
         maxId: maxId,
         saveNote: saveNote,
+        getId: getId,
         loadDetailNote: loadDetailNote,
         updateNote: updateNote,
         deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,
-        getId: getId,
         getSessionStorage: getSessionStorage,
         setSessionStorage: setSessionStorage
     };

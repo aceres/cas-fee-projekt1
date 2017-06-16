@@ -29,28 +29,26 @@ style = (function () {
     let loadStyle = function() {
 
         $("#selectStyle option").filter(function() {
-            return this.value == window.sessionStorage["style"];
+            return this.value == modelNoteProApplication.getSessionStorage("style");
         }).prop('selected', true);
 
         let nodeList = $('body').find('.changeBg');
 
-        if (window.sessionStorage["style"] === "greyBg") {
+        if (modelNoteProApplication.getSessionStorage("style") === "greyBg") {
             nodeList.addClass("greyBg");
             nodeList.remove("blackBg");
-        }
-
-        if (window.sessionStorage["style"] === "blackBg") {
+        } else {
             nodeList.addClass("blackBg");
             nodeList.removeClass("greyBg");
         }
     }
 
     let initializeStyle = function() {
-        window.sessionStorage["style"] = "greyBg";
+        modelNoteProApplication.setSessionStorage("style", "greyBg");
     }
 
     let saveStyle = function(styleName) {
-        window.sessionStorage["style"] = styleName;
+        modelNoteProApplication.setSessionStorage("style", styleName);
     }
 
     return {

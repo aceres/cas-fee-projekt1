@@ -127,7 +127,10 @@ table a.more {
     width: 200px;
 }
 
-/* TODO: Michael G. */
+tr:nth-child(2n+2) {
+    background-color: #dfdfdf;
+}
+
 tr:hover {
     background-color: #CCCCCC !important;
 }

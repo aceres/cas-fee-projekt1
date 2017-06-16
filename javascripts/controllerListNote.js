@@ -14,7 +14,7 @@
         if (!localStorageDataNote) {
             localStorageDataNote = modelNoteProApplication.initializeSampleData();
             style.initializeStyle();
-            modelNoteProApplication.setSessionStorage(false);
+            modelNoteProApplication.setSessionStorage("showCheckedNotesOnly", false);
         }
 
         if (localStorageDataNote) {
@@ -23,7 +23,7 @@
 
         $("#listAllNote").append(allNotesCompiledHtml);
 
-        if (modelNoteProApplication.getSessionStorage() === "true") {
+        if (modelNoteProApplication.getSessionStorage("showCheckedNotesOnly") === "true") {
             checkIfFinishedTaskOnly();
         }
 
@@ -111,21 +111,17 @@
     });
 
     function switchShowAllFinishedTasks() {
-        console.log("Switch Get: ", modelNoteProApplication.getSessionStorage());
-        console.log("Switch Get: ", typeof modelNoteProApplication.getSessionStorage());
 
-        if (modelNoteProApplication.getSessionStorage() === "false") {
-            modelNoteProApplication.setSessionStorage(true);
+        if (modelNoteProApplication.getSessionStorage("showCheckedNotesOnly") === "false") {
+            modelNoteProApplication.setSessionStorage("showCheckedNotesOnly", true);
         } else {
-            modelNoteProApplication.setSessionStorage(false);
+            modelNoteProApplication.setSessionStorage("showCheckedNotesOnly", false);
         }
     }
 
     function checkIfFinishedTaskOnly() {
 
-        console.log("Check if Get: ", modelNoteProApplication.getSessionStorage());
-
-        if (modelNoteProApplication.getSessionStorage() === "true") {
+        if (modelNoteProApplication.getSessionStorage("showCheckedNotesOnly") === "true") {
             $("tr.active").removeClass("active").addClass("hidden");
             $("#showAllFinishedTasks").text("Show all notes");
             $("tr:not('.hidden'):even").css("background-color", "#fff");
