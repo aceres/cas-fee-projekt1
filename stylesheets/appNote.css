@@ -3,7 +3,7 @@ body {
     font-size: 1.2em;
     line-height: 1.38;
     color: #000;
-    background: #EEEEEE;
+    background-color: #FFF;
     background-image: url(../images/bg.jpg);
     background-size: cover;
 }
@@ -56,7 +56,7 @@ main > article {
     padding: 5px;
     border: 1px solid #CCCCCC;
     border-radius: 6px;
-    background: #323232;
+    background-color: #323232;
     opacity: 0.8;
 }
 
@@ -285,12 +285,14 @@ label.star:before {
 }
 
 .greyBg {
-    background-color: #FFFFFF;
+    background-color: #323232;
+    opacity: 0.8;
     color: #000000;
 }
 
 .blackBg {
     background-color: #666666;
+    opacity: 0.8;
     color: #FFFFFF;
 }
 

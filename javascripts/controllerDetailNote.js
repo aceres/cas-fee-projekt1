@@ -4,6 +4,11 @@
 
     "use strict";
 
+    const success = $(".success");
+    const warning = $(".warning");
+    const save = $(".save");
+    const update = $(".update");
+
     loadDetailNote();
     style.loadStyle();
 
@@ -44,6 +49,7 @@
             router.navigateTo("index.html");
         }
 
+        // TODO: Refactoring
         function ctrlSave() {
 
             let title = $("#title").val();
@@ -53,12 +59,12 @@
 
             if (title !== "" && description != "") {
                 modelNoteProApplication.saveNote(title, description, selectedDate, importance);
-                $(".success").show();
-                $(".warning").hide();
+                success.show();
+                warning.hide();
                 showNotification();
             } else {
-                $(".warning").show();
-                $(".success").hide();
+                success.hide();
+                warning.show();
                 showNotification();
             }
         }
@@ -76,15 +82,13 @@
             let importance = $("input:radio[name=importance]:checked").val()
 
             if (title !== "" && description != "") {
-
                 modelNoteProApplication.updateNote(id, title, description, formatDate, importance);
-                $(".success").show();
-                $(".warning").hide();
+                success.show();
+                warning.hide();
                 showNotification();
             } else {
-
-                $(".warning").show();
-                $(".success").hide();
+                success.hide();
+                warning.show();
                 showNotification();
             }
         }
@@ -120,16 +124,16 @@
         let objectNote = modelNoteProApplication.loadDetailNote();
 
         if (typeof objectNote === 'object' && objectNote.id != 0) {
-            $(".save").hide();
-            $(".update").show();
+            save.hide();
+            update.show();
 
             $("#title").val(objectNote.title);
             $("#description").val(objectNote.description);
             $("#date").val(moment(objectNote.finishDate).format("YYYY-MM-DD"));
             $("input[name='importance'][value='"+objectNote.importance+"']").attr("checked", true);
         } else {
-            $(".save").show();
-            $(".update").hide();
+            save.show();
+            update.hide();
         }
     }
 }(jQuery, window, document));
