@@ -104,10 +104,6 @@ table th:last-child {
     width: 10%;
 }
 
-tr {
-    background-color: #FFF;
-}
-
 table td {
     vertical-align: top;
     padding: 2px;
@@ -127,16 +123,12 @@ table a.more {
     width: 200px;
 }
 
-tr:nth-child(2n+2) {
-    background-color: #dfdfdf;
+tbody:nth-child(2n+2) {
+    background-color: #EEEEEE;
 }
 
 tr:hover {
     background-color: #CCCCCC !important;
-}
-
-td:last-child {
-    float: right;
 }
 
 span.rowAllLength,
@@ -165,10 +157,6 @@ a {
 
 form {
     margin-bottom: 15px;
-}
-
-p#validation {
-    color: #FF0000;
 }
 
 input[type=text],
@@ -305,4 +293,12 @@ label.star:before {
 
 .blackBg #listAllNote {
     color: #000;
+}
+
+.blackBg #listAllNote tbody {
+    background-color: #FFF;
+}
+
+.blackBg #listAllNote tbody:nth-child(2n+2) {
+    background-color: #EEEEEE;
 }

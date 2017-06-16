@@ -95,11 +95,13 @@
                             <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>
                         </td>
                     </tr>
-                {{/each}}
                 </tbody>
+                {{/each}}
                 <tfoot>
-                    <tr class="footerRowLength">
-                        Number of rows: <span class="rowAllLength">{{ appNote.length }}</span><span class="rowCheckedLength">{{ appNote.length }}</span>
+                    <tr>
+                        <td colspan="7">
+                            Number of rows: <span class="rowAllLength">{{ appNote.length }}</span><span class="rowCheckedLength">{{ appNote.length }}</span>
+                        </td>
                     </tr>
                 </tfoot>
             </script>
