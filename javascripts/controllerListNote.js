@@ -155,24 +155,22 @@
     function checkIfFinishedTaskOnly() {
 
         //if ($("#showAllFinishedTasks").attr("data-checked") === "true") {
-        console.log("Test: ", window.sessionStorage["showCheckedNotesOnly"]);
 
         if (window.sessionStorage["showCheckedNotesOnly"] === "true") {
             $("tr.active").removeClass("active").addClass("hidden");
+            $("#showAllFinishedTasks").text("Show all notes");
             $("tr:not('.hidden'):even").css("background-color", "#fff");
             $("tr:not('.hidden'):odd").css("background-color", "#eee");
-            $("#showAllFinishedTasks").text("Show all notes");
             $("h4").text("Checked notes only");
             $("span.rowAllLength").hide();
-            let newCountRow = $("#listAllNote").children(":not(.hidden, .headerTitle, .footerRowLength)").length;
-            $("span.rowCheckedLength").text(newCountRow);
-            $("span.rowCheckedLength").show();
+            let newCountRow = $("#listAllNote tbody").children(":not(.hidden)").length;
+            $("span.rowCheckedLength").text(newCountRow).show();
         } else {
 
             $("tr.hidden").removeClass("hidden").addClass("active");
+            $("#showAllFinishedTasks").text("Show finished notes only");
             $("tr:even").css("background-color", "#fff");
             $("tr:odd").css("background-color", "#eee");
-            $("#showAllFinishedTasks").text("Show finished notes only");
             $("h4").text("All notes");
             $("span.rowAllLength").show();
             $("span.rowCheckedLength").hide();

@@ -160,10 +160,6 @@ tr {
     background-color: #FFF;
 }
 
-tr:nth-child(2n+2) {
-    background-color: #dfdfdf;
-}
-
 /* TODO: Michael G. */
 tr:hover {
     background-color: #CCCCCC !important;
