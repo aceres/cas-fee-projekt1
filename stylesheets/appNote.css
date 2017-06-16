@@ -285,13 +285,13 @@ label.star:before {
 }
 
 .greyBg {
-    background-color: #323232;
+    background-color: #666666;
     opacity: 0.8;
-    color: #000000;
+    color: #000;
 }
 
 .blackBg {
-    background-color: #666666;
+    background-color: #333333;
     opacity: 0.8;
     color: #FFFFFF;
 }
@@ -300,10 +300,17 @@ label.star:before {
     color: #000;
 }
 
-.blackBg #listAllNote tbody {
+.greyBg #listAllNote thead,
+.blackBg #listAllNote thead,
+.greyBg #listAllNote tbody,
+.blackBg #listAllNote tbody,
+.greyBg #listAllNote tfoot,
+.blackBg #listAllNote tfoot {
     background-color: #FFF;
+    color: #000;
 }
 
+.greyBg #listAllNote tbody:nth-child(2n+2),
 .blackBg #listAllNote tbody:nth-child(2n+2) {
     background-color: #EEEEEE;
 }
