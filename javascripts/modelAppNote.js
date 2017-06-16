@@ -68,7 +68,7 @@ modelNoteProApplication = (function() {
     }
 
     let maxId = function() {
-        let jsonLocalStorage = dataLocalStorage();
+        let jsonLocalStorage = getDataLocalStorage();
 
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
             if (+current.id > +prev.id) {
@@ -97,7 +97,7 @@ modelNoteProApplication = (function() {
             finished: false
         }
 
-        let jsonLocalStorage = dataLocalStorage();
+        let jsonLocalStorage = getDataLocalStorage();
         jsonLocalStorage.appNote.push(newNote);
 
         updateDataLocalStorage(jsonLocalStorage);
@@ -106,7 +106,7 @@ modelNoteProApplication = (function() {
     function loadDetailNote() {
 
         let id = modelNoteProApplication.getId("id");
-        let jsonLocalStorage = dataLocalStorage();
+        let jsonLocalStorage = getDataLocalStorage();
 
         if (id != 0) {
 
@@ -120,7 +120,7 @@ modelNoteProApplication = (function() {
 
     function updateNote(id, title, description, finishDate, importance) {
 
-        let jsonLocalStorage = dataLocalStorage();
+        let jsonLocalStorage = getDataLocalStorage();
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id) {
                 entry.title = title;
@@ -137,7 +137,7 @@ modelNoteProApplication = (function() {
 
         let id = modelNoteProApplication.getId("id");
 
-        let jsonLocalStorage = dataLocalStorage();
+        let jsonLocalStorage = getDataLocalStorage();
         for (let i=0; i < jsonLocalStorage.appNote.length; i++){
             if(jsonLocalStorage.appNote[i].id == id){
                 jsonLocalStorage.appNote.splice(i,1);
@@ -150,7 +150,7 @@ modelNoteProApplication = (function() {
 
     function checkNoteAsFinished(id) {
 
-        let jsonLocalStorage = dataLocalStorage();
+        let jsonLocalStorage = getDataLocalStorage();
         jsonLocalStorage.appNote.forEach(function(entry) {
             if (entry.id == id && entry.finished == false) {
                 entry.finished = true;
@@ -183,10 +183,18 @@ modelNoteProApplication = (function() {
         router.navigateTo("index.html");
     }
 
-    function dataLocalStorage() {
+    function getDataLocalStorage() {
 
         let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
         return jsonLocalStorage;
+    }
+
+    let getSessionStorage = function() {
+        return window.sessionStorage["showCheckedNotesOnly"];
+    }
+
+    let setSessionStorage = function(flag) {
+        window.sessionStorage["showCheckedNotesOnly"] = flag;
     }
 
     return {
@@ -199,7 +207,9 @@ modelNoteProApplication = (function() {
         updateNote: updateNote,
         deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,
-        getId: getId
+        getId: getId,
+        getSessionStorage: getSessionStorage,
+        setSessionStorage: setSessionStorage
     };
 })();
 
