@@ -80,7 +80,6 @@ modelNoteProApplication = (function() {
     // Generate new ID for creating new note
     let maxId = function() {
 
-        // TODO: Refactor
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
             if (+current.id > +prev.id) {
                 return current;

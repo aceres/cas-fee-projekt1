@@ -5,7 +5,6 @@
     // The $ is now locally scoped
     "use strict";
 
-    // TODO: Define this as render function (render())
     // Grab the template script
     let allNotesCompiledHtml = null;
 
@@ -169,7 +168,6 @@
     }
 
     // Toggle row (for long descriptions)
-    // TODO: Check if this is needed - after table will be implemented
     function toggleRow() {
 
         let charLimit = 120;
@@ -206,6 +204,7 @@
         });
     }
 
+    // Go to for creating new note
     function createNote() {
         router.navigateTo("detailNote.html?id=0");
     }

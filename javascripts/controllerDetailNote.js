@@ -5,6 +5,7 @@
     // The $ is now locally scoped
     "use strict";
 
+    // Get id parameter from the url and get the detail data
     loadDetailNote();
 
     // TODO: Later Session Storage
@@ -114,6 +115,7 @@
         }
     });
 
+    // Notification
     function showNotification() {
 
         let close = document.getElementsByClassName("closebtn");
@@ -128,7 +130,7 @@
         }
     }
 
-    // Load detail note
+    // Load the detail data
     function loadDetailNote() {
 
         modelNoteProApplication.loadDetailNote();
