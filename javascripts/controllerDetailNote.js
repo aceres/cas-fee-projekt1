@@ -2,19 +2,14 @@
 ;
 (function ($, window, document, undefined) {
 
-    // The $ is now locally scoped
     "use strict";
 
-    // Get id parameter from the url and get the detail data
     loadDetailNote();
-
-    // TODO: Later Session Storage
     style.loadStyle();
 
     $(function () {
 
         // The DOM is ready!
-
         const button = document.getElementsByClassName("button");
 
         for (let i = 0; i < button.length; i++ ) {
@@ -50,12 +45,10 @@
             });
         }
 
-        // List
         function ctrlList() {
             router.navigateTo("index.html");
         }
 
-        // Save
         function ctrlSave() {
 
             let title = document.getElementById("title").value;
@@ -76,7 +69,6 @@
             }
         }
 
-        // Update
         function ctrlUpdate() {
 
             let id = modelNoteProApplication.getId("id");
@@ -104,18 +96,15 @@
             }
         }
 
-        // Delete
         function ctrlDelete() {
             modelNoteProApplication.deleteNote();
         }
 
-        // Cancel
         function ctrlCancel() {
             router.navigateTo("index.html");
         }
     });
 
-    // Notification
     function showNotification() {
 
         let close = document.getElementsByClassName("closebtn");
@@ -130,7 +119,6 @@
         }
     }
 
-    // Load the detail data
     function loadDetailNote() {
 
         modelNoteProApplication.loadDetailNote();

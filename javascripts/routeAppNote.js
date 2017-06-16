@@ -1,6 +1,5 @@
 let router = {};
 
-// We need to do a check before we create the namespace
 if (typeof router === "undefined") {
     let router = {};
 }

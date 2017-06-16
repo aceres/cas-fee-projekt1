@@ -1,6 +1,5 @@
 let modelNoteProApplication = {};
 
-// We need to do a check before we create the namespace
 if (typeof modelNoteProApplication === "undefined") {
     let modelNoteProApplication = {};
 }
@@ -9,10 +8,6 @@ if (typeof modelNoteProApplication === "undefined") {
 modelNoteProApplication = (function() {
 
     "use strict";
-
-    $(function () {
-        // The DOM is ready!
-    });
 
     let initializeSampleData = function() {
         const dataNote = {
@@ -68,13 +63,11 @@ modelNoteProApplication = (function() {
         return dataNote;
     }
 
-    // Update local storage
     let updateDataLocalStorage = function(jsonLocalStorage) {
 
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
 
-    // Generate new ID for creating new note
     let maxId = function() {
 
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
@@ -87,7 +80,6 @@ modelNoteProApplication = (function() {
         return maxId.id+1
     }
 
-    // M: Create
     function saveNote(title, description, selectedDate, importance) {
 
         let id = modelNoteProApplication.maxId();
@@ -111,7 +103,6 @@ modelNoteProApplication = (function() {
         updateDataLocalStorage(jsonLocalStorage);
     }
 
-    // M: Get detail note
     function loadDetailNote() {
 
         let id = modelNoteProApplication.getId("id");
@@ -127,7 +118,6 @@ modelNoteProApplication = (function() {
         }
     }
 
-    // M: Update
     function updateNote(id, title, description, finishDate, importance) {
 
         let jsonLocalStorage = dataLocalStorage();
@@ -143,7 +133,6 @@ modelNoteProApplication = (function() {
         updateDataLocalStorage(jsonLocalStorage);
     }
 
-    // M: Delete
     function deleteNote() {
 
         let id = modelNoteProApplication.getId("id");
@@ -159,7 +148,6 @@ modelNoteProApplication = (function() {
         router.navigateTo("index.html");
     }
 
-    // Mark Note as finished only
     function checkNoteAsFinished(id) {
 
         let jsonLocalStorage = dataLocalStorage();
@@ -175,7 +163,6 @@ modelNoteProApplication = (function() {
         router.reload();
     }
 
-    // Get Id from the URL
     function getId(nodeId) {
 
         let query = window.location.search.substring(1);
@@ -190,21 +177,18 @@ modelNoteProApplication = (function() {
         return(false);
     }
 
-    // Clear Local Storage
     function clearDataLocalStorage() {
 
         localStorage.clear();
         router.navigateTo("index.html");
     }
 
-    // Not public function
     function dataLocalStorage() {
 
         let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
         return jsonLocalStorage;
     }
 
-    // Public
     return {
         initializeSampleData: initializeSampleData,
         updateDataLocalStorage: updateDataLocalStorage,

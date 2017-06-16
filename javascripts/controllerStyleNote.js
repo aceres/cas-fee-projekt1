@@ -1,6 +1,5 @@
 let style = {};
 
-// We need to do a check before we create the namespace
 if (typeof style === "undefined") {
     let style = {};
 }
@@ -31,7 +30,6 @@ style = (function () {
 
         let checkIfDetailPageExists = modelNoteProApplication.getId("id");
 
-        // Initialize Style by loading
         $("#selectStyle option").filter(function() {
             return this.value == window.sessionStorage["style"];
         }).prop('selected', true);
@@ -63,13 +61,10 @@ style = (function () {
         window.sessionStorage["style"] = "greyBg";
     }
 
-    // Update style
     let saveStyle = function(styleName) {
-
         window.sessionStorage["style"] = styleName;
     }
 
-    // Make it public access
     return {
         loadStyle: loadStyle,
         applyStyle: applyStyle,

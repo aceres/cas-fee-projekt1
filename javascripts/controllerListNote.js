@@ -2,56 +2,37 @@
 ;
 (function ($, window, document, undefined) {
 
-    // The $ is now locally scoped
     "use strict";
 
-    // Grab the template script
     let allNotesCompiledHtml = null;
-
-    // Handlebars will be loaded!
     let templateScriptAllNote = $("#template-list-all-note").html();
-
-    // Compile the template
     let templateAllNote = Handlebars.compile(templateScriptAllNote);
-
-    // Get data from local storage
     let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
 
     $(function () {
 
-        // The DOM is ready!
-
-        // Initialize data, if local storage is empty
         if (!localStorageDataNote) {
+
             localStorageDataNote = modelNoteProApplication.initializeSampleData();
-            // Initialize Style
             style.initializeStyle();
-            // Show all notes from the begin
             window.sessionStorage["showCheckedNotesOnly"] = false;
         }
 
-        // if null is false
         if (localStorageDataNote) {
-            // Pass our data to the template
+
             allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         }
 
-        // Add the compiled html to the page
-        // Display all notes
         $("#listAllNote").append(allNotesCompiledHtml);
 
-        // If show all checked note is true
         if (window.sessionStorage["showCheckedNotesOnly"] === "true") {
             checkIfFinishedTaskOnly();
         }
 
-        // Load / Initialize style
         style.loadStyle();
 
-        // Initialize for open / close detail row (description)
         toggleRow();
 
-        // Check note as finished
         $('#listAllNote').on('change', 'input[type=checkbox]', function() {
             modelNoteProApplication.checkNoteAsFinished(this.value)
         });
@@ -140,7 +121,6 @@
         }
     });
 
-    // Switcher: All notes / Checked notes only
     function switchShowAllFinishedTasks() {
         if ($("#showAllFinishedTasks").attr("data-checked") === "false") {
             $("#showAllFinishedTasks").attr("data-checked", "true");
@@ -151,7 +131,6 @@
         }
     }
 
-    // Initialize
     function checkIfFinishedTaskOnly() {
 
         //if ($("#showAllFinishedTasks").attr("data-checked") === "true") {
@@ -177,7 +156,6 @@
         }
     }
 
-    // Toggle row (for long descriptions)
     function toggleRow() {
 
         let charLimit = 120;
@@ -214,12 +192,10 @@
         });
     }
 
-    // Go to for creating new note
     function createNote() {
         router.navigateTo("detailNote.html?id=0");
     }
 
-    // Render notes
     function render() {
 
         $("#listAllNote").empty();
