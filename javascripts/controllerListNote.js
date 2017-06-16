@@ -35,7 +35,6 @@
             modelNoteProApplication.checkNoteAsFinished(this.value)
         });
 
-        const button = $(".button");
         const select = $(".select");
 
         for (let x = 0; x < select.length; x++) {
@@ -56,8 +55,13 @@
             "sortByTitle" : (a,b) => a.title.localeCompare(b.title)
         }
 
-        for (let i = 0; i < button.length; i++) {
-            button[i].addEventListener("click", function (event) {
+        let buttons = document.querySelectorAll('.button');
+        for (let i = 0; i < buttons.length; i++) {
+
+            let self = buttons[i];
+
+            self.addEventListener('click', function (event) {
+                event.preventDefault();
 
                 switch (event.currentTarget.id) {
 
@@ -106,7 +110,7 @@
                         checkIfFinishedTaskOnly();
                         break;
                 }
-            });
+            }, false);
         }
     });
 
