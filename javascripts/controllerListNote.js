@@ -29,7 +29,6 @@
 
         // if null is false
         if (localStorageDataNote) {
-
             // Pass our data to the template
             allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         }
@@ -38,7 +37,8 @@
         // Display all notes
         $("#listAllNote").append(allNotesCompiledHtml);
 
-        loadSkin();
+        // Load / Initialize style
+        style.loadStyle();
 
         // Initialize for open / close detail row (description)
         toggleRow();
@@ -63,7 +63,7 @@
 
                     case "selectStyle":
 
-                        applySkin(event);
+                        style.applyStyle(event);
                         break;
                 }
             });
@@ -206,68 +206,8 @@
         });
     }
 
-    function applySkin(e) {
-
-        let objectStyle = JSON.parse(localStorage.getItem("localDataNote"));
-        let nodeList = $('body').find('.changeBg');
-
-        if (e.currentTarget.value === "greyBg") {
-
-            nodeList.addClass("greyBg");
-            nodeList.toggleClass("blackBg");
-        }
-
-        if (e.currentTarget.value === "blackBg") {
-
-            nodeList.addClass("blackBg");
-            nodeList.removeClass("greyBg");
-        }
-        setStyle(objectStyle, e.currentTarget.value)
-    }
-
-    function loadSkin() {
-
-        let checkIfDetailPageExists = modelNoteProApplication.getId("id");
-        let objectStyle = JSON.parse(localStorage.getItem("localDataNote"));
-
-        // Initialize Style by loading
-        $("#selectStyle option").filter(function() {
-            return this.value == objectStyle.styleSkin.name;
-        }).prop('selected', true);
-
-        let nodeList = $('body').find('.changeBg');
-
-        if (objectStyle.styleSkin.name === "greyBg") {
-
-            nodeList.addClass("greyBg");
-            nodeList.toggleClass("blackBg");
-
-            if (!checkIfDetailPageExists) {
-                document.getElementById("listAllNote").style.color = "#000000";
-            }
-        }
-
-        if (objectStyle.styleSkin.name === "blackBg") {
-
-            nodeList.addClass("blackBg");
-            nodeList.removeClass("greyBg");
-
-            if (!checkIfDetailPageExists) {
-                document.getElementById("listAllNote").style.color = "#000000";
-            }
-        }
-    }
-
     function createNote() {
         router.navigateTo("detailNote.html?id=0");
-    }
-
-    // Update style locally
-    // TODO: This one belongs to the model
-    function setStyle(objectStyle, styleName) {
-
-        objectStyle.styleSkin.name = styleName;
-        localStorage.setItem('localDataNote', JSON.stringify(objectStyle));
     }
 
     // Render notes

@@ -8,7 +8,7 @@
     loadDetailNote();
 
     // TODO: Later Session Storage
-    loadSkin();
+    style.loadStyle();
 
     $(function () {
 
@@ -113,39 +113,6 @@
             router.navigateTo("index.html");
         }
     });
-
-    function loadSkin() {
-
-        let checkIfDetailPageExists = modelNoteProApplication.getId("id");
-        let objectStyle = JSON.parse(localStorage.getItem("localDataNote"));
-
-        // Initialize Style by loading
-        $("#selectStyle option").filter(function() {
-            return this.value == objectStyle.styleSkin.name;
-        }).prop('selected', true);
-
-        let nodeList = $('body').find('.changeBg');
-
-        if (objectStyle.styleSkin.name === "greyBg") {
-
-            nodeList.addClass("greyBg");
-            nodeList.toggleClass("blackBg");
-
-            if (!checkIfDetailPageExists) {
-                document.getElementById("listAllNote").style.color = "#000000";
-            }
-        }
-
-        if (objectStyle.styleSkin.name === "blackBg") {
-
-            nodeList.addClass("blackBg");
-            nodeList.removeClass("greyBg");
-
-            if (!checkIfDetailPageExists) {
-                document.getElementById("listAllNote").style.color = "#000000";
-            }
-        }
-    }
 
     function showNotification() {
 
