@@ -59,12 +59,6 @@
         const button = document.getElementsByClassName("button");
         const select = document.getElementsByClassName("select");
 
-        let sortFunctions = {
-            "sortByImportance" : (a,b) => b.importance - a.importance,
-            "sortByCreatedDate" : (a,b) => a.createdDate - b.createdDate,
-            "sortByFinishDate" : (a,b) => a.finishDate - b.finishDate
-        }
-
         for (let x = 0; x < select.length; x++) {
             select[x].addEventListener("change", function (event) {
                 switch (event.currentTarget.id) {
@@ -75,6 +69,13 @@
                         break;
                 }
             });
+        }
+
+        let sortFunctions = {
+            "sortByImportance" : (a,b) => b.importance - a.importance,
+            "sortByCreatedDate" : (a,b) => a.createdDate - b.createdDate,
+            "sortByFinishDate" : (a,b) => a.finishDate - b.finishDate,
+            "sortByTitle" : (a,b) => a.title.localeCompare(b.title)
         }
 
         for (let i = 0; i < button.length; i++) {
@@ -104,7 +105,6 @@
                             return sortFunctions.sortByImportance(a, b);
                         });
                         render();
-                        checkIfFinishedTaskOnly();
                         break;
 
                     case "sortByCreatedDate":
@@ -113,7 +113,6 @@
                             return sortFunctions.sortByCreatedDate(a, b);
                         });
                         render();
-                        checkIfFinishedTaskOnly();
                         break;
 
                     case "sortByFinishDate":
@@ -122,16 +121,14 @@
                             return sortFunctions.sortByFinishDate(a, b);
                         });
                         render();
-                        checkIfFinishedTaskOnly();
                         break;
 
                     case "sortByTitle":
 
                         localStorageDataNote.appNote.sort(function (a, b) {
-                            return a.title.localeCompare(b.title);
+                            return sortFunctions.sortByTitle(a, b);
                         });
                         render();
-                        checkIfFinishedTaskOnly();
                         break;
 
                     case "showAllFinishedTasks":
@@ -231,5 +228,6 @@
         allNotesCompiledHtml = templateAllNote(localStorageDataNote);
         $("#listAllNote").append(allNotesCompiledHtml);
         toggleRow();
+        checkIfFinishedTaskOnly();
     }
 }(jQuery, window, document));
