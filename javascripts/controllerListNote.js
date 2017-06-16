@@ -24,6 +24,8 @@
         // Initialize data, if local storage is empty
         if (!localStorageDataNote) {
             localStorageDataNote = modelNoteProApplication.initializeSampleData();
+            // Initialize Style
+            style.initializeStyle();
         }
 
         // if null is false
@@ -152,6 +154,7 @@
             $("tr:not('.hidden'):even").css("background-color", "#fff");
             $("tr:not('.hidden'):odd").css("background-color", "#eee");
             $("#showAllFinishedTasks").text("Show all notes");
+            $("h4").text("Checked notes only");
             $("span.rowAllLength").hide();
             let newCountRow = $("#listAllNote").children(":not(.hidden, .headerTitle, .footerRowLength)").length;
             $("span.rowCheckedLength").text(newCountRow);
@@ -162,6 +165,7 @@
             $("tr:even").css("background-color", "#fff");
             $("tr:odd").css("background-color", "#eee");
             $("#showAllFinishedTasks").text("Show finished notes only");
+            $("h4").text("All notes");
             $("span.rowAllLength").show();
             $("span.rowCheckedLength").hide();
         }

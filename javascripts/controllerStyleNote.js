@@ -11,7 +11,6 @@ style = (function () {
 
     let applyStyle = function(e) {
 
-        let objectStyle = JSON.parse(localStorage.getItem("localDataNote"));
         let nodeList = $('body').find('.changeBg');
 
         if (e.currentTarget.value === "greyBg") {
@@ -25,22 +24,21 @@ style = (function () {
             nodeList.addClass("blackBg");
             nodeList.removeClass("greyBg");
         }
-        saveStyle(objectStyle, e.currentTarget.value)
+        saveStyle(e.currentTarget.value)
     }
 
     let loadStyle = function() {
 
         let checkIfDetailPageExists = modelNoteProApplication.getId("id");
-        let objectStyle = JSON.parse(localStorage.getItem("localDataNote"));
 
         // Initialize Style by loading
         $("#selectStyle option").filter(function() {
-            return this.value == objectStyle.styleSkin.name;
+            return this.value == sessionStorage["style"];
         }).prop('selected', true);
 
         let nodeList = $('body').find('.changeBg');
 
-        if (objectStyle.styleSkin.name === "greyBg") {
+        if (sessionStorage["style"] === "greyBg") {
 
             nodeList.addClass("greyBg");
             nodeList.remove("blackBg");
@@ -50,7 +48,7 @@ style = (function () {
             }
         }
 
-        if (objectStyle.styleSkin.name === "blackBg") {
+        if (sessionStorage["style"] === "blackBg") {
 
             nodeList.addClass("blackBg");
             nodeList.removeClass("greyBg");
@@ -61,16 +59,21 @@ style = (function () {
         }
     }
 
-    // Update style
-    let saveStyle = function(objectStyle, styleName) {
-
-        objectStyle.styleSkin.name = styleName;
-        localStorage.setItem('localDataNote', JSON.stringify(objectStyle));
+    let initializeStyle = function() {
+        sessionStorage["style"] = "greyBg";
     }
 
+    // Update style
+    let saveStyle = function(styleName) {
+
+        sessionStorage["style"] = styleName;
+    }
+
+    // Make it public access
     return {
         loadStyle: loadStyle,
         applyStyle: applyStyle,
-        saveStyle: saveStyle
+        saveStyle: saveStyle,
+        initializeStyle: initializeStyle
     };
 })();
