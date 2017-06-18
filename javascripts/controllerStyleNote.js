@@ -10,19 +10,8 @@ style = (function () {
 
     let applyStyle = function(e) {
 
-        let nodeList = $('body').find('.changeBg');
+        $('body').toggleClass('changeBlackStyle');
 
-        if (e.currentTarget.value === "greyBg") {
-
-            nodeList.addClass("greyBg");
-            nodeList.removeClass("blackBg");
-        }
-
-        if (e.currentTarget.value === "blackBg") {
-
-            nodeList.addClass("blackBg");
-            nodeList.removeClass("greyBg");
-        }
         saveStyle(e.currentTarget.value)
     }
 
@@ -32,14 +21,8 @@ style = (function () {
             return this.value == modelNoteProApplication.getSessionStorage("style");
         }).prop('selected', true);
 
-        let nodeList = $('body').find('.changeBg');
-
-        if (modelNoteProApplication.getSessionStorage("style") === "greyBg") {
-            nodeList.addClass("greyBg");
-            nodeList.remove("blackBg");
-        } else {
-            nodeList.addClass("blackBg");
-            nodeList.removeClass("greyBg");
+        if (modelNoteProApplication.getSessionStorage("style") === "blackBg") {
+            $('body').toggleClass('changeBlackStyle');
         }
     }
 

@@ -56,8 +56,9 @@ main > article {
     padding: 5px;
     border: 1px solid #CCCCCC;
     border-radius: 6px;
-    background-color: #323232;
+    background-color: #666666;
     opacity: 0.8;
+    color: #000;
 }
 
 header,
@@ -78,7 +79,7 @@ header select {
 
 table {
     font-size: 12px;;
-    width: 100%
+    width: 100%;
 }
 
 table th {
@@ -284,33 +285,36 @@ label.star:before {
     color: black;
 }
 
-.greyBg {
-    background-color: #666666;
-    opacity: 0.8;
-    color: #000;
+#listAllNote thead,
+#listAllNote tbody,
+#listAllNote tfoot {
+    background-color: #FFF;
 }
 
-.blackBg {
+#listAllNote tbody:nth-child(2n+2) {
+    background-color: #EEEEEE;
+}
+
+.changeBlackStyle header,
+.changeBlackStyle nav,
+.changeBlackStyle article,
+.changeBlackStyle footer,
+.changeBlackStyle aside {
     background-color: #333333;
     opacity: 0.8;
     color: #FFFFFF;
 }
 
-.blackBg #listAllNote {
-    color: #000;
-}
-
-.greyBg #listAllNote thead,
-.blackBg #listAllNote thead,
-.greyBg #listAllNote tbody,
-.blackBg #listAllNote tbody,
-.greyBg #listAllNote tfoot,
-.blackBg #listAllNote tfoot {
+.changeBlackStyle #listAllNote thead,
+.changeBlackStyle #listAllNote tbody,
+.changeBlackStyle #listAllNote tfoot {
     background-color: #FFF;
+}
+
+.changeBlackStyle #listAllNote {
     color: #000;
 }
 
-.greyBg #listAllNote tbody:nth-child(2n+2),
-.blackBg #listAllNote tbody:nth-child(2n+2) {
+.changeBlackStyle #listAllNote tbody:nth-child(2n+2) {
     background-color: #EEEEEE;
 }

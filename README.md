@@ -35,8 +35,24 @@ Weitere Information und Bewertungen, siehe Folie: CAS-FEE-2017-InfosProjektePrü
 
 - http://airbnb.io/javascript/
 
-### Installation (Setup)
 
+## Installation
+
+```bash
+# Repo klonen
+git clone https://github.com/aceres/cas-fee-projekt1
+
+# In Verzeichnis wechseln
+cd cas-fee-projekt1
+
+# NPM-Dependencies installieren (in package.json definiert)
+npm i
 ```
-Beispiel
+
+## Webserver starten
+
+```bash
+node index.js
 ```
+
+Im Browser unter http://localhost:3000 erreichbar.
