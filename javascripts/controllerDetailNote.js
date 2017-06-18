@@ -56,8 +56,9 @@
             let description = $("#description").val();
             let selectedDate = $("#date").val();
             let importance = $("input:radio[name=importance]:checked").val();
+            let dateFormat = checkDateformat(selectedDate);
 
-            if (title !== "" && description != "") {
+            if (title !== "" && description !== "" && dateFormat !== false) {
                 modelNoteProApplication.saveNote(title, description, selectedDate, importance);
                 success.show();
                 warning.hide();
@@ -66,6 +67,16 @@
                 success.hide();
                 warning.show();
                 showNotification();
+            }
+        }
+
+        function checkDateformat(date) {
+
+            let dateFormat = 'DD.MM.YYYY';
+            if (moment(moment(date).format(dateFormat),dateFormat,true).isValid()) {
+                return true;
+            } else {
+                return false;
             }
         }
 
@@ -82,7 +93,9 @@
 
             let importance = $("input:radio[name=importance]:checked").val()
 
-            if (title !== "" && description != "") {
+            let dateFormat = checkDateformat(selectedDate);
+
+            if (title !== "" && description != "" && dateFormat !== false) {
                 modelNoteProApplication.updateNote(id, title, description, importance, formatDate, createdDate);
                 success.show();
                 warning.hide();
