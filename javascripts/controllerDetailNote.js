@@ -9,12 +9,12 @@
     const save = $(".save");
     const update = $(".update");
 
-    loadDetailNote();
+    getDetailNote();
+
     style.loadStyle();
 
     $(function () {
 
-        // The DOM is ready!
         const button = document.getElementsByClassName("button");
 
         for (let i = 0; i < button.length; i++ ) {
@@ -46,10 +46,10 @@
         }
 
         function ctrlList() {
+
             router.navigateTo("index.html");
         }
 
-        // TODO: Refactoring
         function ctrlSave() {
 
             let title = $("#title").val();
@@ -78,11 +78,12 @@
             let selectedDate = $("#date").val();
             let defineAsDate = new Date(selectedDate);
             let formatDate = defineAsDate.valueOf();
+            let createdDate = $("#createdDate").val();
 
             let importance = $("input:radio[name=importance]:checked").val()
 
             if (title !== "" && description != "") {
-                modelNoteProApplication.updateNote(id, title, description, formatDate, importance);
+                modelNoteProApplication.updateNote(id, title, description, importance, formatDate, createdDate);
                 success.show();
                 warning.hide();
                 showNotification();
@@ -94,10 +95,12 @@
         }
 
         function ctrlDelete() {
+
             modelNoteProApplication.deleteNote();
         }
 
         function ctrlCancel() {
+
             router.navigateTo("index.html");
         }
     });
@@ -118,20 +121,22 @@
         }
     }
 
-    function loadDetailNote() {
+    function getDetailNote() {
 
-        modelNoteProApplication.loadDetailNote();
-        let objectNote = modelNoteProApplication.loadDetailNote();
+        let objectNote = modelNoteProApplication.getDetailNote();
 
         if (typeof objectNote === 'object' && objectNote.id != 0) {
+
             save.hide();
             update.show();
-
             $("#title").val(objectNote.title);
             $("#description").val(objectNote.description);
             $("#date").val(moment(objectNote.finishDate).format("YYYY-MM-DD"));
             $("input[name='importance'][value='"+objectNote.importance+"']").attr("checked", true);
+            $("#createdDate").val(objectNote.createdDate);
+            $("#finish").val(objectNote.finished);
         } else {
+
             save.show();
             update.hide();
         }

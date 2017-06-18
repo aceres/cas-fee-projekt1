@@ -1,15 +1,92 @@
+// Class
+class Note {
+    constructor(id, title, description, finishDate, createdDate, importance, finished) {
+
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.finishDate = finishDate;
+        this.createdDate = createdDate;
+        this.importance = importance;
+        this.finished = finished;
+    }
+
+    addNote(note) {
+
+        let jsonLocalStorage = modelNoteProApplication.getDataLocalStorage();
+        jsonLocalStorage.appNote.push(note);
+        modelNoteProApplication.updateDataLocalStorage(jsonLocalStorage);
+    }
+
+    updateNote(note) {
+
+        let jsonLocalStorage = modelNoteProApplication.getDataLocalStorage();
+        jsonLocalStorage.appNote.forEach(function(entry) {
+            if (entry.id == note.id) {
+                entry.title = note.title;
+                entry.description = note.description;
+                entry.importance = note.importance
+                entry.finishDate = note.finishDate;
+            }
+        });
+        modelNoteProApplication.updateDataLocalStorage(jsonLocalStorage);
+    }
+
+    deleteNote(note) {
+
+        let jsonLocalStorage = modelNoteProApplication.getDataLocalStorage();
+        for (let i=0; i < jsonLocalStorage.appNote.length; i++){
+            if(jsonLocalStorage.appNote[i].id == note.id){
+                jsonLocalStorage.appNote.splice(i,1);
+            }
+        }
+        modelNoteProApplication.updateDataLocalStorage(jsonLocalStorage);
+        router.navigateTo("index.html");
+    }
+
+    getDetailNote(id) {
+
+        let jsonLocalStorage = modelNoteProApplication.getDataLocalStorage();
+
+        if (id != 0) {
+
+            let objNote = jsonLocalStorage.appNote.filter(function (entry) {
+                return entry.id == id;
+            });
+
+            return objNote[0];
+        }
+    }
+
+    checkNoteAsFinished(note) {
+
+        let jsonLocalStorage = modelNoteProApplication.getDataLocalStorage();
+        jsonLocalStorage.appNote.forEach(function(entry) {
+            if (entry.id == note.id && entry.finished == false) {
+                entry.finished = true;
+            } else if (entry.id == note.id && entry.finished == true) {
+                entry.finished = false;
+            }
+        });
+
+        modelNoteProApplication.updateDataLocalStorage(jsonLocalStorage);
+        router.reload();
+    }
+}
+
+// Revealing Module Pattern
 let modelNoteProApplication = {};
 
 if (typeof modelNoteProApplication === "undefined") {
     let modelNoteProApplication = {};
 }
 
-/* Revealing Module Pattern */
 modelNoteProApplication = (function() {
 
     "use strict";
 
     let initializeSampleData = function() {
+
         const dataNote = {
             "appNote": [
                 {
@@ -64,12 +141,13 @@ modelNoteProApplication = (function() {
     }
 
     let updateDataLocalStorage = function(jsonLocalStorage) {
+
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
 
     let maxId = function() {
-        let jsonLocalStorage = getDataLocalStorage();
 
+        let jsonLocalStorage = getDataLocalStorage();
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
             if (+current.id > +prev.id) {
                 return current;
@@ -83,84 +161,37 @@ modelNoteProApplication = (function() {
     function saveNote(title, description, selectedDate, importance) {
 
         let id = modelNoteProApplication.maxId();
-        let defineAsDate = new Date(selectedDate);
-        let formatDate = defineAsDate.valueOf();
-        let newDate = new Date();
+        let finishDate = new Date(selectedDate).valueOf();
+        let createdDate = new Date().valueOf();
 
-        let newNote = {
-            id: id,
-            title: title,
-            description: description,
-            importance: importance,
-            createdDate: newDate.valueOf(),
-            finishDate: formatDate,
-            finished: false
-        }
-
-        let jsonLocalStorage = getDataLocalStorage();
-        jsonLocalStorage.appNote.push(newNote);
-
-        updateDataLocalStorage(jsonLocalStorage);
+        let addNote = new Note(id, title, description, finishDate, createdDate, importance, false);
+        addNote.addNote(addNote);
     }
 
-    function loadDetailNote() {
+    function getDetailNote() {
 
         let id = modelNoteProApplication.getId("id");
-        let jsonLocalStorage = getDataLocalStorage();
-
-        if (id != 0) {
-
-            let objNote = jsonLocalStorage.appNote.filter(function (entry) {
-                return entry.id == id;
-            });
-
-            return objNote[0];
-        }
+        let detailNote = new Note(id);
+        return detailNote.getDetailNote(id);
     }
 
-    function updateNote(id, title, description, finishDate, importance) {
+    function updateNote(id, title, description, importance, finishDate, createdDate, finish) {
 
-        let jsonLocalStorage = getDataLocalStorage();
-        jsonLocalStorage.appNote.forEach(function(entry) {
-            if (entry.id == id) {
-                entry.title = title;
-                entry.description = description;
-                entry.finishDate = finishDate;
-                entry.importance = importance
-            }
-        });
-
-        updateDataLocalStorage(jsonLocalStorage);
+        let updateNote = new Note(id, title, description, finishDate, createdDate, importance, finish)
+        updateNote.updateNote(updateNote)
     }
 
     function deleteNote() {
 
         let id = modelNoteProApplication.getId("id");
-
-        let jsonLocalStorage = getDataLocalStorage();
-        for (let i=0; i < jsonLocalStorage.appNote.length; i++){
-            if(jsonLocalStorage.appNote[i].id == id){
-                jsonLocalStorage.appNote.splice(i,1);
-            }
-        }
-
-        updateDataLocalStorage(jsonLocalStorage);
-        router.navigateTo("index.html");
+        let deleteNote = new Note(id);
+        deleteNote.deleteNote(deleteNote)
     }
 
     function checkNoteAsFinished(id) {
 
-        let jsonLocalStorage = getDataLocalStorage();
-        jsonLocalStorage.appNote.forEach(function(entry) {
-            if (entry.id == id && entry.finished == false) {
-                entry.finished = true;
-            } else if (entry.id == id && entry.finished == true) {
-                entry.finished = false;
-            }
-        });
-
-        updateDataLocalStorage(jsonLocalStorage);
-        router.reload();
+        let checkNoteAsFinished = new Note(id);
+        checkNoteAsFinished.checkNoteAsFinished(checkNoteAsFinished);
     }
 
     function getId(nodeId) {
@@ -190,10 +221,12 @@ modelNoteProApplication = (function() {
     }
 
     let getSessionStorage = function(sessionId) {
+
         return window.sessionStorage[sessionId];
     }
 
     let setSessionStorage = function(sessionId, flag) {
+
         window.sessionStorage[sessionId] = flag;
     }
 
@@ -201,10 +234,11 @@ modelNoteProApplication = (function() {
         initializeSampleData: initializeSampleData,
         updateDataLocalStorage: updateDataLocalStorage,
         clearDataLocalStorage: clearDataLocalStorage,
+        getDataLocalStorage: getDataLocalStorage,
         maxId: maxId,
         saveNote: saveNote,
         getId: getId,
-        loadDetailNote: loadDetailNote,
+        getDetailNote: getDetailNote,
         updateNote: updateNote,
         deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,
