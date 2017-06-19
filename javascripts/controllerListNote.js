@@ -70,6 +70,10 @@
                     router.navigateTo("index.html");
                     break;
 
+                case "detailNote":
+                    router.navigateTo("detailNote.html?id="+event.target.value);
+                    break;
+
                 case "clearLocalStorage":
                     modelNoteProApplication.clearDataLocalStorage();
                     break;

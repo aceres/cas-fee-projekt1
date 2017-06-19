@@ -93,7 +93,7 @@
                             <input type="checkbox" id="checkNoteAsFinished" name="nameCheckNoteAsFinsihed" value="{{id}}" {{{checkIfChecked finished}}}>
                         </td>
                         <td>
-                            <a title="Edit" href="detailNote.html?id={{id}}">Edit</a>
+                            <button title="Edit Note" type="button" class="button" value="{{id}}" id="detailNote">Edit</button>
                         </td>
                     </tr>
                 </tbody>
@@ -112,19 +112,19 @@
                 Settings
             </h2>
             <br>
-            <button class="button" id="sortByFinishDate" type="button">
+            <button class="button" title="Sort by finished date" id="sortByFinishDate" type="button">
                 Sort by finished date
             </button>
-            <button class="button" id="sortByCreatedDate" type="button">
+            <button class="button" title="Sort by created date" id="sortByCreatedDate" type="button">
                 Sort by created date
             </button>
-            <button class="button" id="sortByImportance" type="button">
+            <button class="button" title="Sort by importance" id="sortByImportance" type="button">
                 Sort by importance
             </button>
-            <button class="button" id="sortByTitle" type="button">
+            <button class="button" title="Sort by title" id="sortByTitle" type="button">
                 Sort by title
             </button>
-            <button class="button" id="showAllFinishedTasks" type="button">
+            <button class="button" title="Show finished notes only" id="showAllFinishedTasks" type="button">
                 Show finished notes only
             </button>
         </aside>
