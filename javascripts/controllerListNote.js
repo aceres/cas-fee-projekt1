@@ -56,7 +56,7 @@
         }
 
         const el = document.getElementById("list");
-        el.addEventListener("click", function() { buttonClicked(event) }, false);
+        el.addEventListener("click", function(event) { buttonClicked(event) }, false);
 
         function buttonClicked(event) {
 
