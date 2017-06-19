@@ -77,57 +77,51 @@ header select {
     display: none;
 }
 
-table {
+main table {
     font-size: 12px;;
     width: 100%;
 }
 
-table th {
+main table th {
     text-align: left;
     font-weight: bold;
     background-color: #CCC;
 }
 
-table th:first-child(1) {
+main table th:first-child(1) {
     width: 20%;
 }
 
-table th:nth-child(2) {
+main table th:nth-child(2) {
     width: 30%;
 }
 
-table th:nth-child(3) {
+main table th:nth-child(3) {
     width: 15%;
 }
 
-table th:nth-child(4) {
+main table th:nth-child(4) {
     width: 10%;
 }
 
-table th:nth-child(5) {
+main table th:nth-child(5) {
     width: 10%;
 }
 
-table th:nth-child(6) {
+main table th:nth-child(6) {
     width: 5%;
 }
 
-table th:last-child {
+main table th:last-child {
     width: 10%;
 }
 
-table td {
+main table td {
     vertical-align: top;
     padding: 2px;
 }
 
-table a {
-    padding: 2px;
-    float: right;
-    width: 100px;
-}
-
-table a.more {
+main table a.more {
     padding: 2px 4px;
     margin-top: 4px;
     display: inline-block;
@@ -135,25 +129,26 @@ table a.more {
     width: 200px;
 }
 
-tbody:nth-child(2n+2) {
+main tbody:nth-child(2n+2) {
     background-color: #EEEEEE;
 }
 
-tr:hover {
+main tr:hover {
     background-color: #ffffe5 !important;
 }
 
-span.rowAllLength,
-span.rowCheckedLength {
+main span.rowAllLength,
+main span.rowCheckedLength {
     margin: 0;
 }
 
-span.rowCheckedLength {
+main span.rowCheckedLength {
     display: none;
 }
 
-button,
-a {
+button.button,
+a.more,
+a.button {
     background-color: #CCC;
     border: none;
     color: #FFF;

@@ -115,6 +115,35 @@
 
             router.navigateTo("index.html");
         }
+
+        // Support Firefox
+        if (Modernizr.inputtypes.date) {
+
+            $('<div class="alert alert-success"><p>Yay! <code>input="date"</code> for you!</p></div>').appendTo('#alert');
+        } else {
+
+            $('<link/>', {
+                rel: 'stylesheet',
+                type: 'text/css',
+                href: 'https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css'
+            }).appendTo('head');
+
+            $.getScript('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js')
+
+                .done(function() {
+                    $('input[type="date"]').datepicker({
+                        dateFormat: 'yy-mm-dd'
+                    });
+                });
+
+            $('<div class="alert alert-warning"><p>Sorry, no <code>input="date"</code> for you! Time for jQuery UI</p></div>').appendTo('#alert');
+        }
+
+        // Support Firefox
+        $('input[type="date"]').change(function() {
+            var outputDate = (this.value);
+            $("#target").text(outputDate);
+        });
     });
 
     function showNotification() {
