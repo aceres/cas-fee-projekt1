@@ -15,34 +15,33 @@
 
     $(function () {
 
-        const button = document.getElementsByClassName("button");
+        const el = document.getElementById("detail");
+        el.addEventListener("click", function() { buttonClicked(event) }, false);
 
-        for (let i = 0; i < button.length; i++ ) {
+        function buttonClicked(event) {
 
-            button[i].addEventListener("click", function(event) {
-                switch (event.currentTarget.id) {
+            switch (event.target.id) {
 
-                    case "list":
-                        ctrlList();
-                        break;
+                case "list":
+                    ctrlList();
+                    break;
 
-                    case "save":
-                        ctrlSave();
-                        break;
+                case "save":
+                    ctrlSave();
+                    break;
 
-                    case "update":
-                        ctrlUpdate();
-                        break;
+                case "update":
+                    ctrlUpdate();
+                    break;
 
-                    case "delete":
-                        ctrlDelete();
-                        break;
+                case "delete":
+                    ctrlDelete();
+                    break;
 
-                    case "cancel":
-                        ctrlCancel();
-                        break;
-                }
-            });
+                case "cancel":
+                    ctrlCancel();
+                    break;
+            }
         }
 
         function ctrlList() {

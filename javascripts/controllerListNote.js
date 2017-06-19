@@ -55,62 +55,58 @@
             "sortByTitle" : (a,b) => a.title.localeCompare(b.title)
         }
 
-        let buttons = document.querySelectorAll('.button');
-        for (let i = 0; i < buttons.length; i++) {
+        const el = document.getElementById("list");
+        el.addEventListener("click", function() { buttonClicked(event) }, false);
 
-            let self = buttons[i];
+        function buttonClicked(event) {
 
-            self.addEventListener('click', function (event) {
-                event.preventDefault();
+            switch (event.target.id) {
 
-                switch (event.currentTarget.id) {
+                case "createNote":
+                    createNote();
+                    break;
 
-                    case "createNote":
-                        createNote();
-                        break;
+                case "list":
+                    router.navigateTo("index.html");
+                    break;
 
-                    case "list":
-                        router.navigateTo("index.html");
-                        break;
+                case "clearLocalStorage":
+                    modelNoteProApplication.clearDataLocalStorage();
+                    break;
 
-                    case "clearLocalStorage":
-                        modelNoteProApplication.clearDataLocalStorage();
-                        break;
+                case "sortByImportance":
+                    localStorageDataNote.appNote.sort(function (a, b) {
+                        return sortFunctions.sortByImportance(a, b);
+                    });
+                    render();
+                    break;
 
-                    case "sortByImportance":
-                        localStorageDataNote.appNote.sort(function (a, b) {
-                            return sortFunctions.sortByImportance(a, b);
-                        });
-                        render();
-                        break;
+                case "sortByCreatedDate":
+                    localStorageDataNote.appNote.sort(function (a, b) {
+                        return sortFunctions.sortByCreatedDate(a, b);
+                    });
+                    render();
+                    break;
 
-                    case "sortByCreatedDate":
-                        localStorageDataNote.appNote.sort(function (a, b) {
-                            return sortFunctions.sortByCreatedDate(a, b);
-                        });
-                        render();
-                        break;
+                case "sortByFinishDate":
+                    localStorageDataNote.appNote.sort(function (a, b) {
+                        return sortFunctions.sortByFinishDate(a, b);
+                    });
+                    render();
+                    break;
 
-                    case "sortByFinishDate":
-                        localStorageDataNote.appNote.sort(function (a, b) {
-                            return sortFunctions.sortByFinishDate(a, b);
-                        });
-                        render();
-                        break;
+                case "sortByTitle":
+                    localStorageDataNote.appNote.sort(function (a, b) {
+                        return sortFunctions.sortByTitle(a, b);
+                    });
+                    render();
+                    break;
 
-                    case "sortByTitle":
-                        localStorageDataNote.appNote.sort(function (a, b) {
-                            return sortFunctions.sortByTitle(a, b);
-                        });
-                        render();
-                        break;
-
-                    case "showAllFinishedTasks":
-                        switchShowAllFinishedTasks();
-                        checkIfFinishedTaskOnly();
-                        break;
-                }
-            }, false);
+                case "showAllFinishedTasks":
+                    switchShowAllFinishedTasks();
+                    checkIfFinishedTaskOnly();
+                    break;
+            }
         }
     });
 
