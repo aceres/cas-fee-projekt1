@@ -1,6 +1,6 @@
 // IIFE - Immediately Invoked Function Expression
 ;
-(function ($, window, document, undefined) {
+(function ($, window, document) {
 
     "use strict";
 
@@ -47,7 +47,7 @@
             });
         }
 
-        let sortFunctions = {
+        const sortFunctions = {
             "sortByImportance" : (a,b) => b.importance - a.importance,
             "sortByCreatedDate" : (a,b) => a.createdDate - b.createdDate,
             "sortByFinishDate" : (a,b) => a.finishDate - b.finishDate,
@@ -55,7 +55,7 @@
         }
 
         const el = document.getElementById("list");
-        el.addEventListener("click", function(event) { buttonClicked(event) }, false);
+        el.addEventListener("click", buttonClicked, false);
 
         function buttonClicked(event) {
 
@@ -147,12 +147,12 @@
 
     function expandDescription() {
 
-        let charLimit = 120;
+        const charLimit = 120;
 
         function truncate(el) {
 
-            let text = el.text();
-            let countText = text.trim().length;
+            const text = el.text();
+            const countText = text.trim().length;
             if (countText < 120) {
                 el.parent().parent().next().hide();
             } else {

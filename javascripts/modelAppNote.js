@@ -82,17 +82,11 @@ class NoteStorage extends Note {
 }
 
 // Revealing Module Pattern
-let modelNoteProApplication = {};
-
-if (typeof modelNoteProApplication === "undefined") {
-    let modelNoteProApplication = {};
-}
-
-modelNoteProApplication = (function() {
+let modelNoteProApplication = (function() {
 
     "use strict";
 
-    let initializeSampleData = function() {
+    const initializeSampleData = function() {
 
         const dataNote = {
             "appNote": [
@@ -148,12 +142,12 @@ modelNoteProApplication = (function() {
         return dataNote;
     }
 
-    let updateDataLocalStorage = function(jsonLocalStorage) {
+    function updateDataLocalStorage(jsonLocalStorage) {
 
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
 
-    let getMaxId = function() {
+    function getMaxId() {
 
         let jsonLocalStorage = getDataLocalStorage();
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
@@ -238,17 +232,17 @@ modelNoteProApplication = (function() {
     }
 
     return {
-        initializeSampleData: initializeSampleData,
-        updateDataLocalStorage: updateDataLocalStorage,
-        clearDataLocalStorage: clearDataLocalStorage,
-        getDataLocalStorage: getDataLocalStorage,
-        saveNote: saveNote,
-        getId: getId,
-        getDetailNote: getDetailNote,
-        updateNote: updateNote,
-        deleteNote: deleteNote,
-        checkNoteAsFinished: checkNoteAsFinished,
-        sessionKey: sessionKey
+        initializeSampleData,
+        updateDataLocalStorage,
+        clearDataLocalStorage,
+        getDataLocalStorage,
+        saveNote,
+        getId,
+        getDetailNote,
+        updateNote,
+        deleteNote,
+        checkNoteAsFinished,
+        sessionKey
     };
 })();
 

@@ -1,10 +1,4 @@
-let router = {};
-
-if (typeof router === "undefined") {
-    let router = {};
-}
-
-router = (function () {
+let router = (function() {
 
     "use strict";
 
