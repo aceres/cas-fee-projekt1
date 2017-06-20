@@ -11,27 +11,26 @@ style = (function () {
     let applyStyle = function(e) {
 
         $('body').toggleClass('changeBlackStyle');
-
         saveStyle(e.currentTarget.value)
     }
 
     let loadStyle = function() {
 
         $("#selectStyle option").filter(function() {
-            return this.value == modelNoteProApplication.getSessionKey("style");
+            return this.value == modelNoteProApplication.sessionKey("style", null, "get");
         }).prop('selected', true);
 
-        if (modelNoteProApplication.getSessionKey("style") === "blackBg") {
+        if (modelNoteProApplication.sessionKey("style", null, "get") === "blackBg") {
             $('body').toggleClass('changeBlackStyle');
         }
     }
 
     let initializeStyle = function() {
-        modelNoteProApplication.setSessionKey("style", "greyBg");
+        modelNoteProApplication.sessionKey("style", "greyBg", "set");
     }
 
     let saveStyle = function(styleName) {
-        modelNoteProApplication.setSessionKey("style", styleName);
+        modelNoteProApplication.sessionKey("style", styleName, "set");
     }
 
     return {

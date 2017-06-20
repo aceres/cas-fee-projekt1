@@ -144,6 +144,7 @@ modelNoteProApplication = (function() {
             ]
         };
         localStorage.setItem('localDataNote', JSON.stringify(dataNote));
+        modelNoteProApplication.sessionKey("showCheckedNotesOnly", false, "set");
         return dataNote;
     }
 
@@ -152,7 +153,7 @@ modelNoteProApplication = (function() {
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
 
-    let maxId = function() {
+    let getMaxId = function() {
 
         let jsonLocalStorage = getDataLocalStorage();
         let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
@@ -167,7 +168,7 @@ modelNoteProApplication = (function() {
 
     function saveNote(title, description, selectedDate, importance) {
 
-        let id = modelNoteProApplication.maxId();
+        let id = getMaxId();
         let finishDate = new Date(selectedDate).valueOf();
         let createdDate = new Date().valueOf();
 
@@ -177,7 +178,7 @@ modelNoteProApplication = (function() {
 
     function getDetailNote() {
 
-        let id = modelNoteProApplication.getId("id");
+        let id = getId("id");
         let detailNote = new NoteStorage(id);
         return detailNote.getDetailNote(id);
     }
@@ -190,7 +191,7 @@ modelNoteProApplication = (function() {
 
     function deleteNote() {
 
-        let id = modelNoteProApplication.getId("id");
+        let id = getId("id");
         let deleteNote = new NoteStorage(id);
         deleteNote.deleteNote(deleteNote)
     }
@@ -201,14 +202,14 @@ modelNoteProApplication = (function() {
         checkNoteAsFinished.checkNoteAsFinished(checkNoteAsFinished);
     }
 
-    function getId(nodeId) {
+    function getId(id) {
 
         let query = window.location.search.substring(1);
         let vars = query.split("&");
 
         for (let i=0; i < vars.length; i++) {
             let pair = vars[i].split("=");
-            if (pair[0] == nodeId) {
+            if (pair[0] == id) {
                 return pair[1];
             }
         }
@@ -227,14 +228,13 @@ modelNoteProApplication = (function() {
         return jsonLocalStorage;
     }
 
-    let getSessionKey = function(sessionId) {
+    function sessionKey(sessionId, flag, behaviour) {
 
-        return window.sessionStorage[sessionId];
-    }
-
-    let setSessionKey = function(sessionId, flag) {
-
-        window.sessionStorage[sessionId] = flag;
+        if (behaviour === "set") {
+            window.sessionStorage[sessionId] = flag;
+        } else {
+            return window.sessionStorage[sessionId];
+        }
     }
 
     return {
@@ -242,15 +242,13 @@ modelNoteProApplication = (function() {
         updateDataLocalStorage: updateDataLocalStorage,
         clearDataLocalStorage: clearDataLocalStorage,
         getDataLocalStorage: getDataLocalStorage,
-        maxId: maxId,
         saveNote: saveNote,
         getId: getId,
         getDetailNote: getDetailNote,
         updateNote: updateNote,
         deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,
-        getSessionKey: getSessionKey,
-        setSessionKey: setSessionKey
+        sessionKey: sessionKey
     };
 })();
 

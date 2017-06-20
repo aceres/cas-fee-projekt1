@@ -14,7 +14,6 @@
         if (!localStorageDataNote) {
             localStorageDataNote = modelNoteProApplication.initializeSampleData();
             style.initializeStyle();
-            modelNoteProApplication.setSessionKey("showCheckedNotesOnly", false);
         }
 
         if (localStorageDataNote) {
@@ -23,7 +22,7 @@
 
         $("#listAllNote").append(allNotesCompiledHtml);
 
-        if (modelNoteProApplication.getSessionKey("showCheckedNotesOnly") === "true") {
+        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "true") {
             checkIfFinishedTaskOnly();
         }
 
@@ -116,16 +115,16 @@
 
     function switchShowAllFinishedTasks() {
 
-        if (modelNoteProApplication.getSessionKey("showCheckedNotesOnly") === "false") {
-            modelNoteProApplication.setSessionKey("showCheckedNotesOnly", true);
+        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "false") {
+            modelNoteProApplication.sessionKey("showCheckedNotesOnly", true, "set");
         } else {
-            modelNoteProApplication.setSessionKey("showCheckedNotesOnly", false);
+            modelNoteProApplication.sessionKey("showCheckedNotesOnly", false, "set");
         }
     }
 
     function checkIfFinishedTaskOnly() {
 
-        if (modelNoteProApplication.getSessionKey("showCheckedNotesOnly") === "true") {
+        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "true") {
             $("tr.active").removeClass("active").addClass("hidden");
             $("#showAllFinishedTasks").text("Show all notes");
             $("tr:not('.hidden'):even").css("background-color", "#fff");
