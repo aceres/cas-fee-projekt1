@@ -10,6 +10,13 @@ class Note {
         this.importance = importance;
         this.finished = finished;
     }
+}
+
+class NoteStorage extends Note {
+
+    constructor(id, title, description, finishDate, createdDate, importance, finished) {
+        super(id, title, description, finishDate, createdDate, importance, finished)
+    }
 
     addNote(note) {
 
@@ -164,33 +171,33 @@ modelNoteProApplication = (function() {
         let finishDate = new Date(selectedDate).valueOf();
         let createdDate = new Date().valueOf();
 
-        let addNote = new Note(id, title, description, finishDate, createdDate, importance, false);
+        let addNote = new NoteStorage(id, title, description, finishDate, createdDate, importance, false);
         addNote.addNote(addNote);
     }
 
     function getDetailNote() {
 
         let id = modelNoteProApplication.getId("id");
-        let detailNote = new Note(id);
+        let detailNote = new NoteStorage(id);
         return detailNote.getDetailNote(id);
     }
 
     function updateNote(id, title, description, importance, finishDate, createdDate, finish) {
 
-        let updateNote = new Note(id, title, description, finishDate, createdDate, importance, finish)
+        let updateNote = new NoteStorage(id, title, description, finishDate, createdDate, importance, finish)
         updateNote.updateNote(updateNote)
     }
 
     function deleteNote() {
 
         let id = modelNoteProApplication.getId("id");
-        let deleteNote = new Note(id);
+        let deleteNote = new NoteStorage(id);
         deleteNote.deleteNote(deleteNote)
     }
 
     function checkNoteAsFinished(id) {
 
-        let checkNoteAsFinished = new Note(id);
+        let checkNoteAsFinished = new NoteStorage(id);
         checkNoteAsFinished.checkNoteAsFinished(checkNoteAsFinished);
     }
 
@@ -220,12 +227,12 @@ modelNoteProApplication = (function() {
         return jsonLocalStorage;
     }
 
-    let getSessionStorage = function(sessionId) {
+    let getSessionKey = function(sessionId) {
 
         return window.sessionStorage[sessionId];
     }
 
-    let setSessionStorage = function(sessionId, flag) {
+    let setSessionKey = function(sessionId, flag) {
 
         window.sessionStorage[sessionId] = flag;
     }
@@ -242,8 +249,8 @@ modelNoteProApplication = (function() {
         updateNote: updateNote,
         deleteNote: deleteNote,
         checkNoteAsFinished: checkNoteAsFinished,
-        getSessionStorage: getSessionStorage,
-        setSessionStorage: setSessionStorage
+        getSessionKey: getSessionKey,
+        setSessionKey: setSessionKey
     };
 })();
 

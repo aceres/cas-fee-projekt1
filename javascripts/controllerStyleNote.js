@@ -18,20 +18,20 @@ style = (function () {
     let loadStyle = function() {
 
         $("#selectStyle option").filter(function() {
-            return this.value == modelNoteProApplication.getSessionStorage("style");
+            return this.value == modelNoteProApplication.getSessionKey("style");
         }).prop('selected', true);
 
-        if (modelNoteProApplication.getSessionStorage("style") === "blackBg") {
+        if (modelNoteProApplication.getSessionKey("style") === "blackBg") {
             $('body').toggleClass('changeBlackStyle');
         }
     }
 
     let initializeStyle = function() {
-        modelNoteProApplication.setSessionStorage("style", "greyBg");
+        modelNoteProApplication.setSessionKey("style", "greyBg");
     }
 
     let saveStyle = function(styleName) {
-        modelNoteProApplication.setSessionStorage("style", styleName);
+        modelNoteProApplication.setSessionKey("style", styleName);
     }
 
     return {
