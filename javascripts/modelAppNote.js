@@ -1,5 +1,5 @@
-// Class
 class Note {
+
     constructor(id, title, description, finishDate, createdDate, importance, finished) {
 
         this.id = id;
@@ -12,11 +12,7 @@ class Note {
     }
 }
 
-class NoteStorage extends Note {
-
-    constructor(id, title, description, finishDate, createdDate, importance, finished) {
-        super(id, title, description, finishDate, createdDate, importance, finished)
-    }
+class NoteStorage {
 
     addNote(note) {
 
@@ -54,7 +50,6 @@ class NoteStorage extends Note {
     getDetailNote(id) {
 
         let jsonLocalStorage = modelNoteProApplication.getDataLocalStorage();
-
         if (id != 0) {
 
             let objNote = jsonLocalStorage.appNote.filter(function (entry) {
@@ -86,6 +81,8 @@ let modelNoteProApplication = (function() {
 
     "use strict";
 
+    const storage = new NoteStorage();
+
     const initializeSampleData = function() {
 
         const dataNote = {
@@ -106,33 +103,6 @@ let modelNoteProApplication = (function() {
                     "importance": 5,
                     "createdDate": 1489017600000,
                     "finishDate": 1489017600000,
-                    "finished": true
-                },
-                {
-                    "id": 3,
-                    "title": "Für die Prüfung lernen",
-                    "description": "2. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-                    "importance": 1,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1492732800000,
-                    "finished": false
-                },
-                {
-                    "id": 4,
-                    "title": "Priorität 1: HTML umsetzen",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-                    "importance": 3,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1492732800000,
-                    "finished": false
-                },
-                {
-                    "id": 5,
-                    "title": "Dozent fragen",
-                    "description": "Da wird die ungenaue Beschreibung vorgestellt.",
-                    "importance": 4,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1495238400000,
                     "finished": true
                 }
             ]
@@ -160,40 +130,39 @@ let modelNoteProApplication = (function() {
         return maxId.id+1
     }
 
-    function saveNote(title, description, selectedDate, importance) {
+    function addNote(title, description, selectedDate, importance) {
 
         let id = getMaxId();
         let finishDate = new Date(selectedDate).valueOf();
         let createdDate = new Date().valueOf();
 
-        let addNote = new NoteStorage(id, title, description, finishDate, createdDate, importance, false);
-        addNote.addNote(addNote);
+        let addNote = new Note(id, title, description, finishDate, createdDate, importance, false);
+        storage.addNote(addNote);
     }
 
     function getDetailNote() {
 
         let id = getId("id");
-        let detailNote = new NoteStorage(id);
-        return detailNote.getDetailNote(id);
+        return storage.getDetailNote(id);
     }
 
     function updateNote(id, title, description, importance, finishDate, createdDate, finish) {
 
-        let updateNote = new NoteStorage(id, title, description, finishDate, createdDate, importance, finish)
-        updateNote.updateNote(updateNote)
+        let updateNote = new Note(id, title, description, finishDate, createdDate, importance, finish)
+        storage.updateNote(updateNote)
     }
 
     function deleteNote() {
 
         let id = getId("id");
-        let deleteNote = new NoteStorage(id);
-        deleteNote.deleteNote(deleteNote)
+        let deleteNote = new Note(id);
+        storage.deleteNote(deleteNote)
     }
 
     function checkNoteAsFinished(id) {
 
-        let checkNoteAsFinished = new NoteStorage(id);
-        checkNoteAsFinished.checkNoteAsFinished(checkNoteAsFinished);
+        let checkNoteAsFinished = new Note(id);
+        storage.checkNoteAsFinished(checkNoteAsFinished);
     }
 
     function getId(id) {
@@ -231,12 +200,22 @@ let modelNoteProApplication = (function() {
         }
     }
 
+    // TODO: Noch einfacher
+    // function sessionKey(sessionId, flag) {
+    //
+    //     if (flag) {
+    //         window.sessionStorage[sessionId] = flag;
+    //     } else {
+    //         return window.sessionStorage[sessionId];
+    //     }
+    // }
+
     return {
         initializeSampleData,
         updateDataLocalStorage,
         clearDataLocalStorage,
         getDataLocalStorage,
-        saveNote,
+        addNote,
         getId,
         getDetailNote,
         updateNote,

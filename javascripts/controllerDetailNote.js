@@ -1,6 +1,6 @@
 // IIFE - Immediately Invoked Function Expression
 ;
-(function ($, window, document, undefined) {
+(function($, window, document) {
 
     "use strict";
 
@@ -58,7 +58,7 @@
             let dateFormat = checkDateformat(selectedDate);
 
             if (title !== "" && description !== "" && dateFormat !== false) {
-                modelNoteProApplication.saveNote(title, description, selectedDate, importance);
+                modelNoteProApplication.addNote(title, description, selectedDate, importance);
                 success.show();
                 warning.hide();
                 showNotification();

@@ -1,12 +1,15 @@
 "use strict";
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const bodyParser = require('body-parser');
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
-})
+const app = express();
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
-})
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(express.static(__dirname + '/public'));
+
+const hostname = '127.0.0.1';
+const port = 3001;
+app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });

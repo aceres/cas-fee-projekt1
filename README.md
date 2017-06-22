@@ -46,7 +46,7 @@ git clone https://github.com/aceres/cas-fee-projekt1
 cd cas-fee-projekt1
 
 # NPM-Dependencies installieren (in package.json definiert)
-npm i
+npm install
 ```
 
 ## Webserver starten
