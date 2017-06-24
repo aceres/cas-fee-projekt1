@@ -1,4 +1,4 @@
-;(function($, window, document) {
+;(function($) {
 
     "use strict";
 
@@ -86,13 +86,20 @@
             if (title !== "" && description !== "" && dateFormat !== false) {
 
                 $.ajax({
-                    method: "POST", url: "/notes", data: { title: title, description: description, finishDate: selectedDateAsNumber, createdDate: createdDate, importance: importance, finished: false }
+                    method: "POST",
+                    url: "/notes",
+                    data: { title: title,
+                            description: description,
+                            finishDate: selectedDateAsNumber,
+                            createdDate: createdDate,
+                            importance: importance,
+                            finished: false
+                    }
                 }).done(function() {
                     success.show();
                     warning.hide();
                     showNotification();
                 });
-
             } else {
                 success.hide();
                 warning.show();
@@ -203,4 +210,4 @@
             }
         }
     }
-}(jQuery, window, document));
+}(jQuery));

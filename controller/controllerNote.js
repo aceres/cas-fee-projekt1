@@ -23,8 +23,6 @@ module.exports.addNote = function(req, res) {
 
 module.exports.getNote = function(req, res) {
 
-    // TODO: Mit Silvan
-    console.log("req.params.id", req.params.id);
     storage.get(req.params.id, function(err, note) {
         res.json(note);
     });
@@ -32,7 +30,6 @@ module.exports.getNote = function(req, res) {
 
 module.exports.updateNote = function(req, res) {
 
-    // TODO: Mit Silvan
     let note = {
         id: req.body.id,
         title: req.body.title,
@@ -50,16 +47,6 @@ module.exports.checkNoteAsFinished = function(req, res) {
     storage.check(req.body.id, req.body.finished, function(err, note) {});
     res.end();
 };
-
-// TODO: Mit Silvan
-// module.exports.getCheckedNotes = function(req, res) {
-//
-//     console.log("req.params.finished: ", req.params.finished)
-//
-//     storage.getChecked(req.params.finished, function(err, notes) {
-//         res.json(notes || {});
-//     });
-// };
 
 module.exports.deleteNote =  function (req, res) {
 

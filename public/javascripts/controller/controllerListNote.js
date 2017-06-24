@@ -37,19 +37,19 @@
             // let checked = "";
             //
             // if (($(this).is(':checked'))) {
-            //     checked = "false"
+            //     checked = false
             // } else {
-            //     checked = "true"
+            //     checked = true
             // }
 
-            client.checkNote(this.value, "true").done(function(){
+            client.checkNote(this.value, checked).done(function(){
                 // TODO: Silvan
                 window.location.reload();
             });
+            router.navigateTo("/");
         });
 
         const select = $(".select");
-
         for (let x = 0; x < select.length; x++) {
             select[x].addEventListener("change", function (event) {
                 switch (event.currentTarget.id) {
@@ -112,14 +112,14 @@
                     break;
 
                 case "showAllFinishedTasks":
-                    switchShowAllFinishedTasks();
+                    switchAllFinishedTasks();
                     checkIfFinishedTaskOnly();
                     break;
             }
         }
     });
 
-    function switchShowAllFinishedTasks() {
+    function switchAllFinishedTasks() {
 
         if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "false") {
             modelNoteProApplication.sessionKey("showCheckedNotesOnly", true, "set");
