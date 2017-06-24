@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-// TODO: Später hier als Front Controller anwenden
-//const orders = require('../controller/controllerListNote.js');
+const notes = require('../controller/controllerNote.js');
 
-// router.get("/", orders.showIndex);
-// router.get("/notes", orders.createOrder);
-// router.post("/notes", orders.createPizza);
-// router.get("/notes/:id/", orders.showOrder);
-// router.delete("/notes/:id/", orders.deleteOrder);
+router.get("/", notes.showIndex);
+//router.get("/checkedNotes", notes.getCheckedNotes);
+router.post("/notes", notes.addNote);
+router.get("/notes/:id/", notes.getNote);
+router.post("/updateNote", notes.updateNote);
+router.post("/checkNote", notes.checkNoteAsFinished);
+router.delete("/notes/:id/", notes.deleteNote);
 
-// module.exports = router;
+module.exports = router;

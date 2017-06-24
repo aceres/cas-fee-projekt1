@@ -1,19 +1,18 @@
-// IIFE - Immediately Invoked Function Expression
-;
-(function($, window, document) {
+;(function($, window, document) {
 
     "use strict";
 
+    const client = window.services.restClient;
     const success = $(".success");
     const warning = $(".warning");
     const save = $(".save");
     const update = $(".update");
 
-    getDetailNote();
-
-    style.loadStyle();
-
     $(function () {
+
+        style.loadStyle();
+
+        loadNote();
 
         const el = document.getElementById("detail");
         el.addEventListener("click", function(event) { buttonClicked(event) }, false);
@@ -44,9 +43,34 @@
             }
         }
 
-        function ctrlList() {
+        function loadNote() {
 
-            router.navigateTo("index.html");
+            let baseUrl = (window.location).href;
+            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+
+            client.getNote(id).done(function(note){
+                console.log("Get note", note);
+                console.log("Get note", typeof note);
+
+                if (typeof note === 'object' && id != 0) {
+
+                    save.hide();
+                    update.show();
+                    $("#title").val(note.title);
+                    $("#description").val(note.description);
+
+                    // TODO: Ceres
+                    let timestamp = parseInt(note.finishDate);
+                    $("#date").val(moment(timestamp).format("YYYY-MM-DD"));
+                    $("input[name='importance'][value='"+note.importance+"']").attr("checked", true);
+                    $("#createdDate").val(note.createdDate);
+                    $("#finish").val(note.finished);
+                } else {
+
+                    save.show();
+                    update.hide();
+                }
+            });
         }
 
         function ctrlSave() {
@@ -54,14 +78,21 @@
             let title = $("#title").val();
             let description = $("#description").val();
             let selectedDate = $("#date").val();
-            let importance = $("input:radio[name=importance]:checked").val();
             let dateFormat = checkDateformat(selectedDate);
+            let importance = $("input:radio[name=importance]:checked").val();
+            let selectedDateAsNumber = new Date(selectedDate).valueOf();
+            let createdDate = new Date().valueOf();
 
             if (title !== "" && description !== "" && dateFormat !== false) {
-                modelNoteProApplication.addNote(title, description, selectedDate, importance);
-                success.show();
-                warning.hide();
-                showNotification();
+
+                $.ajax({
+                    method: "POST", url: "/notes", data: { title: title, description: description, finishDate: selectedDateAsNumber, createdDate: createdDate, importance: importance, finished: false }
+                }).done(function() {
+                    success.show();
+                    warning.hide();
+                    showNotification();
+                });
+
             } else {
                 success.hide();
                 warning.show();
@@ -69,25 +100,17 @@
             }
         }
 
-        function checkDateformat(date) {
-
-            let dateFormat = 'DD.MM.YYYY';
-            if (moment(moment(date).format(dateFormat),dateFormat,true).isValid()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
         function ctrlUpdate() {
 
-            let id = modelNoteProApplication.getId("id");
+            let baseUrl = (window.location).href;
+            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+
             let title = $("#title").val();
             let description = $("#description").val();
 
             let selectedDate = $("#date").val();
             let defineAsDate = new Date(selectedDate);
-            let formatDate = defineAsDate.valueOf();
+            let selectedDateAsNumber = defineAsDate.valueOf();
             let createdDate = $("#createdDate").val();
 
             let importance = $("input:radio[name=importance]:checked").val()
@@ -95,7 +118,9 @@
             let dateFormat = checkDateformat(selectedDate);
 
             if (title !== "" && description != "" && dateFormat !== false) {
-                modelNoteProApplication.updateNote(id, title, description, importance, formatDate, createdDate);
+
+                client.updateNote(id, title, description, selectedDateAsNumber, createdDate, importance).done(function(){});
+
                 success.show();
                 warning.hide();
                 showNotification();
@@ -108,12 +133,19 @@
 
         function ctrlDelete() {
 
-            modelNoteProApplication.deleteNote();
+            let baseUrl = (window.location).href;
+            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+
+            client.deleteNote(id).done(function(){});
+            router.navigateTo("/");
         }
 
         function ctrlCancel() {
+            router.navigateTo("/");
+        }
 
-            router.navigateTo("index.html");
+        function ctrlList() {
+            router.navigateTo("/");
         }
 
         // Support Firefox
@@ -146,6 +178,16 @@
         });
     });
 
+    function checkDateformat(date) {
+
+        let dateFormat = 'DD.MM.YYYY';
+        if (moment(moment(date).format(dateFormat),dateFormat,true).isValid()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function showNotification() {
 
         let close = $(".closebtn");
@@ -159,27 +201,6 @@
                     div.style.display = "none";
                 }, 600);
             }
-        }
-    }
-
-    function getDetailNote() {
-
-        let objectNote = modelNoteProApplication.getDetailNote();
-
-        if (typeof objectNote === 'object' && objectNote.id != 0) {
-
-            save.hide();
-            update.show();
-            $("#title").val(objectNote.title);
-            $("#description").val(objectNote.description);
-            $("#date").val(moment(objectNote.finishDate).format("YYYY-MM-DD"));
-            $("input[name='importance'][value='"+objectNote.importance+"']").attr("checked", true);
-            $("#createdDate").val(objectNote.createdDate);
-            $("#finish").val(objectNote.finished);
-        } else {
-
-            save.show();
-            update.hide();
         }
     }
 }(jQuery, window, document));

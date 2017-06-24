@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Note Pro</title>
     <link rel="icon" href="html5.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" type="text/css" href="stylesheets/resetAppNote.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/font-aewsome.min.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/appNote.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/resetAppNote.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/font-aewsome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/appNote.css">
 </head>
 <body>
     <header>
@@ -68,7 +68,7 @@
                 <input type="hidden" id="createdDate" />
                 <input type="hidden" id="finish" />
             </form>
-            <a class="button save" id="save" title="Save note">Save</a>
+            <a class="button save" id="save" type="submit" title="Save note">Save</a>
             <a class="button update" id="update" title="Update note">Update</a>
             <a class="button update" id="delete" title="Delete note">Delete</a>
             <a class="button save" id="cancel" title="Cancel">Cancel</a>
@@ -77,12 +77,14 @@
     <footer>
         CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a class="button" title="GitHub: aceres" target="_blank" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
     </footer>
-    <script type="text/javascript" src="javascripts/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
-    <script type="text/javascript" src="route/routeAppNote.js"></script>
-    <script type="text/javascript" src="model/modelAppNote.js"></script>
-    <script type="text/javascript" src="controller/controllerStyleNote.js"></script>
-    <script type="text/javascript" src="controller/controllerDetailNote.js"></script>
-    <script type="text/javascript" src="javascripts/lib/modernizr.js"></script>
+    <script src="/javascripts/lib/jquery.min.js"></script>
+    <script src="/javascripts/lib/moment.min.js"></script>
+    <script src="/javascripts/utils/ajaxUtil.js"></script>
+    <script src="/javascripts/services/restClient.js"></script>
+    <script src="/route/routeAppNote.js"></script>
+    <script src="/model/modelAppNote.js"></script>
+    <script src="/javascripts/controller/controllerStyleNote.js"></script>
+    <script src="/javascripts/controller/controllerDetailNote.js"></script>
+    <script src="/javascripts/lib/modernizr.js"></script>
 </body>
 </html>

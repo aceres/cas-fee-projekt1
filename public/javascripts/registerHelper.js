@@ -1,15 +1,18 @@
-Handlebars.registerHelper('formatDate', function (date, format) {
-    let momentData = moment(date);
-    return momentData.format(format);
+Handlebars.registerHelper('formatDate', function (date) {
+
+    let timestamp = parseInt(date);
+    let formatted = moment(timestamp).format("DD.MM.YYYY");
+
+    return formatted;
 });
 
 // Check whether checkbox should be marked as checked or not
 Handlebars.registerHelper('checkIfChecked', function(currentValue) {
-    return currentValue === true ? ' checked=&quot;checked&quot;' : '';
+    return currentValue === "true" ? ' checked=&quot;checked&quot;' : '';
 });
 
 Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
-    if (!showFinishedNotesOnly) {
+    if (showFinishedNotesOnly === "false") {
         return options.fn(this);
     }
 });

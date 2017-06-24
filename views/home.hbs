@@ -63,7 +63,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {{#each appNote}}
+                {{#if title}}
                     <tr {{#if finished}} class="active" {{/if}}>
                         <td title="{{title}}">
                             {{title}}
@@ -83,21 +83,21 @@
                                 <i class="fa fa-star" title="{{this}}" aria-hidden="true"></i>
                             {{/countStars}}
                         </td>
-                        <td title="{{formatDate createdDate 'DD.MM.YYYY'}}">
-                            {{formatDate createdDate "DD.MM.YYYY"}}
+                        <td title="{{formatDate createdDate}}">
+                            {{formatDate createdDate}}
                         </td>
-                        <td title="{{formatDate finishDate 'DD.MM.YYYY'}}">
-                            {{formatDate finishDate "DD.MM.YYYY"}}
+                        <td title="{{formatDate finishDate}}">
+                            {{formatDate finishDate}}
                         </td>
                         <td title="{{finished}}">
-                            <input type="checkbox" id="checkNoteAsFinished" name="nameCheckNoteAsFinsihed" value="{{id}}" {{{checkIfChecked finished}}}>
+                            <input type="checkbox" id="checkNoteAsFinished" name="nameCheckNoteAsFinsihed" value="{{_id}}" {{{checkIfChecked finished}}}>
                         </td>
                         <td>
-                            <button title="Edit Note" type="button" class="button" value="{{id}}" id="detailNote">Edit</button>
+                            <button title="Edit Note" type="button" class="button" value="{{_id}}" id="detailNote">Edit</button>
                         </td>
                     </tr>
                 </tbody>
-                {{/each}}
+                {{/if}}
                 <tfoot>
                     <tr>
                         <td colspan="7">
@@ -137,8 +137,8 @@
     <script type="text/javascript" src="javascripts/lib/moment.min.js"></script>
     <script type="text/javascript" src="route/routeAppNote.js"></script>
     <script type="text/javascript" src="model/modelAppNote.js"></script>
-    <script type="text/javascript" src="controller/controllerStyleNote.js"></script>
-    <script type="text/javascript" src="controller/controllerListNote.js"></script>
+    <script type="text/javascript" src="javascripts/controller/controllerStyleNote.js"></script>
+    <script type="text/javascript" src="javascripts/controller/controllerListNote.js"></script>
     <script type="text/javascript" src="javascripts/registerHelper.js"></script>
 </body>
 </html>

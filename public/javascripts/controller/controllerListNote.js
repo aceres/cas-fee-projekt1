@@ -1,37 +1,51 @@
-// IIFE - Immediately Invoked Function Expression
-;
-(function ($, window, document) {
+;(function($) {
 
     "use strict";
 
-    let allNotesCompiledHtml = null;
-    let templateScriptAllNote = $("#template-list-all-note").html();
-    let templateAllNote = Handlebars.compile(templateScriptAllNote);
-    let localStorageDataNote = JSON.parse(localStorage.getItem("localDataNote"));
+    const client = window.services.restClient;
+    const ordersContainer = $("#listAllNote");
+    const ordersRenderer = Handlebars.compile($("#template-list-all-note").html());
 
-    $(function () {
+    $(function() {
 
-        if (!localStorageDataNote) {
-            localStorageDataNote = modelNoteProApplication.initializeSampleData();
-            style.initializeStyle();
+        let listNotes = null;
+        window.onload = loadNotes();
+
+        function loadNotes() {
+
+            client.getNotes().done(function(notes){
+                listNotes = notes;
+                ordersContainer.html(ordersRenderer({notes : notes}));
+                initialExpandedDescription();
+            })
         }
 
-        if (localStorageDataNote) {
-            allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        }
+        function render() {
 
-        $("#listAllNote").append(allNotesCompiledHtml);
+            ordersContainer.html(ordersRenderer({notes : listNotes}));
+            initialExpandedDescription();
+            checkIfFinishedTaskOnly();
+        }
 
         if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "true") {
             checkIfFinishedTaskOnly();
         }
 
-        style.loadStyle();
-
-        expandDescription();
-
         $('#listAllNote').on('change', 'input[type=checkbox]', function() {
-            modelNoteProApplication.checkNoteAsFinished(this.value)
+
+            // TODO: Silvan
+            // let checked = "";
+            //
+            // if (($(this).is(':checked'))) {
+            //     checked = "false"
+            // } else {
+            //     checked = "true"
+            // }
+
+            client.checkNote(this.value, "true").done(function(){
+                // TODO: Silvan
+                window.location.reload();
+            });
         });
 
         const select = $(".select");
@@ -65,41 +79,33 @@
                     createNote();
                     break;
 
-                case "list":
-                    router.navigateTo("index.html");
-                    break;
-
                 case "detailNote":
                     router.navigateTo("detailNote.html?id="+event.target.value);
                     break;
 
-                case "clearLocalStorage":
-                    modelNoteProApplication.clearDataLocalStorage();
-                    break;
-
                 case "sortByImportance":
-                    localStorageDataNote.appNote.sort(function (a, b) {
+                    listNotes.sort(function (a, b) {
                         return sortFunctions.sortByImportance(a, b);
                     });
                     render();
                     break;
 
                 case "sortByCreatedDate":
-                    localStorageDataNote.appNote.sort(function (a, b) {
+                    listNotes.sort(function (a, b) {
                         return sortFunctions.sortByCreatedDate(a, b);
                     });
                     render();
                     break;
 
                 case "sortByFinishDate":
-                    localStorageDataNote.appNote.sort(function (a, b) {
+                    listNotes.sort(function (a, b) {
                         return sortFunctions.sortByFinishDate(a, b);
                     });
                     render();
                     break;
 
                 case "sortByTitle":
-                    localStorageDataNote.appNote.sort(function (a, b) {
+                    listNotes.sort(function (a, b) {
                         return sortFunctions.sortByTitle(a, b);
                     });
                     render();
@@ -125,6 +131,7 @@
     function checkIfFinishedTaskOnly() {
 
         if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "true") {
+
             $("tr.active").removeClass("active").addClass("hidden");
             $("#showAllFinishedTasks").text("Show all notes");
             $("tr:not('.hidden'):even").css("background-color", "#fff");
@@ -145,7 +152,7 @@
         }
     }
 
-    function expandDescription() {
+    function initialExpandedDescription() {
 
         const charLimit = 120;
 
@@ -185,12 +192,6 @@
         router.navigateTo("detailNote.html?id=0");
     }
 
-    function render() {
+    style.loadStyle();
 
-        $("#listAllNote").empty();
-        allNotesCompiledHtml = templateAllNote(localStorageDataNote);
-        $("#listAllNote").append(allNotesCompiledHtml);
-        expandDescription();
-        checkIfFinishedTaskOnly();
-    }
-}(jQuery, window, document));
+}(jQuery));

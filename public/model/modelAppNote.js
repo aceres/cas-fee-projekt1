@@ -83,56 +83,15 @@ let modelNoteProApplication = (function() {
 
     const storage = new NoteStorage();
 
-    const initializeSampleData = function() {
-
-        const dataNote = {
-            "appNote": [
-                {
-                    "id": 1,
-                    "title": "UI testen",
-                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
-                    "importance": 2,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1492732800000,
-                    "finished": true
-                },
-                {
-                    "id": 2,
-                    "title": "Hausaufgaben machen",
-                    "description": "Hier wird die genaue Beschreibung gemacht.",
-                    "importance": 5,
-                    "createdDate": 1489017600000,
-                    "finishDate": 1489017600000,
-                    "finished": true
-                }
-            ]
-        };
-        localStorage.setItem('localDataNote', JSON.stringify(dataNote));
-        modelNoteProApplication.sessionKey("showCheckedNotesOnly", false, "set");
-        return dataNote;
-    }
+    sessionKey("showCheckedNotesOnly", false, "set");
 
     function updateDataLocalStorage(jsonLocalStorage) {
 
         localStorage.setItem('localDataNote', JSON.stringify(jsonLocalStorage));
     }
 
-    function getMaxId() {
-
-        let jsonLocalStorage = getDataLocalStorage();
-        let maxId = jsonLocalStorage.appNote.reduce(function(prev, current) {
-            if (+current.id > +prev.id) {
-                return current;
-            } else {
-                return prev;
-            }
-        });
-        return maxId.id+1
-    }
-
     function addNote(title, description, selectedDate, importance) {
 
-        let id = getMaxId();
         let finishDate = new Date(selectedDate).valueOf();
         let createdDate = new Date().valueOf();
 
@@ -162,33 +121,8 @@ let modelNoteProApplication = (function() {
     function checkNoteAsFinished(id) {
 
         let checkNoteAsFinished = new Note(id);
+        console.log("model checkNoteAsFinishe" , checkNoteAsFinished);
         storage.checkNoteAsFinished(checkNoteAsFinished);
-    }
-
-    function getId(id) {
-
-        let query = window.location.search.substring(1);
-        let vars = query.split("&");
-
-        for (let i=0; i < vars.length; i++) {
-            let pair = vars[i].split("=");
-            if (pair[0] == id) {
-                return pair[1];
-            }
-        }
-        return(false);
-    }
-
-    function clearDataLocalStorage() {
-
-        localStorage.clear();
-        router.navigateTo("index.html");
-    }
-
-    function getDataLocalStorage() {
-
-        let jsonLocalStorage = JSON.parse(localStorage.getItem("localDataNote"));
-        return jsonLocalStorage;
     }
 
     function sessionKey(sessionId, flag, behaviour) {
@@ -211,12 +145,8 @@ let modelNoteProApplication = (function() {
     // }
 
     return {
-        initializeSampleData,
         updateDataLocalStorage,
-        clearDataLocalStorage,
-        getDataLocalStorage,
         addNote,
-        getId,
         getDetailNote,
         updateNote,
         deleteNote,

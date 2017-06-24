@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Note Pro</title>
+    <link rel="icon" href="html5.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/resetAppNote.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/font-aewsome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/appNote.css">
+</head>
+<body>
+    <header>
+        <h1>Note Pro</h1>
+    </header>
+    <main id="detail" class="detail">
+        <nav>
+            <h2>
+                Menu
+            </h2>
+            <br>
+            <button class="button" id="list" title="Back to list" type="button">
+                Back to list
+            </button>
+        </nav>
+        <article>
+            <h2 class="save">
+                Create Note
+            </h2>
+            <h2 class="update">
+                Edit Note
+            </h2>
+            <form name="formNote">
+                <p>
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" placeholder="Insert title..." autofocus>
+                </p>
+                <p>
+                    <label for="description">Description:</label>
+                    <textarea cols="200" rows="4" id="description" placeholder="Insert description..." name="description"></textarea>
+                </p>
+                <label>Importance:</label>
+                <br>
+                <div class="stars">
+                    <input class="star star-5" id="star-5" type="radio" name="importance" value="5" checked>
+                    <label class="star star-5" title="Important" for="star-5"></label>
+                    <input class="star star-4" id="star-4" type="radio" name="importance" value="4">
+                    <label class="star star-4" title="Medium important" for="star-4"></label>
+                    <input class="star star-3" id="star-3" type="radio" name="importance" value="3">
+                    <label class="star star-3" title="Somewhat important" for="star-3"></label>
+                    <input class="star star-2" id="star-2" type="radio" name="importance" value="2">
+                    <label class="star star-2" title="Not important" for="star-2"></label>
+                    <input class="star star-1" id="star-1" type="radio" name="importance" value="1">
+                    <label class="star star-1" title="Not important at all" for="star-1"></label>
+                </div>
+                <p>
+                    <label>Date:</label>
+                    <input type="date" id="date" name="date"> (e.g. 12/08/2018)
+                </p>
+                <br>
+                <div class="alert warning">
+                    <span class="closebtn">&times;</span>
+                    <strong>Not valid! Please fill all fields!</strong>
+                </div>
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Success! Successful saved / updated!</strong>
+                </div>
+                <input type="hidden" id="createdDate" />
+                <input type="hidden" id="finish" />
+            </form>
+            <a class="button save" id="save" type="submit" title="Save note">Save</a>
+            <a class="button update" id="update" title="Update note">Update</a>
+            <a class="button update" id="delete" title="Delete note">Delete</a>
+            <a class="button save" id="cancel" title="Cancel">Cancel</a>
+        </article>
+    </main>
+    <footer>
+        CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a class="button" title="GitHub: aceres" target="_blank" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
+    </footer>
+    <script src="/javascripts/lib/jquery.min.js"></script>
+    <script src="/javascripts/lib/moment.min.js"></script>
+    <script src="/javascripts/utils/ajaxUtil.js"></script>
+    <script src="/javascripts/services/restClient.js"></script>
+    <script src="/route/routeAppNote.js"></script>
+    <script src="/model/modelAppNote.js"></script>
+    <script src="/javascripts/controller/controllerStyleNote.js"></script>
+    <script src="/javascripts/controller/controllerDetailNote.js"></script>
+    <script src="/javascripts/lib/modernizr.js"></script>
+</body>
+</html>
