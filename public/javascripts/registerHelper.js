@@ -8,13 +8,28 @@ Handlebars.registerHelper('formatDate', function (date) {
 
 Handlebars.registerHelper('checkIfChecked', function(currentValue) {
 
-    let booleanValue = JSON.parse(currentValue);
+    console.log("typeof(currentValue): ", typeof(currentValue));
+
+    let booleanValue = "";
+    if (typeof(currentValue) === "string") {
+        booleanValue = JSON.parse(currentValue);
+    } else {
+        booleanValue = currentValue;
+    }
 
     return booleanValue === true ? ' checked=&quot;checked&quot;' : '';
 });
 
 Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
-    if (showFinishedNotesOnly === false) {
+
+    let booleanValue = "";
+    if (typeof(showFinishedNotesOnly) === "string") {
+        booleanValue = JSON.parse(showFinishedNotesOnly);
+    } else {
+        booleanValue = showFinishedNotesOnly;
+    }
+
+    if (booleanValue === false) {
         return options.fn(this);
     }
 });

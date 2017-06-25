@@ -1,5 +1,8 @@
 const Datastore = require('nedb');
-const db = new Datastore({ filename: './data/note.db', autoload: true });
+const db = new Datastore({
+    filename: './data/note.db',
+    autoload: true
+});
 
 class Note {
 
@@ -27,7 +30,13 @@ function publicRemoveNote(id, callback) {
 
 function publicUpdateNote(note, callback) {
 
-    db.update({_id: note.id}, {$set: {title: note.title, description: note.description, finishDate: note.finishDate, createdDate: note.createdDate, importance: note.importance}}, {}, callback);
+    db.update({_id: note.id}, {$set: {
+            title: note.title,
+            description: note.description,
+            finishDate: note.finishDate,
+            createdDate: note.createdDate,
+            importance: note.importance
+        }}, function(err, numReplaced, newDoc){});
 }
 
 function publicCheckNote(id, finished, callback) {
