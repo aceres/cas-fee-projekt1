@@ -11,6 +11,8 @@
         let localNotes = null;
         loadNotes();
 
+        setInterval(loadNotes, 60000);
+
         function loadNotes() {
 
             client.getNotes().done(function(notes){
