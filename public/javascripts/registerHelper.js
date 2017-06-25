@@ -8,28 +8,14 @@ Handlebars.registerHelper('formatDate', function (date) {
 
 Handlebars.registerHelper('checkIfChecked', function(currentValue) {
 
-    console.log("typeof(currentValue): ", typeof(currentValue));
-
-    let booleanValue = "";
-    if (typeof(currentValue) === "string") {
-        booleanValue = JSON.parse(currentValue);
-    } else {
-        booleanValue = currentValue;
-    }
-
-    return booleanValue === true ? ' checked=&quot;checked&quot;' : '';
+    let value = convertToBoolean(currentValue)
+    return value === true ? ' checked=&quot;checked&quot;' : '';
 });
 
 Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
 
-    let booleanValue = "";
-    if (typeof(showFinishedNotesOnly) === "string") {
-        booleanValue = JSON.parse(showFinishedNotesOnly);
-    } else {
-        booleanValue = showFinishedNotesOnly;
-    }
-
-    if (booleanValue === false) {
+    let value = convertToBoolean(showFinishedNotesOnly)
+    if (value === false) {
         return options.fn(this);
     }
 });
@@ -44,3 +30,14 @@ Handlebars.registerHelper('countStars', function(stars, block) {
     }
     return count;
 });
+
+function convertToBoolean(value) {
+
+    let booleanValue = null;
+    if (typeof(value) === "string") {
+        booleanValue = JSON.parse(value);
+    } else {
+        booleanValue = value;
+    }
+    return booleanValue;
+}
