@@ -1,10 +1,4 @@
-let style = {};
-
-if (typeof style === "undefined") {
-    let style = {};
-}
-
-style = (function () {
+const style = (function () {
 
     "use strict";
 

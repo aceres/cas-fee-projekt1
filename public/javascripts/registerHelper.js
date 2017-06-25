@@ -6,13 +6,15 @@ Handlebars.registerHelper('formatDate', function (date) {
     return formatted;
 });
 
-// Check whether checkbox should be marked as checked or not
 Handlebars.registerHelper('checkIfChecked', function(currentValue) {
-    return currentValue === "true" ? ' checked=&quot;checked&quot;' : '';
+
+    let booleanValue = JSON.parse(currentValue);
+
+    return booleanValue === true ? ' checked=&quot;checked&quot;' : '';
 });
 
 Handlebars.registerHelper('if', function(showFinishedNotesOnly, options) {
-    if (showFinishedNotesOnly === "false") {
+    if (showFinishedNotesOnly === false) {
         return options.fn(this);
     }
 });

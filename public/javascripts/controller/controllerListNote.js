@@ -33,19 +33,15 @@
 
         $('#listAllNote').on('change', 'input[type=checkbox]', function() {
 
-            // TODO: Silvan
-            // let checked = "";
-            //
-            // if (($(this).is(':checked'))) {
-            //     checked = false
-            // } else {
-            //     checked = true
-            // }
+            let checked = "";
 
-            client.checkNote(this.value, checked).done(function(){
-                // TODO: Silvan
-                window.location.reload();
-            });
+            if (($(this).is(':checked'))) {
+                checked = true
+            } else {
+                checked = false
+            }
+
+            client.checkNote(this.value, $(this).is(':checked')).done(function(){});
             router.navigateTo("/");
         });
 
