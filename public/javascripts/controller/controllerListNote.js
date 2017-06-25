@@ -8,13 +8,13 @@
 
     $(function() {
 
-        let listNotes = null;
-        window.onload = loadNotes();
+        let localNotes = null;
+        loadNotes();
 
         function loadNotes() {
 
             client.getNotes().done(function(notes){
-                listNotes = notes;
+                localNotes = notes;
                 ordersContainer.html(ordersRenderer({notes : notes}));
                 initialExpandedDescription();
             })
@@ -22,7 +22,7 @@
 
         function render() {
 
-            ordersContainer.html(ordersRenderer({notes : listNotes}));
+            ordersContainer.html(ordersRenderer({notes : localNotes}));
             initialExpandedDescription();
             checkIfFinishedTaskOnly();
         }
@@ -33,9 +33,7 @@
 
         $('#listAllNote').on('change', 'input[type=checkbox]', function() {
 
-            // TODO: Silvan
             let checked = "";
-
             if (($(this).is(':checked'))) {
                 checked = true
             } else {
@@ -45,18 +43,6 @@
             client.checkNote(this.value, $(this).is(':checked')).done(function(){});
             router.navigateTo("/");
         });
-
-        const select = $(".select");
-        for (let x = 0; x < select.length; x++) {
-            select[x].addEventListener("change", function (event) {
-                switch (event.currentTarget.id) {
-
-                    case "selectStyle":
-                        style.applyStyle(event);
-                        break;
-                }
-            });
-        }
 
         const sortFunctions = {
             "sortByImportance" : (a,b) => b.importance - a.importance,
@@ -81,28 +67,28 @@
                     break;
 
                 case "sortByImportance":
-                    listNotes.sort(function (a, b) {
+                    localNotes.sort(function (a, b) {
                         return sortFunctions.sortByImportance(a, b);
                     });
                     render();
                     break;
 
                 case "sortByCreatedDate":
-                    listNotes.sort(function (a, b) {
+                    localNotes.sort(function (a, b) {
                         return sortFunctions.sortByCreatedDate(a, b);
                     });
                     render();
                     break;
 
                 case "sortByFinishDate":
-                    listNotes.sort(function (a, b) {
+                    localNotes.sort(function (a, b) {
                         return sortFunctions.sortByFinishDate(a, b);
                     });
                     render();
                     break;
 
                 case "sortByTitle":
-                    listNotes.sort(function (a, b) {
+                    localNotes.sort(function (a, b) {
                         return sortFunctions.sortByTitle(a, b);
                     });
                     render();
@@ -188,6 +174,12 @@
     function createNote() {
         router.navigateTo("detailNote.html?id=0");
     }
+
+    const select = document.querySelector('select');
+    select.addEventListener("change", function (event) {
+
+        style.applyStyle(event);
+    });
 
     style.loadStyle();
 

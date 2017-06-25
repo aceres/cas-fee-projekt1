@@ -6,12 +6,7 @@ let router = (function() {
         window.location = url;
     }
 
-    let reload = function() {
-        window.location.reload();
-    }
-
     return {
-        navigateTo: navigateTo,
-        reload: reload
+        navigateTo: navigateTo
     };
 })();

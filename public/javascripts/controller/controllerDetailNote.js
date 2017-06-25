@@ -34,6 +34,7 @@
                     break;
 
                 case "delete":
+                    let id = getId();
                     client.deleteNote(id).done(function(){});
                     router.navigateTo("/");
                     break;
@@ -44,14 +45,17 @@
             }
         }
 
-        function loadNote() {
+        function getId() {
 
             let baseUrl = (window.location).href;
             let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+            return id;
+        }
 
+        function loadNote() {
+
+            let id = getId();
             client.getNote(id).done(function(note){
-                console.log("Get note", note);
-                console.log("Get note", typeof note);
 
                 if (typeof note === 'object' && id != 0) {
 
@@ -72,7 +76,6 @@
                 }
             });
         }
-
 
         function ctrlSave() {
 
@@ -110,12 +113,11 @@
 
         function ctrlUpdate() {
 
+            let id = getId();
             let title = $("#title").val();
             let description = $("#description").val();
             let selectedDate = $("#date").val();
             let selectedDateAsNumber = new Date(selectedDate).valueOf();
-            let baseUrl = (window.location).href;
-            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
             let importance = $("input:radio[name=importance]:checked").val();
             let dateFormat = checkDateformat(selectedDate);
             let createdDate = $("#createdDate").val();
