@@ -1,5 +1,18 @@
 const storage = require("../services/noteStorage.js");
 
+class Note {
+
+    constructor(title, description, finishDate, createdDate, importance, finished) {
+
+        this.title = title;
+        this.description = description;
+        this.finishDate = finishDate;
+        this.createdDate = createdDate;
+        this.importance = importance;
+        this.finished = finished;
+    }
+}
+
 module.exports.showIndex = function(req, res) {
 
     storage.all(function (err, notes) {
@@ -9,14 +22,14 @@ module.exports.showIndex = function(req, res) {
 
 module.exports.addNote = function(req, res) {
 
-    let note = {
-        title: req.body.title,
-        description: req.body.description,
-        finishDate: req.body.finishDate,
-        createdDate: req.body.createdDate,
-        importance: req.body.importance,
-        finished: req.body.finished
-    };
+    let note = new Note (
+        req.body.title,
+        req.body.description,
+        req.body.finishDate,
+        req.body.createdDate,
+        req.body.importance,
+        req.body.finished
+    );
     storage.add(note);
     res.end();
 };

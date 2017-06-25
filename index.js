@@ -19,5 +19,5 @@ app.use("/notes/:id", require('./routes/noteRoutes.js'));
 app.use("/checkNotes", require('./routes/noteRoutes.js'));
 
 const hostname = '127.0.0.1';
-const port = 3003;
+const port = 3005;
 app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });
