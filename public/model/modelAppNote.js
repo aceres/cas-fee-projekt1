@@ -6,7 +6,7 @@ let modelNoteProApplication = (function() {
 
     function sessionKey(sessionId, flag, behaviour) {
 
-        if (behaviour === "set") {
+        if (behaviour === "setKey") {
             window.sessionStorage[sessionId] = flag;
         } else {
             return window.sessionStorage[sessionId];

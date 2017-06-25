@@ -27,7 +27,7 @@
             checkIfFinishedTaskOnly();
         }
 
-        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "true") {
+        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "getKey") === "true") {
             checkIfFinishedTaskOnly();
         }
 
@@ -104,16 +104,16 @@
 
     function switchAllFinishedTasks() {
 
-        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "false") {
-            modelNoteProApplication.sessionKey("showCheckedNotesOnly", true, "set");
+        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "getKey") === "false") {
+            modelNoteProApplication.sessionKey("showCheckedNotesOnly", true, "setKey");
         } else {
-            modelNoteProApplication.sessionKey("showCheckedNotesOnly", false, "set");
+            modelNoteProApplication.sessionKey("showCheckedNotesOnly", false, "setKey");
         }
     }
 
     function checkIfFinishedTaskOnly() {
 
-        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "get") === "true") {
+        if (modelNoteProApplication.sessionKey("showCheckedNotesOnly", null, "getKey") === "true") {
 
             $("tr.active").removeClass("active").addClass("hidden");
             $("#showAllFinishedTasks").text("Show all notes");
