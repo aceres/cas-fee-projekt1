@@ -16,6 +16,8 @@ const style = (function () {
 
         if (modelNoteProApplication.sessionKey("style", null, "get") === "blackBg") {
             $('body').toggleClass('changeBlackStyle');
+        } else {
+            $('body').removeClass('changeBlackStyle');
         }
     }
 

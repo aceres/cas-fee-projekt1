@@ -22,7 +22,7 @@
             switch (event.target.id) {
 
                 case "list":
-                    ctrlList();
+                    router.navigateTo("/");
                     break;
 
                 case "save":
@@ -34,11 +34,12 @@
                     break;
 
                 case "delete":
-                    ctrlDelete();
+                    client.deleteNote(id).done(function(){});
+                    router.navigateTo("/");
                     break;
 
                 case "cancel":
-                    ctrlCancel();
+                    router.navigateTo("/");
                     break;
             }
         }
@@ -59,7 +60,6 @@
                     $("#title").val(note.title);
                     $("#description").val(note.description);
 
-                    // TODO: Ceres
                     let timestamp = parseInt(note.finishDate);
                     $("#date").val(moment(timestamp).format("YYYY-MM-DD"));
                     $("input[name='importance'][value='"+note.importance+"']").attr("checked", true);
@@ -72,6 +72,7 @@
                 }
             });
         }
+
 
         function ctrlSave() {
 
@@ -109,20 +110,15 @@
 
         function ctrlUpdate() {
 
-            let baseUrl = (window.location).href;
-            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
-
             let title = $("#title").val();
             let description = $("#description").val();
-
             let selectedDate = $("#date").val();
-            let defineAsDate = new Date(selectedDate);
-            let selectedDateAsNumber = defineAsDate.valueOf();
-            let createdDate = $("#createdDate").val();
-
-            let importance = $("input:radio[name=importance]:checked").val()
-
+            let selectedDateAsNumber = new Date(selectedDate).valueOf();
+            let baseUrl = (window.location).href;
+            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+            let importance = $("input:radio[name=importance]:checked").val();
             let dateFormat = checkDateformat(selectedDate);
+            let createdDate = $("#createdDate").val();
 
             if (title !== "" && description != "" && dateFormat !== false) {
 
@@ -136,23 +132,6 @@
                 warning.show();
                 showNotification();
             }
-        }
-
-        function ctrlDelete() {
-
-            let baseUrl = (window.location).href;
-            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
-
-            client.deleteNote(id).done(function(){});
-            router.navigateTo("/");
-        }
-
-        function ctrlCancel() {
-            router.navigateTo("/");
-        }
-
-        function ctrlList() {
-            router.navigateTo("/");
         }
 
         // Support Firefox

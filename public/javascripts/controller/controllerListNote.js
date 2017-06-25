@@ -33,6 +33,7 @@
 
         $('#listAllNote').on('change', 'input[type=checkbox]', function() {
 
+            // TODO: Silvan
             let checked = "";
 
             if (($(this).is(':checked'))) {
