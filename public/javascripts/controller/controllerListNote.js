@@ -19,6 +19,7 @@
                 localNotes = notes;
                 ordersContainer.html(ordersRenderer({notes : notes}));
                 initialExpandedDescription();
+                checkIfFinishedTaskOnly();
             })
 
             if (isEmpty(localNotes)) {
