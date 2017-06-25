@@ -48,7 +48,7 @@ module.exports.checkNoteAsFinished = function(req, res) {
     res.end();
 };
 
-module.exports.deleteNote =  function (req, res) {
+module.exports.deleteNote =  function (req) {
 
     storage.delete(req.params.id , function(err, note) {});
 };

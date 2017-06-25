@@ -66,7 +66,7 @@
             switch (event.target.id) {
 
                 case "createNote":
-                    createNote();
+                    router.navigateTo("detailNote.html?id=0");
                     break;
 
                 case "detailNote":
@@ -176,10 +176,6 @@
                 truncate($(this).prev().find(".truncated"));
             }
         });
-    }
-
-    function createNote() {
-        router.navigateTo("detailNote.html?id=0");
     }
 
     function isEmpty(obj) {
