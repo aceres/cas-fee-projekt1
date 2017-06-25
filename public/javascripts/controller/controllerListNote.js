@@ -18,6 +18,10 @@
                 ordersContainer.html(ordersRenderer({notes : notes}));
                 initialExpandedDescription();
             })
+
+            if (isEmpty(localNotes)) {
+                modelNoteProApplication.sessionKey("showCheckedNotesOnly", false, "setKey");
+            }
         }
 
         function render() {
@@ -173,6 +177,14 @@
 
     function createNote() {
         router.navigateTo("detailNote.html?id=0");
+    }
+
+    function isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
     }
 
     const select = document.querySelector('select');
