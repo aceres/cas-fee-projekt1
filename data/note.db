@@ -1,8 +1,9 @@
-{"title":"Test 11","description":"Test 1","finishDate":1496880000000,"createdDate":"1498389941643","importance":"3","finished":"false","_id":"Bei0eYgkwT0n9PH3"}
+{"title":"Test 11 3","description":"Test 1 3","finishDate":1496880000000,"createdDate":"1498389941643","importance":"3","finished":"false","_id":"Bei0eYgkwT0n9PH3"}
+{"title":"Andreé 4","description":"André 4","finishDate":1496534400000,"createdDate":"1498405206560","importance":"4","finished":true,"_id":"K23G9YTLDOstrkr1"}
 {"title":"Test 3","description":"Test 3","finishDate":"1497571200000","createdDate":"1498390025850","importance":"3","finished":true,"_id":"RXRr4VT297l340s9"}
 {"title":"Test 2","description":"Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2","finishDate":"1498608000000","createdDate":"1498389981816","importance":"2","finished":true,"_id":"ijA3p3jMzNDaPHjL"}
-{"title":"Test neu","description":"Test neu ","finishDate":"1498003200000","createdDate":"1498401092663","importance":"4","finished":"false","_id":"yJXvZwOx6kYZe3tW"}
-{"title":"Andreé","description":"André","finishDate":"1497657600000","createdDate":"1498405206560","importance":"3","finished":"false","_id":"K23G9YTLDOstrkr1"}
-{"title":"Andreé 4","description":"André 4","finishDate":1496534400000,"createdDate":"1498405206560","importance":"4","finished":"false","_id":"K23G9YTLDOstrkr1"}
-{"title":"Andreé 4","description":"André 4","finishDate":1496534400000,"createdDate":"1498405206560","importance":"4","finished":true,"_id":"K23G9YTLDOstrkr1"}
-{"$$deleted":true,"_id":"yJXvZwOx6kYZe3tW"}
+{"title":"dsf","description":"sdf","finishDate":"1497571200000","createdDate":"1498499626092","importance":"2","finished":"false","_id":"JR1J7qiULR2etan2"}
+{"title":"dsf 66","description":"sdf 66","finishDate":1497657600000,"createdDate":"1498499626092","importance":"5","finished":"false","_id":"JR1J7qiULR2etan2"}
+{"title":"dsf 66","description":"sdf 66","finishDate":1497657600000,"createdDate":"1498499626092","importance":"5","finished":true,"_id":"JR1J7qiULR2etan2"}
+{"$$deleted":true,"_id":"JR1J7qiULR2etan2"}
+{"title":"df","description":"dfs","finishDate":"1496880000000","createdDate":"1498499681851","importance":"5","finished":"false","_id":"cAhlnxZCFCOuPCig"}

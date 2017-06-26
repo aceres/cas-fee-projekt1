@@ -10,6 +10,8 @@
 
     $(function () {
 
+        let getId = () => window.location.href.substring(window.location.href.lastIndexOf('=') + 1);
+
         style.loadStyle();
 
         loadNote();
@@ -45,14 +47,10 @@
             }
         }
 
-        function getId() {
-
-            let baseUrl = (window.location).href;
-            let id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
-            return id;
-        }
-
         function loadNote() {
+
+            save.show();
+            update.hide();
 
             let id = getId();
             client.getNote(id).done(function(note){
@@ -66,16 +64,14 @@
 
                     let timestamp = parseInt(note.finishDate);
                     $("#date").val(moment(timestamp).format("YYYY-MM-DD"));
-                    $("input[name='importance'][value='"+note.importance+"']").attr("checked", true);
+                    $("input[name='importance'][value='" + note.importance + "']").attr("checked", true);
                     $("#createdDate").val(note.createdDate);
                     $("#finish").val(note.finished);
-                } else {
-
-                    save.show();
-                    update.hide();
                 }
             });
         }
+
+        const checkDateformat = (date) => (moment(moment(date).format('DD.MM.YYYY'),'DD.MM.YYYY',true).isValid()) ? true : false ;
 
         function ctrlSave() {
 
@@ -93,11 +89,11 @@
                     method: "POST",
                     url: "/notes",
                     data: { title: title,
-                            description: description,
-                            finishDate: selectedDateAsNumber,
-                            createdDate: createdDate,
-                            importance: importance,
-                            finished: false
+                        description: description,
+                        finishDate: selectedDateAsNumber,
+                        createdDate: createdDate,
+                        importance: importance,
+                        finished: false
                     }
                 }).done(function() {
                     success.show();
@@ -128,11 +124,24 @@
 
                 success.show();
                 warning.hide();
-                showNotification();
             } else {
                 success.hide();
                 warning.show();
-                showNotification();
+            }
+            showNotification();
+        }
+
+        function showNotification() {
+
+            let close = $(".closebtn");
+            for (let i = 0; i < close.length; i++) {
+                close[i].onclick = function(){
+                    let div = this.parentElement;
+                    div.style.opacity = "0";
+                    setTimeout(function() {
+                        div.style.display = "none";
+                    }, 600);
+                }
             }
         }
 
@@ -165,30 +174,4 @@
             $("#target").text(outputDate);
         });
     });
-
-    function checkDateformat(date) {
-
-        let dateFormat = 'DD.MM.YYYY';
-        if (moment(moment(date).format(dateFormat),dateFormat,true).isValid()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function showNotification() {
-
-        let close = $(".closebtn");
-        let i;
-
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function(){
-                let div = this.parentElement;
-                div.style.opacity = "0";
-                setTimeout(function() {
-                    div.style.display = "none";
-                }, 600);
-            }
-        }
-    }
 }(jQuery));
