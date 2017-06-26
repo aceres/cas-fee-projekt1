@@ -11,8 +11,8 @@
         return ajaxUtil.ajax("GET", "/notes/"+id, undefined);
     }
 
-    function createNote(note) {
-        return ajaxUtil.ajax("POST", "/notes/", {name: note});
+    function createNote(title, description, selectedDateAsNumber, createdDate, importance, finished) {
+        return ajaxUtil.ajax("POST", "/notes/", {title: title, description: description, finishDate: selectedDateAsNumber, createdDate: createdDate, importance: importance, finished: finished});
     }
 
     function checkNote(id, finished) {

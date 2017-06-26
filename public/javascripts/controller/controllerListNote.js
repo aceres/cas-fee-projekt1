@@ -9,6 +9,9 @@
     $(function() {
 
         let localNotes = null;
+
+        style.loadStyle();
+
         loadNotes();
 
         setInterval(loadNotes, 60000);
@@ -191,7 +194,4 @@
 
         style.applyStyle(event);
     });
-
-    style.loadStyle();
-
 }(jQuery));

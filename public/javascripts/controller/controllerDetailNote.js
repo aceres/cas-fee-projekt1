@@ -61,7 +61,6 @@
                     update.show();
                     $("#title").val(note.title);
                     $("#description").val(note.description);
-
                     let timestamp = parseInt(note.finishDate);
                     $("#date").val(moment(timestamp).format("YYYY-MM-DD"));
                     $("input[name='importance'][value='" + note.importance + "']").attr("checked", true);
@@ -87,21 +86,10 @@
             if (title !== "" && description !== "" && dateFormat !== false) {
 
                 if (eventHandler === "save") {
-                    $.ajax({
-                        method: "POST",
-                        url: "/notes",
-                        data: {
-                            title: title,
-                            description: description,
-                            finishDate: selectedDateAsNumber,
-                            createdDate: createdDate,
-                            importance: importance,
-                            finished: false
-                        }
-                    }).done(function () {
-                        success.show();
-                        warning.hide();
-                    });
+
+                    client.createNote(title, description, selectedDateAsNumber, createdDate, importance, false).done(function () {});
+                    success.show();
+                    warning.hide();
                 } else if (eventHandler === "update") {
 
                     client.updateNote(id, title, description, selectedDateAsNumber, createdDate, importance).done(function () {});
