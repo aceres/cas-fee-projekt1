@@ -28,11 +28,11 @@
                     break;
 
                 case "save":
-                    ctrlSave();
+                    ctrlEventHandler("save");
                     break;
 
                 case "update":
-                    ctrlUpdate();
+                    ctrlEventHandler("update");
                     break;
 
                 case "delete":
@@ -71,10 +71,11 @@
             });
         }
 
-        const checkDateformat = (date) => (moment(moment(date).format('DD.MM.YYYY'),'DD.MM.YYYY',true).isValid()) ? true : false ;
+        const checkDateformat = (date) => (moment(moment(date).format('DD.MM.YYYY'),'DD.MM.YYYY',true).isValid()) ? true : false;
 
-        function ctrlSave() {
+        function ctrlEventHandler(eventHandler) {
 
+            let id = getId();
             let title = $("#title").val();
             let description = $("#description").val();
             let selectedDate = $("#date").val();
@@ -85,50 +86,34 @@
 
             if (title !== "" && description !== "" && dateFormat !== false) {
 
-                $.ajax({
-                    method: "POST",
-                    url: "/notes",
-                    data: { title: title,
-                        description: description,
-                        finishDate: selectedDateAsNumber,
-                        createdDate: createdDate,
-                        importance: importance,
-                        finished: false
-                    }
-                }).done(function() {
+                if (eventHandler === "save") {
+                    $.ajax({
+                        method: "POST",
+                        url: "/notes",
+                        data: {
+                            title: title,
+                            description: description,
+                            finishDate: selectedDateAsNumber,
+                            createdDate: createdDate,
+                            importance: importance,
+                            finished: false
+                        }
+                    }).done(function () {
+                        success.show();
+                        warning.hide();
+                    });
+                } else if (eventHandler === "update") {
+
+                    client.updateNote(id, title, description, selectedDateAsNumber, createdDate, importance).done(function () {});
                     success.show();
                     warning.hide();
-                    showNotification();
-                });
+                }
+
             } else {
                 success.hide();
                 warning.show();
                 showNotification();
             }
-        }
-
-        function ctrlUpdate() {
-
-            let id = getId();
-            let title = $("#title").val();
-            let description = $("#description").val();
-            let selectedDate = $("#date").val();
-            let selectedDateAsNumber = new Date(selectedDate).valueOf();
-            let importance = $("input:radio[name=importance]:checked").val();
-            let dateFormat = checkDateformat(selectedDate);
-            let createdDate = $("#createdDate").val();
-
-            if (title !== "" && description != "" && dateFormat !== false) {
-
-                client.updateNote(id, title, description, selectedDateAsNumber, createdDate, importance).done(function(){});
-
-                success.show();
-                warning.hide();
-            } else {
-                success.hide();
-                warning.show();
-            }
-            showNotification();
         }
 
         function showNotification() {
