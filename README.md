@@ -58,6 +58,8 @@ node index.js
 
 Im Browser unter http://localhost:3001 erreichbar.
 
+Supported and tested with browsers: Chrome and Firefox.
+
 ## Projektstrutkur (Wichtige Übersicht)
 
 ### Storage of Note
