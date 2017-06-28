@@ -165,9 +165,7 @@
             truncate($(this));
         });
 
-        function reveal(el) {
-            el.text(el.attr("data-original-text"));
-        }
+        let reveal = (el) => { el.text(el.attr("data-original-text")); }
 
         $("a.more").on("click", function (e) {
             e.preventDefault();
