@@ -14,16 +14,9 @@ function publicRemoveNote(id, callback) {
     db.remove({_id: id}, callback);
 }
 
-// TODO: Silvan
 function publicUpdateNote(note) {
 
-    db.update({_id: note.id}, {$set: {
-            title: note.title,
-            description: note.description,
-            finishDate: note.finishDate,
-            createdDate: note.createdDate,
-            importance: note.importance
-        }}, function(err, numReplaced, newDoc){});
+    db.update({_id: note.id}, {$set: note.toJSON()}, function(err, numReplaced, newDoc){});
 }
 
 function publicCheckNote(id, finished, callback) {

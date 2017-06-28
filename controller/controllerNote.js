@@ -4,12 +4,24 @@ class Note {
 
     constructor(title, description, finishDate, createdDate, importance, finished) {
 
+        this.id = void 0;
         this.title = title;
         this.description = description;
         this.finishDate = finishDate;
         this.createdDate = createdDate;
         this.importance = importance;
         this.finished = finished;
+    }
+
+    toJSON() {
+        return {
+            id: this.id,
+            title: this.title,
+            description: this.description,
+            finishDate: this.finishDate,
+            createdDate: this.createdDate,
+            importance: this.importance
+        };
     }
 }
 
@@ -43,14 +55,13 @@ module.exports.getNote = function(req, res) {
 
 module.exports.updateNote = function(req, res) {
 
-    let note = {
-        id: req.body.id,
-        title: req.body.title,
-        description: req.body.description,
-        finishDate: req.body.finishDate,
-        createdDate: req.body.createdDate,
-        importance: req.body.importance
-    };
+    let note = new Note(
+        req.body.title,
+        req.body.description,
+        req.body.finishDate,
+        req.body.createdDate,
+        req.body.importance);
+    note.id = req.body.id;
     storage.update(note);
     res.end();
 };

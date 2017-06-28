@@ -35,74 +35,6 @@
             </h4>
             <table id="listAllNote">
             </table>
-            <script id="template-list-all-note" type="text/x-handlebars-template">
-                <thead>
-                    <tr>
-                        <th>
-                            Titel
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Importance
-                        </th>
-                        <th>
-                            Created Date
-                        </th>
-                        <th>
-                            Finish Date
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                {{#each notes}}
-                    <tr {{#if finished}} class="active" {{/if}}>
-                        <td title="{{title}}">
-                            {{title}}
-                        </td>
-                        <td title="{{description}}">
-                            <div class="wrap">
-                              <div>
-                                <p class="truncated">
-                                    {{description}}
-                                </p>
-                              </div>
-                            </div>
-                            <a class="more" href="#">More</a>
-                        </td>
-                        <td title="Level {{importance}}">
-                            {{#countStars importance}}
-                                <i class="fa fa-star" title="{{this}}" aria-hidden="true"></i>
-                            {{/countStars}}
-                        </td>
-                        <td title="{{formatDate createdDate}}">
-                            {{formatDate createdDate}}
-                        </td>
-                        <td title="{{formatDate finishDate}}">
-                            {{formatDate finishDate}}
-                        </td>
-                        <td title="{{finished}}">
-                            <input type="checkbox" id="checkNoteAsFinished" name="nameCheckNoteAsFinsihed" value="{{_id}}" {{{checkIfChecked finished}}}>
-                        </td>
-                        <td>
-                            <button title="Edit Note" type="button" class="button" value="{{_id}}" id="detailNote">Edit</button>
-                        </td>
-                    </tr>
-                {{/each}}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="7">
-                            Number of rows: <span class="rowAllLength">{{ notes.length }}</span><span class="rowCheckedLength">{{ appNote.length }}</span>
-                        </td>
-                    </tr>
-                </tfoot>
-            </script>
         </article>
         <aside>
             <h2>
@@ -129,6 +61,74 @@
     <footer>
         CAS Frontend Engineering 2017 - Projektarbeit 1 - (André Ceres) - <a class="button" title="GitHub: aceres" target="_blank" href="https://github.com/aceres/cas-fee-projekt1">GitHub</a>
     </footer>
+    <script id="template-list-all-note" type="text/x-handlebars-template">
+        <thead>
+        <tr>
+            <th>
+                Titel
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Importance
+            </th>
+            <th>
+                Created Date
+            </th>
+            <th>
+                Finish Date
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each notes}}
+        <tr {{#if finished}} class="active" {{/if}}>
+        <td title="{{title}}">
+            {{title}}
+        </td>
+        <td title="{{description}}">
+            <div class="wrap">
+                <div>
+                    <p class="truncated">
+                        {{description}}
+                    </p>
+                </div>
+            </div>
+            <a class="more" href="#">More</a>
+        </td>
+        <td title="Level {{importance}}">
+            {{#countStars importance}}
+            <i class="fa fa-star" title="{{this}}" aria-hidden="true"></i>
+            {{/countStars}}
+        </td>
+        <td title="{{formatDate createdDate}}">
+            {{formatDate createdDate}}
+        </td>
+        <td title="{{formatDate finishDate}}">
+            {{formatDate finishDate}}
+        </td>
+        <td title="{{finished}}">
+            <input type="checkbox" id="checkNoteAsFinished" name="nameCheckNoteAsFinsihed" value="{{_id}}" {{{checkIfChecked finished}}}>
+        </td>
+        <td>
+            <button title="Edit Note" type="button" class="button" value="{{_id}}" id="detailNote">Edit</button>
+        </td>
+        </tr>
+        {{/each}}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="7">
+                Number of rows: <span class="rowAllLength">{{ notes.length }}</span><span class="rowCheckedLength">{{ appNote.length }}</span>
+            </td>
+        </tr>
+        </tfoot>
+    </script>
     <script src="javascripts/lib/jquery.min.js"></script>
     <script src="javascripts/lib/handlebars.js"></script>
     <script src="javascripts/lib/moment.min.js"></script>

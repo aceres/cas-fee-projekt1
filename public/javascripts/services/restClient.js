@@ -7,7 +7,6 @@
     }
 
     function getNote(id) {
-        // TODO: Silvan - /notes/${id} / Unused parameter: $
         return ajaxUtil.ajax("GET", "/notes/"+id, undefined);
     }
 

@@ -28,6 +28,7 @@
 - Filtern von „abgeschlossenen" Notizen
 - Abspeichern der Daten auf dem Server
 - Wechseln des Styles
+- Extra Bonus: Polling Data (Liste aller Notizen) (alle 60 Sekunden)
 
 Weitere Information und Bewertungen, siehe Folie: CAS-FEE-2017-InfosProjektePrüfungNoten.pdf (ab Seite 10)
 
@@ -63,6 +64,12 @@ Im Browser unter http://localhost:3001 erreichbar.
 
 ```bash
 /service/noteStorage.js
+```
+
+### Model of Note (Class)
+
+```bash
+/model/modelNote.js
 ```
 
 ### Service (REST Client) - for the View Controllers
