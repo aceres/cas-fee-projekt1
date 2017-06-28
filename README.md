@@ -57,7 +57,7 @@ node index.js
 
 Im Browser unter http://localhost:3001 erreichbar.
 
-## Projektstrutkur (Aufteilung)
+## Projektstrutkur (Wichtige Übersicht)
 
 ### Storage of Note
 
@@ -65,19 +65,19 @@ Im Browser unter http://localhost:3001 erreichbar.
 /service/noteStorage.js
 ```
 
-### Service (REST Client)
+### Service (REST Client) - for the View Controllers
 
 ```bash
 /public/javascript/services/restClient.js
 ```
 
-### Utils (AJAX)
+### Utils (AJAX) - Global AJAX util for the REST Client
 
 ```bash
 /public/javascript/utils/ajaxUtil.js
 ```
 
-### Front Controller
+### Front Controller (Request / Response)
 
 ```bash
 /controller/controllerNote.js
@@ -89,14 +89,14 @@ Im Browser unter http://localhost:3001 erreichbar.
 /data/note.db
 ```
 
-### Views
+### Views (HTML)
 
 ```bash
 /public/html/index.html
 /public/html/detailNote.html
 ```
 
-### View Controller
+### View Controllers for views (HTML)
 
 ```bash
 /public/javascripts/controllerListNote.js
@@ -104,10 +104,19 @@ Im Browser unter http://localhost:3001 erreichbar.
 /public/javascripts/controllerStyleNote.js
 ```
 
-### JavaScript Libraries (Vendors) for View Controller
+### JavaScript Libraries (Vendors) for View Controllers
 
 jQuery, Handlebars, Modernizr, moment.js
 
 ```bash
 /public/javascripts/lib/
 ```
+
+### Change Style (with the session key)
+
+```bash
+/public/javascripts/controller/controllerStyleNote.js
+/public/model/modelSessionStorage.js
+```
+
+Note: The file: "modelSessionStorage.js" is defined as Interface between View Controller and Browser Session Storage.
