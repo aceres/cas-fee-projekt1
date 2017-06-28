@@ -56,3 +56,58 @@ node index.js
 ```
 
 Im Browser unter http://localhost:3001 erreichbar.
+
+## Projektstrutkur (Aufteilung)
+
+### Storage of Note
+
+```bash
+/service/noteStorage.js
+```
+
+### Service (REST Client)
+
+```bash
+/public/javascript/services/restClient.js
+```
+
+### Utils (AJAX)
+
+```bash
+/public/javascript/utils/ajaxUtil.js
+```
+
+### Front Controller
+
+```bash
+/controller/controllerNote.js
+```
+
+### Database
+
+```bash
+/data/note.db
+```
+
+### Views
+
+```bash
+/public/html/index.html
+/public/html/detailNote.html
+```
+
+### View Controller
+
+```bash
+/public/javascripts/controllerListNote.js
+/public/javascripts/controllerDetailNote.js
+/public/javascripts/controllerStyleNote.js
+```
+
+### Library (Vendor) for Controller
+
+jQuery, Handlebars, Modernizr, moment.js
+
+```bash
+/public/javascripts/lib/
+```
