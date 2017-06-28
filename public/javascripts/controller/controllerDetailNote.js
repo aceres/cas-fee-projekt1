@@ -35,9 +35,7 @@
                     break;
 
                 case "delete":
-                    let id = getId();
-                    client.deleteNote(id).done(function(){});
-                    router.navigateTo("/");
+                    ctrlEventHandler("delete");
                     break;
 
                 case "cancel":
@@ -94,6 +92,10 @@
                     client.updateNote(id, title, description, selectedDateAsNumber, createdDate, importance).done(function () {});
                     success.show();
                     warning.hide();
+                } else {
+
+                    client.deleteNote(id).done(function(){});
+                    router.navigateTo("/");
                 }
 
             } else {
