@@ -104,7 +104,7 @@ Im Browser unter http://localhost:3001 erreichbar.
 /public/javascripts/controllerStyleNote.js
 ```
 
-### Library (Vendor) for Controller
+### JavaScript Libraries (Vendors) for View Controller
 
 jQuery, Handlebars, Modernizr, moment.js
 
