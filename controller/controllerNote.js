@@ -22,7 +22,7 @@ module.exports.showIndex = function(req, res) {
 
 module.exports.addNote = function(req, res) {
 
-    let note = new Note (
+    let note = new Note(
         req.body.title,
         req.body.description,
         req.body.finishDate,

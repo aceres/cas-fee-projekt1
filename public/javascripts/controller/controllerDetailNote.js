@@ -16,8 +16,7 @@
 
         loadNote();
 
-        const el = document.getElementById("detail");
-        el.addEventListener("click", function(event) { buttonClicked(event) }, false);
+        $("#detail").click(function (event) { buttonClicked(event), false});
 
         function buttonClicked(event) {
 

@@ -4,22 +4,8 @@ const db = new Datastore({
     autoload: true
 });
 
-class Note {
-
-    constructor(title, description, finishDate, createdDate, importance, finished) {
-
-        this.title = title;
-        this.description = description;
-        this.finishDate = finishDate;
-        this.createdDate = createdDate;
-        this.importance = importance;
-        this.finished = finished;
-    }
-}
-
 function publicAddNote(note) {
 
-    note = new Note(note.title, note.description, note.finishDate, note.createdDate, note.importance, note.finished);
     db.insert(note, function(err, newDoc){});
 }
 
@@ -28,6 +14,7 @@ function publicRemoveNote(id, callback) {
     db.remove({_id: id}, callback);
 }
 
+// TODO: Silvan
 function publicUpdateNote(note, callback) {
 
     db.update({_id: note.id}, {$set: {
