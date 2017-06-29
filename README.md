@@ -68,6 +68,12 @@ Supported and tested with browsers: Chrome and Firefox.
 /service/noteStorage.js
 ```
 
+### Model of Note (Class) - Frontend Level
+
+```bash
+/public/model/modelNote.js
+```
+
 ### Model of Note (Class) - Backend Level
 
 ```bash
@@ -128,4 +134,4 @@ jQuery, Handlebars, Modernizr, moment.js
 /public/model/modelSessionStorage.js
 ```
 
-Note: The file: "modelSessionStorage.js" is defined as Interface between View Controller and Browser Session Storage.
+Note: The file: "modelSessionStorage.js" is defined as Interface between View Controller and Browser Session (Data as cache) Storage.
