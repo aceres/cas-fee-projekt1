@@ -23,4 +23,4 @@ class Note {
     }
 }
 
-//module.exports.Note = new Note();
+module.exports = Note;

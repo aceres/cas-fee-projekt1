@@ -10,16 +10,16 @@
         return ajaxUtil.ajax("GET", "/notes/"+id, undefined);
     }
 
-    function createNote(title, description, selectedDateAsNumber, createdDate, importance, finished) {
-        return ajaxUtil.ajax("POST", "/notes/", {title: title, description: description, finishDate: selectedDateAsNumber, createdDate: createdDate, importance: importance, finished: finished});
+    function createNote(note) {
+        return ajaxUtil.ajax("POST", "/notes/", {note: note});
     }
 
     function checkNote(id, finished) {
         return ajaxUtil.ajax("POST", "/checkNote/", {id: id, finished: finished});
     }
 
-    function updateNote(id, title, description, selectedDateAsNumber, createdDate, importance) {
-        return ajaxUtil.ajax("POST", "/updateNote/", {id: id, title: title, description: description, finishDate: selectedDateAsNumber, createdDate: createdDate, importance: importance});
+    function updateNote(note) {
+        return ajaxUtil.ajax("POST", "/updateNote/", {note: note});
     }
 
     function deleteNote(id) {

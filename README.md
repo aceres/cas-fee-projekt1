@@ -68,7 +68,7 @@ Supported and tested with browsers: Chrome and Firefox.
 /service/noteStorage.js
 ```
 
-### Model of Note (Class)
+### Model of Note (Class) - Backend Level
 
 ```bash
 /model/modelNote.js
