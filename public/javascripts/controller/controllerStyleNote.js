@@ -1,4 +1,4 @@
-const style = (function () {
+const style = (() => {
 
     "use strict";
 

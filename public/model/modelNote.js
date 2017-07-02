@@ -1,6 +1,6 @@
 class Note {
 
-    constructor(title, description, finishDate, createdDate, importance, finished) {
+    constructor(title, description, finishDate, createdDate, importance) {
 
         this.id = void 0;
         this.title = title;
@@ -8,7 +8,6 @@ class Note {
         this.finishDate = finishDate;
         this.createdDate = createdDate;
         this.importance = importance;
-        this.finished = finished;
     }
 
     toJSON() {
@@ -22,5 +21,3 @@ class Note {
         };
     }
 }
-
-//module.exports.Note = new Note();

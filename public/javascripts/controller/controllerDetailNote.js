@@ -80,27 +80,21 @@
                 let selectedDateAsNumber = new Date(selectedDate).valueOf();
                 let createdDate = new Date().valueOf();
 
-                const note = {
-                    id: id,
-                    title: title,
-                    description: description,
-                    finishDate: selectedDateAsNumber,
-                    importance: importance,
-                    createdDate: createdDate
-                }
+                let note = new Note(title, description, selectedDateAsNumber, createdDate, importance);
 
                 if (title !== "" && description !== "" && dateFormat !== false) {
 
                     if (eventHandler === "save") {
 
-                        client.createNote(note).done(function () {
-                        });
+                        client.createNote(note).done(function () { });
                         success.show();
                         warning.hide();
                     } else if (eventHandler === "update") {
 
-                        client.updateNote(note).done(function () {
-                        });
+                        note.id = id;
+                        note.toJSON();
+
+                        client.updateNote(note).done(function () {});
                         success.show();
                         warning.hide();
                     } else {

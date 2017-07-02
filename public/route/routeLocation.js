@@ -1,4 +1,4 @@
-let router = (function() {
+let router = (() => {
 
     "use strict";
 

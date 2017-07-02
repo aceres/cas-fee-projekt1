@@ -1,4 +1,4 @@
-let modelNoteProApplication = (function() {
+let modelNoteProApplication = (() => {
 
     "use strict";
 
