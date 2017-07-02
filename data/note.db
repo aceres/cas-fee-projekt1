@@ -1,15 +1,5 @@
 {"title":"Buch kaufen","description":"Im Migros ein Buch kaufen","finishDate":1496534400000,"createdDate":1498989569280,"importance":"2","finished":true,"_id":"20dq5FRFnu3EQHFE","id":"20dq5FRFnu3EQHFE"}
-{"title":"HSR","description":"HSR","finishDate":1496275200000,"createdDate":1498651491283,"importance":"5","finished":false,"_id":"8udLUUTDrRJ137GQ"}
-{"title":"JavaScript Unterricht","description":"Unterricht am Mittwoch Abend nicht verpassen","finishDate":1498694400000,"createdDate":1498989592372,"importance":"2","finished":true,"_id":"J54VttvPg4Zdcsz8","id":"J54VttvPg4Zdcsz8"}
-{"title":"Ubic","description":"Ubic","finishDate":1497484800000,"createdDate":1498740518983,"importance":"2","finished":false,"_id":"fIKJNBlUAqcwtm7M"}
-{"title":"Einkaufsnotiz","description":"Das ist eine Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung.","finishDate":1498780800000,"createdDate":1498989534663,"importance":"4","finished":"false","_id":"g8zUT0DLH9EsKbHo","id":"g8zUT0DLH9EsKbHo"}
-{"title":"Test 2","description":"Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2","finishDate":"1498608000000","createdDate":"1498389981816","importance":"2","finished":true,"_id":"ijA3p3jMzNDaPHjL"}
-{"title":"Test 3","description":"ds","finishDate":1497484800000,"createdDate":1498547259633,"importance":"2","finished":false,"_id":"kQN7i61f0XxLoa5j"}
-{"title":"44","description":"44","finishDate":1498608000000,"createdDate":1498626496107,"importance":"5","finished":false,"_id":"ng426NdC4MW03Zhq"}
-{"title":"1242","description":"1242","finishDate":1497830400000,"createdDate":1498503425194,"importance":"4","finished":"false","_id":"rsM5ZiOkQkvYcqUr"}
-{"$$deleted":true,"_id":"fIKJNBlUAqcwtm7M"}
 {"title":"HSR Event","description":"HSR - Abendfeier und Abendessen","finishDate":1496275200000,"createdDate":1498989654967,"importance":"5","finished":false,"_id":"8udLUUTDrRJ137GQ","id":"8udLUUTDrRJ137GQ"}
-{"$$deleted":true,"_id":"ng426NdC4MW03Zhq"}
-{"$$deleted":true,"_id":"rsM5ZiOkQkvYcqUr"}
-{"$$deleted":true,"_id":"kQN7i61f0XxLoa5j"}
+{"title":"JavaScript Unterricht","description":"Unterricht am Mittwoch Abend nicht verpassen","finishDate":1498694400000,"createdDate":1498989592372,"importance":"2","finished":true,"_id":"J54VttvPg4Zdcsz8","id":"J54VttvPg4Zdcsz8"}
+{"title":"Einkaufsnotiz","description":"Das ist eine Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung. Das ist eine lange Beschreibung.","finishDate":1498780800000,"createdDate":1498989534663,"importance":"4","finished":"false","_id":"g8zUT0DLH9EsKbHo","id":"g8zUT0DLH9EsKbHo"}
 {"title":"Test machen","description":"Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2 Test 2","finishDate":1498608000000,"createdDate":1498989696067,"importance":"2","finished":true,"_id":"ijA3p3jMzNDaPHjL","id":"ijA3p3jMzNDaPHjL"}
