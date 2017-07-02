@@ -24,10 +24,6 @@
                 initialExpandedDescription();
                 checkIfFinishedTaskOnly();
             })
-
-            // if (isEmpty(localNotes)) {
-            //     modelNoteProApplication.sessionKey("showCheckedNotesOnly", false, "setKey");
-            // }
         }
 
         function render() {
@@ -178,14 +174,6 @@
             }
         });
     }
-
-    // function isEmpty(obj) {
-    //     for(var key in obj) {
-    //         if(obj.hasOwnProperty(key))
-    //             return false;
-    //     }
-    //     return true;
-    // }
 
     const select = document.querySelector('select');
     select.addEventListener("change", function (event) {
